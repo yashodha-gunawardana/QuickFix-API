@@ -440,3 +440,41 @@ body::before {
     left: auto;
     right: 0;
 }
+
+.wrapper .bg-animate {
+    position: absolute;
+    top: -4px;
+    right: 0;
+    width: 950px;
+    height: 700px;
+    background: linear-gradient(40deg, #0A2647, #144272);
+    border-bottom: 3px solid #c4b454;
+    transform: rotate(10deg) skewY(40deg);
+    transform-origin: bottom right;
+    transition: 1.5s ease;
+    transition-delay: 1.6s;
+}
+
+.wrapper.active .bg-animate {
+    transform: rotate(0) skewY(0);
+    transition-delay: .5s;
+}
+
+.wrapper .bg-animate2 {
+    position: absolute;
+    top: 100%;
+    left: 250px;
+    width: 950px;
+    height: 1000px;
+    background: var(--light);
+    border-top: 3px solid #c4b454;
+    transform: rotate(0) skewY(0);
+    transform-origin: bottom left;
+    transition: 1.5s ease;
+    transition-delay: .5s;
+}
+
+.wrapper.active .bg-animate2 {
+    transform: rotate(-11deg) skewY(-41deg);
+    transition-delay: 1.2s;
+}
