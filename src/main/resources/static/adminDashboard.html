@@ -13,6 +13,319 @@
 </head>
 <body>
 
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h4><i class="fas fa-cog"></i> Admin Control</h4>
+    </div>
+    <ul class="sidebar-menu">
+        <li><a href="#" class="active" data-page="dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="#" data-page="manage-users"><i class="fas fa-users-cog"></i> Manage Users <span class="badge">5</span></a></li>
+        <li><a href="#" data-page="manage-jobs"><i class="fas fa-tasks"></i> Manage Jobs <span class="badge">3</span></a></li>
+        <li><a href="#" data-page="dashboard-status"><i class="fas fa-comments"></i> Dashboard Status</a></li>
+        <li><a href="#" data-page="notifications"><i class="fas fa-comments"></i> Notifications <span class="badge">2</span></a></li>
+        <li><a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+
+<!-- Header -->
+<div class="header">
+    <div class="header-content">
+        <div class="d-flex align-items-center">
+            <div class="menu-toggle me-3">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="welcome-text">
+                <h5><i class="fas fa-user-shield"></i> Welcome, <span class="welcome-user"></span>!</h5>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="notification-bell">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">8</span>
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="User">
+                </div>
+                <div class="user-info">
+                    <div class="name user-name"></div>
+                    <div class="role">Administrator</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+  <!-- Dashboard Page -->
+    <div class="page-content active" id="dashboard">
+        <div class="container-fluid">
+          <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>Command the Platform</h1>
+                    <p>Oversee operations, resolve issues, and drive growth with powerful tools.</p>
+                    <div class="hero-actions">
+                        <a href="#reports" class="btn btn-hero"><i class="fas fa-chart-line"></i> View Analytics</a>
+                        <a href="#manage-users" class="btn btn-hero"><i class="fas fa-users"></i> Manage Users</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <h3><i class="fas fa-chart-line"></i> Platform Metrics</h3>
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>1,234</h2>
+                                <p>Total Users</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>56</h2>
+                                <p>Active Jobs</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>$5,000</h2>
+                                <p>Revenue</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>8</h2>
+                                <p>Flagged Issues</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity Section -->
+            <div class="table-section">
+                <div class="table-header">
+                    <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                    <a href="#" class="btn btn-sm btn-light">View All <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+                <div class="table-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Join Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>John Doe</td>
+                                <td>Customer</td>
+                                <td>Oct 12, 2023</td>
+                                <td><span class="status-badge badge-active">Active</span></td>
+                                <td><a href="#" class="btn btn-primary btn-sm action-btn"><i class="fas fa-eye"></i> Manage</a></td>
+                            </tr>
+                            <tr>
+                                <td>Jane Smith</td>
+                                <td>Provider</td>
+                                <td>Oct 10, 2023</td>
+                                <td><span class="status-badge badge-pending">Pending</span></td>
+                                <td><a href="#" class="btn btn-primary btn-sm action-btn"><i class="fas fa-eye"></i> Manage</a></td>
+                            </tr>
+                            <tr>
+                                <td>Mike Johnson</td>
+                                <td>Customer</td>
+                                <td>Oct 8, 2023</td>
+                                <td><span class="status-badge badge-warning">Flagged</span></td>
+                                <td><a href="#" class="btn btn-primary btn-sm action-btn"><i class="fas fa-eye"></i> Manage</a></td>
+                            </tr>
+                            <tr>
+                                <td>Sarah Williams</td>
+                                <td>Provider</td>
+                                <td>Oct 5, 2023</td>
+                                <td><span class="status-badge badge-active">Active</span></td>
+                                <td><a href="#" class="btn btn-primary btn-sm action-btn"><i class="fas fa-eye"></i> Manage</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div class="analytics-section">
+                <div class="analytics-header">
+                    <h3><i class="fas fa-chart-pie"></i> Platform Insights</h3>
+                    <a href="#" class="btn btn-sm btn-light">Generate Report <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+                <div class="analytics-placeholder">
+                    <div class="analytics-content">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>Dynamic Analytics (Integrate Chart.js)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Users Page -->
+    <div class="page-content" id="manage-users">
+        <div class="container-fluid">
+            <div class="user-management">
+                <div class="table-header">
+                    <h3><i class="fas fa-users-cog"></i> User Management</h3>
+                    <a href="#" class="btn btn-sm btn-light"><i class="fas fa-plus me-1"></i> Add User</a>
+                </div>
+
+                <div class="user-search">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        <input type="text" class="form-control" placeholder="Search users...">
+                        <button class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+
+                <div class="user-filters">
+                    <button class="filter-btn active">All Users</button>
+                    <button class="filter-btn">Customers</button>
+                    <button class="filter-btn">Providers</button>
+                    <button class="filter-btn">Active</button>
+                    <button class="filter-btn">Pending</button>
+                    <button class="filter-btn">Suspended</button>
+                </div>
+
+                <div class="table-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Role</th>
+                                <th>Join Date</th>
+                                <th>Status</th>
+                                <th>Jobs</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" class="rounded-circle me-2" width="32" height="32" alt="">
+                                        <div>
+                                            <div class="fw-bold">John Doe</div>
+                                            <div class="text-muted small">john.doe@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Customer</td>
+                                <td>Oct 12, 2023</td>
+                                <td><span class="status-badge badge-active">Active</span></td>
+                                <td>5</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-ban"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" class="rounded-circle me-2" width="32" height="32" alt="">
+                                        <div>
+                                            <div class="fw-bold">Jane Smith</div>
+                                            <div class="text-muted small">jane.smith@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Provider</td>
+                                <td>Oct 10, 2023</td>
+                                <td><span class="status-badge badge-pending">Pending</span></td>
+                                <td>2</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" class="rounded-circle me-2" width="32" height="32" alt="">
+                                        <div>
+                                            <div class="fw-bold">Mike Johnson</div>
+                                            <div class="text-muted small">mike.j@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Customer</td>
+                                <td>Oct 8, 2023</td>
+                                <td><span class="status-badge badge-warning">Flagged</span></td>
+                                <td>3</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-info"><i class="fas fa-flag"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" class="rounded-circle me-2" width="32" height="32" alt="">
+                                        <div>
+                                            <div class="fw-bold">Sarah Williams</div>
+                                            <div class="text-muted small">sarah.w@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Provider</td>
+                                <td>Oct 5, 2023</td>
+                                <td><span class="status-badge badge-active">Active</span></td>
+                                <td>7</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-ban"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
