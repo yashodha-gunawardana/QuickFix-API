@@ -1,8 +1,13 @@
 package org.examples.quickfixapi.respository;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import org.examples.quickfixapi.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository {
+import java.util.Optional;
 
-    UserDetails findByEmail(String email);
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+
+
 }
