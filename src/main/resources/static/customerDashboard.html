@@ -227,6 +227,104 @@
             </div>
         </div>
     </div>
+
+    <!-- Post Job Page -->
+    <div class="page-content" id="post-job">
+        <div class="container-fluid">
+            <!-- Post Job Form -->
+            <div class="post-job-form">
+                <div class="form-header">
+                    <h3><i class="fas fa-briefcase"></i> Post a New Job</h3>
+                    <button class="close-form" id="close-form">&times;</button>
+                </div>
+                <form id="job-form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="job-title"><i class="fas fa-heading"></i> Job Title</label>
+                                <input type="text" class="form-control" id="job-title" placeholder="e.g., Need a plumber to fix a leak" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="job-category"><i class="fas fa-tag"></i> Category</label>
+                                <select class="form-select" id="job-category" required>
+                                    <option value="">Select a category</option>
+                                    <option value="plumbing">Plumbing</option>
+                                    <option value="electrical">Electrical</option>
+                                    <option value="carpentry">Carpentry</option>
+                                    <option value="cleaning">Cleaning</option>
+                                    <option value="painting">Painting</option>
+                                    <option value="moving">Moving & Transport</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="job-description"><i class="fas fa-align-left"></i> Job Description</label>
+                        <textarea class="form-control" id="job-description" rows="4" placeholder="Please describe your job in detail..." required></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="job-budget"><i class="fas fa-dollar-sign"></i> Budget (USD)</label>
+                                <input type="number" class="form-control" id="job-budget" placeholder="e.g., 150" min="1">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="job-location"><i class="fas fa-map-marker-alt"></i> Location</label>
+                                <input type="text" class="form-control" id="job-location" placeholder="e.g., New York, NY" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="job-date"><i class="fas fa-calendar-alt"></i> Preferred Date</label>
+                                <input type="date" class="form-control" id="job-date">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="job-time"><i class="fas fa-clock"></i> Preferred Time</label>
+                                <select class="form-select" id="job-time">
+                                    <option value="">Any time</option>
+                                    <option value="morning">Morning (8am - 12pm)</option>
+                                    <option value="afternoon">Afternoon (12pm - 5pm)</option>
+                                    <option value="evening">Evening (5pm - 9pm)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="job-images"><i class="fas fa-images"></i> Upload Images (Optional)</label>
+                        <input type="file" class="form-control" id="job-images" multiple accept="image/*">
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="button" class="btn btn-cancel-form" id="cancel-form">Cancel</button>
+                        <button type="submit" class="btn btn-submit">Post Job</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Success Message (Initially Hidden) -->
+            <div id="success-message" class="success-message">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Job Posted Successfully!</h3>
+                <p>Your job has been posted and is now visible to service providers. You will receive notifications when providers show interest.</p>
+                <button class="btn btn-success" id="post-another-job">Post Another Job</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
