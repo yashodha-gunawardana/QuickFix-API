@@ -1,12 +1,15 @@
 package org.examples.quickfixapi.service;
 
 import lombok.RequiredArgsConstructor;
+import org.examples.quickfixapi.dto.AuthDTO;
+import org.examples.quickfixapi.dto.JwtResponse;
 import org.examples.quickfixapi.dto.RegisterDTO;
 import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.exception.UserAlreadyExistsException;
 import org.examples.quickfixapi.respository.UserRepository;
 import org.examples.quickfixapi.util.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,6 +40,13 @@ public class AuthService implements UserDetailsService {
                 .build();
         userRepository.save(user);
         return "User registered successfully";
+    }
+
+    public JwtResponse login(AuthDTO authDTO) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDTO.getEmail(), authDTO.getPassword()));
+        User user = userRepository.findByEmail(authDTO.getEmail()).orElseThrow();
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
+        return new JwtResponse(token, user.getRole().name(), user.getUsername());
     }
 
 }
