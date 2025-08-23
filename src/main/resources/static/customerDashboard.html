@@ -473,5 +473,77 @@
     </div>
 </div>
 
+<script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    if(menuToggle) {
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+        });
+    }
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+        if (window.innerWidth < 992 &&
+            sidebar.classList.contains('active') &&
+            !sidebar.contains(event.target) &&
+            !menuToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    });
+
+    // Page navigation functionality
+    const navLinks = document.querySelectorAll('.sidebar-menu a[data-page]');
+    const pages = document.querySelectorAll('.page-content');
+
+    // Function to switch pages
+    function switchPage(pageId) {
+        // Hide all pages
+        pages.forEach(page => {
+            page.classList.remove('active');
+        });
+
+        // Show the selected page
+        const targetPage = document.getElementById(pageId);
+        if (targetPage) {
+            targetPage.classList.add('active');
+        }
+
+        // Update active link
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-page') === pageId) {
+                link.classList.add('active');
+            }
+        });
+
+        // Close sidebar on mobile after navigation
+        if (window.innerWidth < 992) {
+            sidebar.classList.remove('active');
+        }
+    }
+
+    // Add click event listeners to navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('data-page');
+            switchPage(pageId);
+        });
+    });
+
+    // Handle hero section buttons
+    const heroButtons = document.querySelectorAll('.btn-hero');
+    heroButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('data-page');
+            if (pageId) {
+                switchPage(pageId);
+            }
+        });
+    });
+</script>
 </body>
 </html>
