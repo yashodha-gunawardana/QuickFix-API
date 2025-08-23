@@ -603,6 +603,41 @@
             }, 1500);
         });
     }
+
+    // Handle Post Job form
+    const jobForm = document.getElementById('job-form');
+    const successMessage = document.getElementById('success-message');
+    const closeForm = document.getElementById('close-form');
+    const cancelForm = document.getElementById('cancel-form');
+    const postAnotherJob = document.getElementById('post-another-job');
+
+    if (jobForm) {
+        jobForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Show success message
+            successMessage.style.display = 'block';
+            jobForm.reset();
+        });
+    }
+
+    if (closeForm) {
+        closeForm.addEventListener('click', function() {
+            switchPage('dashboard');
+        });
+    }
+
+    if (cancelForm) {
+        cancelForm.addEventListener('click', function() {
+            switchPage('dashboard');
+        });
+    }
+
+    if (postAnotherJob) {
+        postAnotherJob.addEventListener('click', function() {
+            successMessage.style.display = 'none';
+            jobForm.reset();
+        });
+    }
 </script>
 </body>
 </html>
