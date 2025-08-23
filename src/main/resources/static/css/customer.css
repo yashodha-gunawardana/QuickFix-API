@@ -1,0 +1,139 @@
+:root {
+    --primary: #2C74B3;
+    --secondary: #c4b454;
+    --accent: #144272;
+    --dark: #0A2647;
+    --light: rgb(255, 255, 255);
+    --primary-light: #3385ff;
+    --sidebar-width: 280px;
+    --header-height: 80px;
+    --logout-red: #e74c3c;
+    --logout-red-light: #ff6b6b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f9ff 0%, #e6f0ff 100%);
+    font-family: 'Inter', sans-serif;
+    color: #2d3748;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.sidebar {
+    background: linear-gradient(to bottom, var(--dark), var(--accent));
+    color: var(--light);
+    height: 100vh;
+    position: fixed;
+    width: var(--sidebar-width);
+    padding: 30px 0;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 0 25px 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.sidebar-header h4 {
+    font-weight: 700;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-header h4 i {
+    margin-right: 12px;
+    font-size: 1.4rem;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    flex-grow: 1;
+}
+
+.sidebar-menu li {
+    margin-bottom: 5px;
+    padding: 0 15px;
+}
+
+.sidebar-menu a {
+    color: rgba(255, 255, 255, 0.85);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar-menu a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: all 0.5s ease;
+}
+
+.sidebar-menu a:hover::before {
+    left: 100%;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--light);
+    transform: translateX(5px);
+}
+
+.sidebar-menu a i {
+    margin-right: 15px;
+    font-size: 1.2rem;
+    width: 24px;
+    text-align: center;
+}
+
+.sidebar-menu a .badge {
+    margin-left: auto;
+    background: var(--secondary);
+    color: var(--dark);
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+}
+
+.logout-btn i {
+    margin-right: 15px;
+    font-size: 1.2rem;
+    width: 24px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.logout-btn span {
+    position: relative;
+    z-index: 1;
+}
