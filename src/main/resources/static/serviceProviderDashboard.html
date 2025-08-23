@@ -13,5 +13,275 @@
 </head>
 <body>
 
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h4><i class="fas fa-tools"></i> Provider Portal</h4>
+    </div>
+    <ul class="sidebar-menu">
+        <li><a href="#" class="active" data-page="dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="#" data-page="available-jobs"><i class="fas fa-search-dollar"></i> Available Jobs <span class="badge">5</span></a></li>
+        <li><a href="#" data-page="my-work"><i class="fas fa-tools"></i> My Work <span class="badge">3</span></a></li>
+        <li><a href="#" data-page="notifications"><i class="fas fa-comments"></i> Notifications <span class="badge">2</span></a></li>
+        <li><a href="#" data-page="profile"><i class="fas fa-user-edit"></i> Profile</a></li>
+        <li><a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+
+<!-- Header -->
+<div class="header">
+    <div class="header-content">
+        <div class="d-flex align-items-center">
+            <div class="menu-toggle me-3">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="welcome-text">
+                <h5><i class="fas fa-user-circle"></i> Welcome back, <span class="welcome-user"></span>!</h5>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="notification-bell">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="User">
+                </div>
+                <div class="user-info">
+                    <div class="name user-name"></div>
+                    <div class="role">Service Provider</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <!-- Dashboard Page -->
+    <div class="page-content active" id="dashboard">
+        <div class="container-fluid">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>Unleash Your Expertise</h1>
+                    <p>Find new jobs, manage your schedule, and grow your earnings with ease.</p>
+                    <div class="hero-actions">
+                        <a href="#" class="btn btn-hero" data-page="available-jobs"><i class="fas fa-search"></i> Browse Jobs</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <h3><i class="fas fa-chart-line"></i> Your Performance</h3>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>12</h2>
+                                <p>Jobs Completed</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>3</h2>
+                                <p>Jobs Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>$1,200</h2>
+                                <p>Earnings</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Offers Section -->
+            <div class="table-section">
+                <div class="table-header">
+                    <h3><i class="fas fa-briefcase"></i> New Opportunities</h3>
+                    <a href="#" class="btn btn-sm btn-light">View All <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+                <div class="table-content">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Customer</th>
+                            <th>Category</th>
+                            <th>Budget</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Car Repair</td>
+                            <td>John Doe</td>
+                            <td>Mechanic</td>
+                            <td>$120</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-primary me-2 action-btn"><i class="fas fa-check"></i> Accept</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary action-btn"><i class="fas fa-times"></i> Reject</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Plumbing Fix</td>
+                            <td>Alice Brown</td>
+                            <td>Plumbing</td>
+                            <td>$95</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-primary me-2 action-btn"><i class="fas fa-check"></i> Accept</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary action-btn"><i class="fas fa-times"></i> Reject</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Furniture Assembly</td>
+                            <td>Robert Johnson</td>
+                            <td>Carpentry</td>
+                            <td>$85</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-primary me-2 action-btn"><i class="fas fa-check"></i> Accept</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary action-btn"><i class="fas fa-times"></i> Reject</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Schedule Section -->
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <h3><i class="fas fa-calendar-alt"></i> Your Schedule</h3>
+                    <a href="#" class="btn btn-sm btn-light">View Full Calendar <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+                <div class="calendar-placeholder">
+                    <div class="calendar-content">
+                        <i class="fas fa-calendar-alt"></i>
+                        <p>Interactive Calendar (Integrate FullCalendar.js)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Available Jobs Page -->
+    <div class="page-content" id="available-jobs">
+        <div class="container-fluid">
+            <div class="table-section">
+                <div class="table-header">
+                    <h3><i class="fas fa-search-dollar"></i> Available Jobs</h3>
+                    <a href="#" class="btn btn-sm btn-light"><i class="fas fa-filter me-1"></i> Filter</a>
+                </div>
+
+                <div class="job-filters">
+                    <button class="filter-btn active">All Jobs</button>
+                    <button class="filter-btn">Plumbing</button>
+                    <button class="filter-btn">Electrical</button>
+                    <button class="filter-btn">Mechanic</button>
+                    <button class="filter-btn">Carpentry</button>
+                    <button class="filter-btn">Cleaning</button>
+                </div>
+
+                <div class="table-content">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Customer</th>
+                            <th>Category</th>
+                            <th>Location</th>
+                            <th>Budget</th>
+                            <th>Posted</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Car Repair</td>
+                            <td>John Doe</td>
+                            <td>Mechanic</td>
+                            <td>New York</td>
+                            <td>$120</td>
+                            <td>2 hours ago</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-primary me-2 action-btn"><i class="fas fa-check"></i> Accept</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary action-btn"><i class="fas fa-times"></i> Reject</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Plumbing Fix</td>
+                            <td>Alice Brown</td>
+                            <td>Plumbing</td>
+                            <td>Brooklyn</td>
+                            <td>$95</td>
+                            <td>5 hours ago</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-primary me-2 action-btn"><i class="fas fa-check"></i> Accept</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary action-btn"><i class="fas fa-times"></i> Reject</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Furniture Assembly</td>
+                            <td>Robert Johnson</td>
+                            <td>Carpentry</td>
+                            <td>Queens</td>
+                            <td>$85</td>
+                            <td>1 day ago</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-primary me-2 action-btn"><i class="fas fa-check"></i> Accept</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary action-btn"><i class="fas fa-times"></i> Reject</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>TV Mounting</td>
+                            <td>Sarah Williams</td>
+                            <td>Installation</td>
+                            <td>Manhattan</td>
+                            <td>$75</td>
+                            <td>1 day ago</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-primary me-2 action-btn"><i class="fas fa-check"></i> Accept</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary action-btn"><i class="fas fa-times"></i> Reject</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Electrical Wiring</td>
+                            <td>Mike Johnson</td>
+                            <td>Electrical</td>
+                            <td>Bronx</td>
+                            <td>$150</td>
+                            <td>2 days ago</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-primary me-2 action-btn"><i class="fas fa-check"></i> Accept</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary action-btn"><i class="fas fa-times"></i> Reject</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 </body>
 </html>

@@ -523,7 +523,228 @@
         </div>
     </div>
 
+    <!-- Notifications Page -->
+    <div class="page-content" id="notifications">
+        <div class="container-fluid">
+              <div class="user-management">
+                  <div class="table-header">
+                      <h3><i class="fas fa-bell"></i> Notifications</h3>
+                      <a href="#" class="btn btn-sm btn-light"><i class="fas fa-cog me-1"></i> Settings</a>
+                  </div>
+
+                  <div class="user-filters">
+                      <button class="filter-btn active">All Notifications</button>
+                      <button class="filter-btn">Unread</button>
+                      <button class="filter-btn">System</button>
+                      <button class="filter-btn">User Reports</button>
+                  </div>
+
+                  <div class="p-4">
+                      <ul class="notification-list">
+                          <li class="notification-item">
+                              <div class="notification-icon info">
+                                  <i class="fas fa-info-circle"></i>
+                              </div>
+                              <div class="notification-content">
+                                  <div class="notification-title">System Update Completed</div>
+                                  <div class="notification-desc">The latest system update was successfully installed. All services are running normally.</div>
+                                  <div class="notification-time">2 hours ago</div>
+                              </div>
+                              <div class="notification-actions">
+                                  <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                              </div>
+                          </li>
+
+                          <li class="notification-item">
+                              <div class="notification-icon warning">
+                                  <i class="fas fa-exclamation-triangle"></i>
+                              </div>
+                              <div class="notification-content">
+                                  <div class="notification-title">New User Report</div>
+                                  <div class="notification-desc">User Mike Johnson has been reported by another user. Please review.</div>
+                                  <div class="notification-time">5 hours ago</div>
+                              </div>
+                              <div class="notification-actions">
+                                  <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                              </div>
+                          </li>
+
+                          <li class="notification-item">
+                              <div class="notification-icon alert">
+                                  <i class="fas fa-credit-card"></i>
+                              </div>
+                              <div class="notification-content">
+                                  <div class="notification-title">Payment Issue</div>
+                                  <div class="notification-desc">A payment processing error occurred for transaction #TX-78945. Review required.</div>
+                                  <div class="notification-time">Yesterday</div>
+                              </div>
+                              <div class="notification-actions">
+                                  <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                              </div>
+                          </li>
+
+                          <li class="notification-item">
+                              <div class="notification-icon info">
+                                  <i class="fas fa-user-plus"></i>
+                              </div>
+                              <div class="notification-content">
+                                  <div class="notification-title">New Provider Registration</div>
+                                  <div class="notification-desc">Jane Smith has registered as a service provider. Account approval needed.</div>
+                                  <div class="notification-time">2 days ago</div>
+                              </div>
+                              <div class="notification-actions">
+                                  <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutModalLabel"><i class="fas fa-sign-out-alt me-2"></i> Confirm Logout</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <h4>Ready to leave?</h4>
+                <p>Are you sure you want to logout from your account?</p>
+                <p class="text-muted small">You will need to enter your credentials again to access your account.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancel btn-modal" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-logout btn-modal" id="confirmLogout">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Toggle sidebar on mobile
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+        document.querySelector('.sidebar').classList.toggle('active');
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+        const sidebar = document.querySelector('.sidebar');
+        const menuToggle = document.querySelector('.menu-toggle');
+
+        if (window.innerWidth < 992 &&
+                !sidebar.contains(event.target) &&
+                !menuToggle.contains(event.target) &&
+                sidebar.classList.contains('active')) {
+          sidebar.classList.remove('active');
+        }
+    });
+
+    // Page navigation functionality
+    const navLinks = document.querySelectorAll('.sidebar-menu a[data-page]');
+    const pages = document.querySelectorAll('.page-content');
+
+    // Function to switch pages
+    function switchPage(pageId) {
+        // Hide all pages
+        pages.forEach(page => {
+            page.classList.remove('active');
+        });
+
+        // Show the selected page
+        const targetPage = document.getElementById(pageId);
+        if (targetPage) {
+            targetPage.classList.add('active');
+        }
+
+        // Update active link
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-page') === pageId) {
+                link.classList.add('active');
+            }
+        });
+
+          // Close sidebar on mobile after navigation
+          if (window.innerWidth < 992) {
+              document.querySelector('.sidebar').classList.remove('active');
+          }
+    }
+
+    // Add click event listeners to navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('data-page');
+            switchPage(pageId);
+        });
+    });
+
+    // Add animation to stats cards when they come into view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    // Observe stats cards
+    document.querySelectorAll('.stat-card').forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(card);
+    });
+
+    // Logout functionality
+    document.getElementById('confirmLogout').addEventListener('click', function() {
+        // Create toast
+        const toast = document.createElement('div');
+        toast.className = 'toast-container position-fixed top-0 end-0 p-3';
+        toast.innerHTML = `
+        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <i class="fas fa-sign-out-alt me-2"></i>
+              <strong class="me-auto">Logging out</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              <div class="spinner-border spinner-border-sm text-danger me-2" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              You are being logged out...
+            </div>
+        </div>
+    `;
+        document.body.appendChild(toast);
+
+        // Simulate logout delay
+        setTimeout(function() {
+            document.body.style.opacity = '0.5';
+            document.body.style.transition = 'opacity 1s ease';
+
+            setTimeout(function() {
+              alert('Logout successful! You would be redirected to login page here.');
+              document.body.removeChild(toast);
+              document.body.style.opacity = '1';
+
+              // Close Bootstrap modal if open
+              const modal = bootstrap.Modal.getInstance(document.getElementById('logoutModal'));
+              if(modal) modal.hide();
+            }, 1000);
+        }, 1500);
+    });
+</script>
 
 </body>
 </html>
