@@ -114,5 +114,29 @@
     </div>
 </div>
 
+<script>
+    const wrapper = document.querySelector('.wrapper');
+    const registerLink = document.querySelector('.register-link');
+    const loginLink = document.querySelector('.login-link');
+
+    registerLink.onclick = () => {
+      wrapper.classList.add('active');
+    }
+
+    loginLink.onclick = () => {
+      wrapper.classList.remove('active');
+    }
+
+    // Check URL query parameter to open correct form
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get("mode");
+
+    if (mode === "signup") {
+      wrapper.classList.add("active");   // show signup form
+    } else {
+      wrapper.classList.remove("active"); // default login
+    }
+</script>
+
 </body>
 </html>
