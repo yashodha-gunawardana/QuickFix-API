@@ -562,6 +562,47 @@
         observer.observe(card);
     });
 
+    // Logout functionality with modal & toast
+    const logoutBtn = document.getElementById('confirmLogout');
+    if(logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            // Create toast
+            const toast = document.createElement('div');
+            toast.className = 'toast-container position-fixed top-0 end-0 p-3';
+            toast.innerHTML = `
+        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <i class="fas fa-sign-out-alt me-2"></i>
+            <strong class="me-auto">Logging out</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+            <div class="spinner-border spinner-border-sm text-danger me-2" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            You are being logged out...
+          </div>
+        </div>
+      `;
+            document.body.appendChild(toast);
+
+            // Simulate logout delay
+            setTimeout(function() {
+                document.body.style.opacity = '0.5';
+                document.body.style.transition = 'opacity 1s ease';
+
+                setTimeout(function() {
+                    alert('Logout successful! You would be redirected to login page here.');
+                    document.body.removeChild(toast);
+                    document.body.style.opacity = '1';
+
+                    // Close Bootstrap modal if open
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('logoutModal'));
+                    if(modal) modal.hide();
+                }, 1000);
+            }, 1500);
+        });
+    }
 </script>
 </body>
 </html>
