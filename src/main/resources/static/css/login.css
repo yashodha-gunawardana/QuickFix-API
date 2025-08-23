@@ -309,3 +309,20 @@ body::before {
     background: var(--primary);
     margin: 0 10px;
 }
+
+.form-box .logReg-link {
+    font-size: 14.5px;
+    color: var(--dark);
+    text-align: center;
+    margin: 20px 0 10px;
+}
+
+.logReg-link p a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.logReg-link p a:hover {
+    text-decoration: underline;
+}
