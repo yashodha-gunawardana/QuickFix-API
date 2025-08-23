@@ -432,3 +432,104 @@ body {
     font-weight: 500;
     margin: 0;
 }
+
+.table-section {
+    background: var(--light);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+}
+
+.table-header {
+    background: linear-gradient(to right, var(--secondary), var(--primary-light));
+    color: var(--dark);
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-header h3 {
+    margin: 0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.table-header h3 i {
+    margin-right: 12px;
+    font-size: 1.2rem;
+}
+
+.table-content {
+    padding: 0;
+}
+
+.table {
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.table thead th {
+    background: #f7fafc;
+    padding: 16px 20px;
+    font-weight: 600;
+    color: var(--dark);
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.table tbody td {
+    padding: 16px 20px;
+    vertical-align: middle;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.badge-pending {
+    background: #fef5e7;
+    color: #d69e2e;
+}
+
+.badge-completed {
+    background: #f0fff4;
+    color: #38a169;
+}
+
+.badge-inprogress {
+    background: #ebf8ff;
+    color: #3182ce;
+}
+
+.action-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+}
+
+.action-btn i {
+    margin-right: 5px;
+}
