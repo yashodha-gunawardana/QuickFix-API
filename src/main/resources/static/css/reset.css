@@ -202,3 +202,59 @@ body::before {
 .input-box input:valid~i {
     color: var(--secondary);
 }
+
+.btn {
+    position: relative;
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    border: 2px solid var(--secondary);
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--light);
+    font-weight: 600;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 300%;
+    background: linear-gradient(#0A2647, #2C74B3, #0A2647, #2C74B3);
+    z-index: -1;
+    transition: .5s;
+}
+
+.btn:hover::before {
+    top: 0;
+}
+
+.btn:hover {
+    color: white;
+    border: 2px solid var(--secondary);
+}
+
+.logReg-link {
+    font-size: 14.5px;
+    color: var(--dark);
+    text-align: center;
+    margin: 20px 0 10px;
+}
+
+.logReg-link p a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.logReg-link p a:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+}
