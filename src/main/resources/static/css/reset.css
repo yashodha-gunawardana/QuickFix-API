@@ -258,3 +258,15 @@ body::before {
     color: var(--secondary);
     text-decoration: underline;
 }
+
+.animation {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: .7s ease;
+    transition-delay: calc(.1s * var(--i));
+}
+
+.wrapper.loaded .animation {
+    transform: translateY(0);
+    opacity: 1;
+}
