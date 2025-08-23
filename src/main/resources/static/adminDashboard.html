@@ -422,6 +422,107 @@
             </div>
         </div>
     </div>
+
+    <!-- Dashboard Status Page -->
+    <div class="page-content" id="dashboard-status">
+        <div class="container-fluid">
+            <div class="stats-section">
+                <h3><i class="fas fa-chart-line"></i> Platform Status</h3>
+
+                <div class="status-cards">
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">System Uptime</div>
+                            <i class="fas fa-server text-primary"></i>
+                        </div>
+                        <div class="status-value">99.98%</div>
+                        <div class="status-change up">
+                            <i class="fas fa-arrow-up"></i> 0.02% from last month
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Active Users</div>
+                            <i class="fas fa-users text-primary"></i>
+                        </div>
+                        <div class="status-value">856</div>
+                        <div class="status-change up">
+                            <i class="fas fa-arrow-up"></i> 12% from last week
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Response Time</div>
+                            <i class="fas fa-tachometer-alt text-primary"></i>
+                        </div>
+                        <div class="status-value">128ms</div>
+                        <div class="status-change down">
+                            <i class="fas fa-arrow-down"></i> 5ms from last week
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Error Rate</div>
+                            <i class="fas fa-bug text-primary"></i>
+                        </div>
+                        <div class="status-value">0.23%</div>
+                        <div class="status-change down">
+                            <i class="fas fa-arrow-down"></i> 0.07% from last week
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-section">
+                    <div class="table-header">
+                        <h3><i class="fas fa-history"></i> Recent System Events</h3>
+                        <a href="#" class="btn btn-sm btn-light">View All <i class="fas fa-arrow-right ms-1"></i></a>
+                    </div>
+                    <div class="table-content">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Severity</th>
+                                    <th>Date & Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Database backup completed</td>
+                                    <td><span class="badge bg-success">Info</span></td>
+                                    <td>Oct 15, 2023 02:30 AM</td>
+                                    <td><span class="status-badge badge-active">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>API response time increased</td>
+                                    <td><span class="badge bg-warning">Warning</span></td>
+                                    <td>Oct 14, 2023 04:15 PM</td>
+                                    <td><span class="status-badge badge-active">Resolved</span></td>
+                                </tr>
+                                <tr>
+                                    <td>User registration spike detected</td>
+                                    <td><span class="badge bg-info">Notice</span></td>
+                                    <td>Oct 14, 2023 11:20 AM</td>
+                                    <td><span class="status-badge badge-active">Monitoring</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Payment processing delay</td>
+                                    <td><span class="badge bg-danger">Critical</span></td>
+                                    <td>Oct 13, 2023 09:45 AM</td>
+                                    <td><span class="status-badge badge-active">Resolved</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 </body>
