@@ -88,6 +88,7 @@ body { font-family: 'Poppins', sans-serif; background: #f8f9fa; color: #333; }
     background: var(--secondary);
     transition: width 0.3s ease;
 }
+
 .nav-link:hover::after {
     width: 60%;
 }
@@ -121,3 +122,120 @@ body { font-family: 'Poppins', sans-serif; background: #f8f9fa; color: #333; }
     background: var(--light);
     color: var(--accent);
 }
+
+/* Hero Section */
+.hero-section {
+    background: url('../assets/jimmy-chang-ACt8ycSzpdE-unsplash.jpg') center/cover no-repeat;
+    height: 100vh;
+    position: relative;
+    color: var(--light);
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.hero-section .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gray-overlay);
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 1;
+    text-align: left;
+    padding-left: 5%;
+}
+
+.hero-section .logo {
+    max-width: 100px;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.hero-section .logo:hover {
+    transform: scale(1.1) rotate(2deg);
+}
+
+.hero-section h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    color: var(--light);
+    text-transform: uppercase;
+}
+
+.hero-section h2 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    color: var(--light);
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 0 3rem 0;
+    color: #ddd;
+}
+
+.hero-section .btn {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.8rem 2.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.hero-section .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+.hero-section .btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.hero-section .btn-primary:hover {
+    background: var(--secondary);
+    border-color: var(--secondary);
+    color: var(--dark);
+}
+
+.hero-section .btn-outline-light {
+    border-color: var(--light);
+    color: var(--light);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.hero-section .btn-outline-light:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--light);
+}
+
+/* Fade-in Animation for Hero Section */
+.hero-section .container > * {
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.hero-section h1 { animation-delay: 0.2s; }
+.hero-section h2 { animation-delay: 0.4s; }
+.hero-section p { animation-delay: 0.6s; }
+.hero-section .d-flex { animation-delay: 0.8s;}
