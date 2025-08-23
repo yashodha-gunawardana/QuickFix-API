@@ -203,3 +203,55 @@ body::before {
 .input-box input:valid~i {
     color: #c4b454;
 }
+
+.form-box .forgot-password-link {
+    font-size: 14px;
+    color: var(--primary);
+    text-align: right;
+    margin: 16px 0;
+    transition: .5s;
+}
+
+.forgot-password-link p a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-password-link p a:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+}
+
+.btn {
+    position: relative;
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    border: 2px solid var(--secondary);
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--light);
+    font-weight: 600;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 300%;
+    background: linear-gradient(#0A2647, #2C74B3, #0A2647, #2C74B3);
+    z-index: -1;
+    transition: .5s;
+    color: var(--light);
+}
+
+.btn:hover::before {
+    top: 0;
+}
