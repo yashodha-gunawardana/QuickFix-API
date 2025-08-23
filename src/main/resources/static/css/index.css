@@ -352,3 +352,86 @@ body { font-family: 'Poppins', sans-serif; background: #f8f9fa; color: #333; }
     font-size: 0.95rem;
     color: #666;
 }
+
+/* How It Works Section Styles */
+.about-section {
+    padding: 5rem 0;
+    background-color: #f8f9fa;
+    position: relative;
+    overflow: hidden;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+}
+
+.about-section {
+    transition: transform 0.3s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+}
+
+.about-card .card {
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border-top: 3px solid var(--primary);
+}
+
+.about-card:hover .card {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-top-color: var(--secondary);
+}
+
+.about-card .icon-wrapper {
+    width: 70px;
+    height: 70px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(44, 116, 179, 0.1);
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.about-card:hover .icon-wrapper {
+    background-color: rgba(44, 116, 179, 0.2) !important;
+    transform: scale(1.1);
+}
+
+.about-card i {
+    color: var(--accent);
+    font-size: 1.5rem;
+}
+
+.about-card h5 {
+    position: relative;
+    display: inline-block;
+    color: var(--dark);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.about-card h5::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--secondary);
+    transition: width 0.3s ease;
+}
+
+.about-card:hover h5::after {
+    width: 60px;
+}
+
+.about-card p {
+    color: #666;
+    font-size: 0.95rem;
+}
