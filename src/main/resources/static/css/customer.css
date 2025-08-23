@@ -676,3 +676,15 @@ body {
     font-weight: 600;
     border: none;
 }
+
+.menu-toggle {
+    display: none;
+}
+
+.page-content {
+    display: none;
+}
+
+.page-content.active {
+    display: block;
+}
