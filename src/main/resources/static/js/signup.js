@@ -18,14 +18,18 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        console.log('Sending payload:', { username, email, password }); // Log payload for debugging
+
         fetch('http://localhost:8080/api/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, email, password })
+            body: JSON.stringify({ username, email, password }) // Omit role
         })
             .then(res => {
                 if (!res.ok) {
-                    throw new Error('Signup failed: ' + res.statusText);
+                    return res.json().then(errorData => {
+                        throw new Error('Signup failed: ' + (errorData.message || res.statusText));
+                    });
                 }
                 return res.json();
             })

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.dto.AuthDTO;
 import org.examples.quickfixapi.dto.JwtResponse;
 import org.examples.quickfixapi.dto.RegisterDTO;
+import org.examples.quickfixapi.entity.Role;
 import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.exception.UserAlreadyExistsException;
 import org.examples.quickfixapi.respository.UserRepository;
@@ -37,7 +38,8 @@ public class AuthService implements UserDetailsService {
                 .email(registerDTO.getEmail())
                 .password(passwordEncoder.encode(registerDTO.getPassword()))
                 .username(registerDTO.getUsername())
-                .role(registerDTO.getRole())
+               // .role(registerDTO.getRole())
+                .role(Role.CUSTOMER)
                 .enabled(true)
                 .build();
         userRepository.save(user);

@@ -22,8 +22,8 @@ public class RegisterDTO {
     @Size(min = 6, max = 40, message = "Password must be between 6 and 20 characters")
     private String password;
 
-    @NotBlank(message = "Role is required")
-    private Role role;
+
+    private String role;
 
 
 }

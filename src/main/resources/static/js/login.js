@@ -18,17 +18,25 @@ document.addEventListener('DOMContentLoaded', function() {
         })
             .then(res => {
                 if (!res.ok) {
-                    throw new Error('Login failed: ' + res.statusText);
+                    return res.json().then(errorData => {
+                        throw new Error('Login failed: ' + (errorData.message || res.statusText));
+                    });
                 }
                 return res.json();
             })
             .then(data => {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('role', data.role);
-                localStorage.setItem('username', data.username);
+                // Access the JwtResponse from ApiResponse.data
+                const jwtResponse = data.data; // Unwrap the data field
+                if (!jwtResponse || !jwtResponse.role) {
+                    throw new Error('Invalid response: Role is missing');
+                }
+
+                localStorage.setItem('token', jwtResponse.token);
+                localStorage.setItem('role', jwtResponse.role);
+                localStorage.setItem('username', jwtResponse.username);
 
                 // Redirect based on role
-                switch (data.role) {
+                switch (jwtResponse.role) {
                     case 'CUSTOMER':
                         window.location.href = 'customerDashboard.html';
                         break;
@@ -39,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         window.location.href = 'adminDashboard.html';
                         break;
                     default:
-                        throw new Error('Unknown role: ' + data.role);
+                        throw new Error('Unknown role: ' + jwtResponse.role);
                 }
             })
             .catch(err => {
