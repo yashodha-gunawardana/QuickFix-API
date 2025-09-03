@@ -23,4 +23,10 @@ public class AdminController {
     public String approveRequests(@PathVariable Long id ) {
         return adminService.approveRequest(id);
     }
+
+    @PostMapping("/reject-request/{id}")
+    public String rejectRequest(@PathVariable Long id) {
+        return adminService.rejectRequest(id);
+    }
+
 }
