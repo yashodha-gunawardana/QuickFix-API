@@ -8,7 +8,6 @@ import lombok.Data;
 public class CustomerProfileDTO {
 
     private Long id;
-
     private String firstName;
     private String lastName;
 
