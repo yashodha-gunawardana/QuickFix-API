@@ -1,6 +1,8 @@
 package org.examples.quickfixapi.service;
 
 import org.examples.quickfixapi.entity.ProviderRequest;
+import org.examples.quickfixapi.entity.Role;
+import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.respository.ProviderRequestRepository;
 import org.examples.quickfixapi.respository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -25,4 +27,21 @@ public class AdminService {
                 .toList();
     }
 
+    public String approveRequest(Long requestId) {
+        ProviderRequest providerRequest = providerRequestRepository.findById(requestId).orElse(null);
+        if (providerRequest == null)
+            return "Request not found";
+
+        User user = userRepository.findById(providerRequest.getUserId()).orElse(null);
+        if (user == null)
+            return "User not found";
+
+        user.setRole(Role.SERVICE_PROVIDER);
+        userRepository.save(user);
+
+        providerRequest.setStatus("APPROVED");
+        providerRequestRepository.save(providerRequest);
+
+        return "Request approved successfully";
+    }
 }
