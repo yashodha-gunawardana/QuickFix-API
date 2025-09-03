@@ -1,29 +1,31 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const token = localStorage.getItem('token');
-    let username = localStorage.getItem('username');
-    const role = localStorage.getItem('role');
+document.addEventListener("DOMContentLoaded", function () {
+    // 1. Page switching for sidebar links
+    const adminLinks = document.querySelectorAll(".admin-links a");
+    const pages = document.querySelectorAll(".page-content");
 
-    // Protect the dashboard
-    if (!token || role !== 'ADMIN') {
-        alert('Please log in as an admin to access this dashboard');
-        window.location.href = 'login.html';
-        return;
+    adminLinks.forEach(link => {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const pageId = this.dataset.page;
+
+            pages.forEach(p => p.classList.remove("active")); // hide all pages
+            const activePage = document.getElementById(pageId);
+            if (activePage) activePage.classList.add("active");
+
+            adminLinks.forEach(l => l.classList.remove("active"));
+            this.classList.add("active");
+        });
+    });
+
+
+    // 2. Logout button
+    const confirmLogout = document.getElementById('confirmLogout');
+    if (confirmLogout) {
+        confirmLogout.addEventListener('click', function () {
+            localStorage.clear();
+            window.location.href = '/login.html?mode=login';
+        });
     }
 
-    // Capitalize first letter
-    if (username) {
-        username = username.charAt(0).toUpperCase() + username.slice(1);
-    }
 
-    // Update welcome message
-    const welcomeElement = document.querySelector('.welcome-user');
-    if (welcomeElement) {
-        welcomeElement.textContent = username || 'Admin';
-    }
-
-    // Update username in profile section
-    const usernameElement = document.querySelector('.user-name');
-    if (usernameElement) {
-        usernameElement.textContent = username || 'Admin';
-    }
 });

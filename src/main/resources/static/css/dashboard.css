@@ -10,6 +10,7 @@
     --logout-red: #e74c3c;
     --logout-red-light: #ff5252;
     --gray: #6C757DFF;
+    --border: #e2e8f0;
 }
 
 
@@ -86,6 +87,22 @@ body {
 .btn-success:hover {
     background-color: #218838;
     border-color: #1e7e34;
+}
+
+.reject-btn {
+    border-radius: 10px;
+}
+
+.reject-btn:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.badge-pending {
+    background-color: #1DA1F2;
+    border-color: #1DA1F2;
+    font-size: 14px;
+    border-radius: 15px;
 }
 
 /* Invoice button (info) */
@@ -429,7 +446,89 @@ body {
     font-size: 1.1rem;
 }
 
+/* Special Provider Request Section */
+.request-provider {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 25px;
+    margin-top: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
 
+.request-provider:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.request-provider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--secondary), var(--primary));
+    border-radius: 4px 4px 0 0;
+}
+
+.request-provider p {
+    margin-bottom: 15px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--light);
+}
+
+#request-provider-btn {
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    color: var(--dark);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(196, 180, 84, 0.3);
+    width: 100%;
+}
+
+#request-provider-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(196, 180, 84, 0.4);
+    background: linear-gradient(135deg, #d4c65c, #3a8ada);
+    cursor: pointer;
+    color: var(--light);
+}
+
+#request-provider-btn i {
+    margin-right: 10px;
+}
+
+/* Decorative elements for the provider section */
+.provider-decoration {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    bottom: -20px;
+    right: -20px;
+    opacity: 0.1;
+    transform: rotate(25deg);
+}
+
+.provider-decoration i {
+    font-size: 80px;
+    color: var(--light);
+}
 /* Stats Cards */
 .stats-section {
     margin-bottom: 40px;

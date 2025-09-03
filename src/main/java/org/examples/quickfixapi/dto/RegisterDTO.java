@@ -8,7 +8,6 @@ import org.examples.quickfixapi.entity.Role;
 
 @Getter
 @Setter
-@Data
 public class RegisterDTO {
 
     @NotBlank(message = "Username is required")
@@ -22,8 +21,6 @@ public class RegisterDTO {
     @Size(min = 6, max = 40, message = "Password must be between 6 and 20 characters")
     private String password;
 
-
     private String role;
-
 
 }

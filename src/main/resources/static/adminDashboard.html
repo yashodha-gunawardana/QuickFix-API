@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="css/dashboard.css" rel="stylesheet">
+
+</head>
+<body>
+
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <span> QuickFix</span>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li class="admin-links"><a href="#" class="active" data-page="admin-dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li class="admin-links"><a href="#" data-page="admin-manage-users"><i class="fas fa-users-cog"></i> Manage Users <span class="badge">5</span></a></li>
+        <li class="admin-links"><a href="#" data-page="admin-manage-jobs"><i class="fas fa-tasks"></i> Manage Jobs <span class="badge">3</span></a></li>
+        <li class="admin-links"><a href="#" data-page="admin-dashboard-status"><i class="fas fa-comments"></i> Dashboard Status</a></li>
+        <li class="admin-links"><a href="#" data-page="admin-notifications"><i class="fas fa-comments"></i> Notifications <span class="badge">2</span></a></li>
+
+        <li><a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+
+
+<!-- Header -->
+<div class="header">
+    <div class="header-content">
+        <div class="d-flex align-items-center">
+            <div class="welcome-text">
+                <h5>Welcome, <span class="welcome-user"> User</span>!</h5>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <div class="notification-bell">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">8</span>
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="User">
+                </div>
+                <div class="user-info">
+                    <div class="name user-name"></div>
+                    <div class="role" id="header-role">Administrator</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!----- Main Content Dashboard -------->
+<div class="main-content" id="content">
+
+    <div class="page-content active" id="admin-dashboard">
+        <div class="container-fluid">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>Command the Platform</h1>
+                    <p>Oversee operations, resolve issues, and drive growth with powerful tools.</p>
+                    <div class="hero-actions">
+                        <a href="#reports" class="btn btn-hero"><i class="fas fa-chart-line"></i> View Analytics</a>
+                        <a href="#manage-users" class="btn btn-hero"><i class="fas fa-users"></i> Manage Users</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <h3><i class="fas fa-chart-line"></i> Platform Metrics</h3>
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>1,234</h2>
+                                <p>Total Users</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>56</h2>
+                                <p>Active Jobs</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>$5,000</h2>
+                                <p>Revenue</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>8</h2>
+                                <p>Flagged Issues</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Role Section -->
+            <div class="table-section">
+                <div class="table-header">
+                    <h3><i class="fas fa-user-clock"></i> Pending Role Requests</h3>
+                    <a href="#" class="btn btn-sm btn-light">View All <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+                <div class="table-content">
+                    <table class="recent-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Requested Role</th>
+                                <th>Date Requested</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pending-requests-table">
+                            <tr>
+                                <td>Jane Smith</td>
+                                <td>Service Provider</td>
+                                <td>Aug 27, 2025</td>
+                                <td><span class="badge badge-pending">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-success btn-sm accept-btn">Accept</button>
+                                    <button class="btn btn-danger btn-sm reject-btn">Reject</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="page-info">
+                        Showing 1 to 4 of 4 entries
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div class="table-section analytics-section">
+                <div class="table-header analytics-header">
+                    <h3><i class="fas fa-chart-pie"></i> Platform Insights</h3>
+                    <a href="#" class="btn btn-sm btn-light">Generate Report <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+                <div class="analytics-placeholder">
+                    <div class="analytics-content">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>Dynamic Analytics (Integrate Chart.js)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Users Page -->
+    <div class="page-content" id="admin-manage-users">
+        <div class="container-fluid">
+            <div class="user-management">
+                <div class="table-section">
+                    <div class="table-header">
+                        <h3><i class="fas fa-users-cog"></i> User Management</h3>
+                        <a href="#" class="btn btn-sm btn-light"><i class="fas fa-plus me-1"></i> Add User</a>
+                    </div>
+
+                    <!-- Search -->
+                    <div class="user-search">
+                        <div class="search-container">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="text" class="form-control" placeholder="Search users...">
+                                <button class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="user-filters">
+                        <button class="filter-btn active">All Users</button>
+                        <button class="filter-btn">Customers</button>
+                        <button class="filter-btn">Providers</button>
+                        <button class="filter-btn">Admins</button>
+                        <button class="filter-btn">Active</button>
+                        <button class="filter-btn">Pending</button>
+                        <button class="filter-btn">Suspended</button>
+                    </div>
+
+                    <!-- Users Table -->
+                    <div class="table-content">
+                        <table class="users-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Role</th>
+                                    <th>Requested Role</th>
+                                    <th>Join Date</th>
+                                    <th>Status</th>
+                                    <th>Jobs</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                                                 class="rounded-circle me-2" width="32" height="32" alt="">
+                                            <div>
+                                                <div class="fw-bold">John Doe</div>
+                                                <div class="text-muted small">john.doe@example.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <select class="form-select">
+                                            <option>Customer</option>
+                                            <option>Provider</option>
+                                            <option>Admin</option>
+                                        </select>
+                                    </td>
+                                    <!-- Role Dropdown -->
+                                    <td>
+                                        <select class="form-select form-select-sm">
+                                            <option>-</option>
+                                            <option>Customer</option>
+                                            <option>Provider</option>
+                                            <option>Admin</option>
+                                        </select>
+                                    </td>
+                                    <td>Oct 12, 2023</td>
+                                    <!-- Status Dropdown -->
+                                    <td>
+                                        <select class="form-select form-select-sm">
+                                            <option selected>Active</option>
+                                            <option>Pending</option>
+                                            <option>Suspended</option>
+                                        </select>
+                                    </td>
+                                    <td>5</td>
+                                    <!-- Actions -->
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="pagination">
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="page-info">
+                            Showing 1 to 4 of 4 entries
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Jobs Page -->
+    <div class="page-content" id="admin-manage-jobs">
+        <div class="container-fluid">
+            <div class="user-management">
+                <div class="table-section">
+                    <div class="table-header">
+                        <h3><i class="fas fa-tasks"></i> Job Management</h3>
+                        <a href="#" class="btn btn-sm btn-light"><i class="fas fa-filter me-1"></i> Filter</a>
+                    </div>
+
+                    <div class="job-filters">
+                        <button class="filter-btn active">All Jobs</button>
+                        <button class="filter-btn">Active</button>
+                        <button class="filter-btn">Pending</button>
+                        <button class="filter-btn">Completed</button>
+                        <button class="filter-btn">Cancelled</button>
+                    </div>
+
+                    <div class="table-content">
+                        <table class="job-table">
+                            <thead>
+                                <tr>
+                                    <th>Job Title</th>
+                                    <th>Category</th>
+                                    <th>Posted By</th>
+                                    <th>Budget</th>
+                                    <th>Status</th>
+                                    <th>Date Posted</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Plumbing Repair</td>
+                                    <td>Plumbing</td>
+                                    <td>John Doe</td>
+                                    <td>$150</td>
+                                    <td><span class="status-badge badge-active">Active</span></td>
+                                    <td>Oct 15, 2023</td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Electrical Wiring</td>
+                                    <td>Electrical</td>
+                                    <td>Mike Johnson</td>
+                                    <td>$250</td>
+                                    <td><span class="status-badge badge-pending">Pending</span></td>
+                                    <td>Oct 14, 2023</td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Furniture Assembly</td>
+                                    <td>Carpentry</td>
+                                    <td>Sarah Williams</td>
+                                    <td>$120</td>
+                                    <td><span class="status-badge badge-active">Active</span></td>
+                                    <td>Oct 13, 2023</td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>TV Mounting</td>
+                                    <td>Installation</td>
+                                    <td>Jane Smith</td>
+                                    <td>$80</td>
+                                    <td><span class="status-badge badge-warning">Completed</span></td>
+                                    <td>Oct 12, 2023</td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-info"><i class="fas fa-file-invoice"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="pagination">
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="page-info">
+                            Showing 1 to 4 of 4 entries
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Status Page -->
+    <div class="page-content" id="admin-dashboard-status">
+        <div class="container-fluid">
+            <div class="stats-section">
+                <h3><i class="fas fa-chart-line"></i> Platform Status</h3>
+
+                <div class="status-cards">
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">System Uptime</div>
+                            <i class="fas fa-server text-primary"></i>
+                        </div>
+                        <div class="status-value">99.98%</div>
+                        <div class="status-change up">
+                            <i class="fas fa-arrow-up"></i> 0.02% from last month
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Active Users</div>
+                            <i class="fas fa-users text-primary"></i>
+                        </div>
+                        <div class="status-value">856</div>
+                        <div class="status-change up">
+                            <i class="fas fa-arrow-up"></i> 12% from last week
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Response Time</div>
+                            <i class="fas fa-tachometer-alt text-primary"></i>
+                        </div>
+                      <div class="status-value">128ms</div>
+                      <div class="status-change down">
+                          <i class="fas fa-arrow-down"></i> 5ms from last week
+                      </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="status-header">
+                            <div class="status-title">Error Rate</div>
+                            <i class="fas fa-bug text-primary"></i>
+                        </div>
+                        <div class="status-value">0.23%</div>
+                        <div class="status-change down">
+                            <i class="fas fa-arrow-down"></i> 0.07% from last week
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-section">
+                    <div class="table-header">
+                        <h3><i class="fas fa-history"></i> Recent System Events</h3>
+                        <a href="#" class="btn btn-sm btn-light">View All <i class="fas fa-arrow-right ms-1"></i></a>
+                    </div>
+
+                    <div class="table-content">
+                        <table class="dashboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Severity</th>
+                                    <th>Date & Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Database backup completed</td>
+                                    <td><span class="badge bg-success">Info</span></td>
+                                    <td>Oct 15, 2023 02:30 AM</td>
+                                    <td><span class="status-badge badge-active">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>API response time increased</td>
+                                    <td><span class="badge bg-warning">Warning</span></td>
+                                    <td>Oct 14, 2023 04:15 PM</td>
+                                    <td><span class="status-badge badge-active">Resolved</span></td>
+                                </tr>
+                                <tr>
+                                    <td>User registration spike detected</td>
+                                    <td><span class="badge bg-info">Notice</span></td>
+                                    <td>Oct 14, 2023 11:20 AM</td>
+                                    <td><span class="status-badge badge-active">Monitoring</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Payment processing delay</td>
+                                    <td><span class="badge bg-danger">Critical</span></td>
+                                    <td>Oct 13, 2023 09:45 AM</td>
+                                    <td><span class="status-badge badge-active">Resolved</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="pagination">
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="page-info">
+                            Showing 1 to 4 of 4 entries
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Page -->
+    <div class="page-content" id="admin-notifications">
+        <div class="container-fluid">
+            <div class="user-management">
+                <div class="table-section">
+                    <div class="table-header">
+                        <h3><i class="fas fa-bell"></i> Notifications</h3>
+                        <a href="#" class="btn btn-sm btn-light"><i class="fas fa-cog me-1"></i> Settings</a>
+                    </div>
+
+                    <div class="user-filters">
+                        <button class="filter-btn active">All Notifications</button>
+                        <button class="filter-btn">Unread</button>
+                        <button class="filter-btn">System</button>
+                        <button class="filter-btn">User Reports</button>
+                    </div>
+
+                    <div class="p-4">
+                        <ul class="notification-list">
+                            <li class="notification-item">
+                                <div class="notification-icon info">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <div class="notification-title">System Update Completed</div>
+                                    <div class="notification-desc">The latest system update was successfully installed. All services are running normally.</div>
+                                    <div class="notification-time">2 hours ago</div>
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                                </div>
+                            </li>
+
+                            <li class="notification-item">
+                                <div class="notification-icon warning">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <div class="notification-title">New User Report</div>
+                                    <div class="notification-desc">User Mike Johnson has been reported by another user. Please review.</div>
+                                    <div class="notification-time">5 hours ago</div>
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                                </div>
+                            </li>
+
+                            <li class="notification-item">
+                                <div class="notification-icon alert">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <div class="notification-title">Payment Issue</div>
+                                    <div class="notification-desc">A payment processing error occurred for transaction #TX-78945. Review required.</div>
+                                    <div class="notification-time">Yesterday</div>
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                                </div>
+                            </li>
+
+                            <li class="notification-item">
+                                <div class="notification-icon info">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <div class="notification-title">New Provider Registration</div>
+                                    <div class="notification-desc">Jane Smith has registered as a service provider. Account approval needed.</div>
+                                    <div class="notification-time">2 days ago</div>
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutModalLabel"><i class="fas fa-sign-out-alt me-2"></i> Confirm Logout</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <h4>Ready to leave?</h4>
+                <p>Are you sure you want to logout from your account?</p>
+                <p class="text-muted small">You will need to enter your credentials again to access your account.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancel-form" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-logout btn-modal" id="confirmLogout">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/adminDashboard.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="css/dashboard.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <span> QuickFix</span>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li class="customer-links"><a href="#" data-page="customer-dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li class="customer-links"><a href="#" data-page="customer-my-jobs"><i class="fas fa-briefcase"></i> My Jobs <span class="badge">5</span></a></li>
+        <li class="customer-links"><a href="#" data-page="customer-post-job"><i class="fas fa-plus"></i> Post a Job</a></li>
+        <li class="customer-links"><a href="#" data-page="customer-notifications"><i class="fas fa-comments"></i> Notifications <span class="badge">3</span></a></li>
+        <li class="customer-links"><a href="#" data-page="customer-profile"><i class="fas fa-cog"></i> Profile</a></li>
+
+        <li><a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+
+<!-- Header -->
+<div class="header">
+    <div class="header-content">
+        <div class="d-flex align-items-center">
+            <div class="welcome-text">
+                <h5>Welcome, <span class="welcome-user"> User</span>!</h5>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="notification-bell">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">8</span>
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="User">
+                </div>
+                <div class="user-info">
+                    <div class="name user-name"></div>
+                    <div class="role" id="header-role">Administrator</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-content" id="content">
+
+    <!-- Customer Dashboard -->
+    <div class="page-content active " id="customer-dashboard">
+        <div class="container-fluid">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>Manage Your Services With Ease</h1>
+                    <p>Post jobs, connect with top providers, and manage all your service requests in one place.</p>
+                    <div class="hero-actions">
+                        <a href="#" class="btn btn-hero" data-page="post-job"><i class="fas fa-plus"></i> Post a New Job</a>
+                        <!--                        <a href="#" class="btn btn-hero"><i class="fas fa-users"></i> Find Providers</a>-->
+                    </div>
+
+                    <div class="request-provider">
+                        <p>Want to offer services?</p>
+                        <button id="request-provider-btn" class="btn btn-primary">
+                            <i class="fas fa-handshake"></i> Request to Become Provider
+                        </button>
+                        <div class="provider-decoration">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <h3><i class="fas fa-chart-line"></i> Your Dashboard Overview</h3>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>5</h2>
+                                <p>Active Jobs</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>$150</h2>
+                                <p>Pending Payments</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h2>$2,500</h2>
+                                <p>Total Spent</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table Section -->
+            <div class="table-section">
+                <div class="table-header">
+                    <h3><i class="fas fa-history"></i> Recent Job Requests</h3>
+                    <a href="#" class="btn btn-sm btn-light">View All <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+                <div class="table-content">
+                    <table class="job-table">
+                        <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Category</th>
+                            <th>Date Posted</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Car Engine Repair</td>
+                            <td>Mechanic</td>
+                            <td>Oct 12, 2023</td>
+                            <td><span class="status-badge badge-pending">Pending</span></td>
+                            <td><a href="#" class="btn btn-primary btn-sm action-btn"><i class="fas fa-eye"></i> View</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="page-info">
+                        Showing 1 to 4 of 4 entries
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Jobs Page -->
+    <div class="page-content" id="customer-my-jobs">
+        <div class="container-fluid">
+            <div class="table-section">
+                <div class="table-header">
+                    <h3><i class="fas fa-briefcase"></i> My Jobs</h3>
+                </div>
+                <div class="table-content">
+                    <table class="myJob-table">
+                        <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Category</th>
+                            <th>Date Posted</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Car Engine Repair</td>
+                            <td>Mechanic</td>
+                            <td>Oct 12, 2023</td>
+                            <td><span class="status-badge badge-pending">Pending</span></td>
+                            <td><a href="#" class="btn btn-primary btn-sm action-btn"><i class="fas fa-eye"></i> View</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="page-info">
+                        Showing 1 to 4 of 4 entries
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Job Page -->
+    <div class="page-content" id="customer-post-job">
+        <div class="container-fluid">
+            <!-- Post Job Form -->
+            <div class="post-job-form">
+                <div class="table-section">
+                    <div class="table-header">
+                        <h3><i class="fas fa-briefcase"></i> Post a New Job</h3>
+                        <button class="btn btn-sm btn-light">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+
+                    </div>
+                    <form id="job-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="job-title"><i class="fas fa-heading"></i> Job Title</label>
+                                    <input type="text" class="form-control" id="job-title" placeholder="e.g., Need a plumber to fix a leak" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="job-category"><i class="fas fa-tag"></i> Category</label>
+                                    <select class="form-select" id="job-category" required>
+                                        <option value="">Select a category</option>
+                                        <option value="plumbing">Plumbing</option>
+                                        <option value="electrical">Electrical</option>
+                                        <option value="carpentry">Carpentry</option>
+                                        <option value="cleaning">Cleaning</option>
+                                        <option value="painting">Painting</option>
+                                        <option value="moving">Moving & Transport</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="job-description"><i class="fas fa-align-left"></i> Job Description</label>
+                            <textarea class="form-control" id="job-description" rows="4" placeholder="Please describe your job in detail..." required></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="job-budget"><i class="fas fa-dollar-sign"></i> Budget (USD)</label>
+                                    <input type="number" class="form-control" id="job-budget" placeholder="e.g., 150" min="1">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="job-location"><i class="fas fa-map-marker-alt"></i> Location</label>
+                                    <input type="text" class="form-control" id="job-location" placeholder="e.g., New York, NY" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="job-date"><i class="fas fa-calendar-alt"></i> Preferred Date</label>
+                                    <input type="date" class="form-control" id="job-date">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="job-time"><i class="fas fa-clock"></i> Preferred Time</label>
+                                    <select class="form-select" id="job-time">
+                                        <option value="">Any time</option>
+                                        <option value="morning">Morning (8am - 12pm)</option>
+                                        <option value="afternoon">Afternoon (12pm - 5pm)</option>
+                                        <option value="evening">Evening (5pm - 9pm)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-footer">
+                            <button type="button" class="btn btn-cancel-form" id="cancel-form">Cancel</button>
+                            <button type="submit" class="btn btn-submit">Post Job</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Success Message (Initially Hidden) -->
+            <div id="success-message" class="success-message">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Job Posted Successfully!</h3>
+                <p>Your job has been posted and is now visible to service providers. You will receive notifications when providers show interest.</p>
+                <button class="btn btn-success" id="post-another-job">Post Another Job</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Page -->
+    <div class="page-content" id="customer-notifications">
+        <div class="container-fluid">
+            <div class="table-section">
+                <div class="table-header">
+                    <h3><i class="fas fa-bell"></i> Notifications</h3>
+                </div>
+                <div class="table-content">
+                    <table class="notification-table">
+                        <thead>
+                        <tr>
+                            <th>Notification</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>New offer for your Car Engine Repair job</td>
+                            <td>Oct 13, 2023</td>
+                            <td><span class="status-badge badge-pending">Unread</span></td>
+                            <td><a href="#" class="btn btn-primary btn-sm action-btn"><i class="fas fa-eye"></i> View</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="page-info">
+                        Showing 1 to 4 of 4 entries
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div class="page-content" id="customer-profile">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="text-center mb-4">
+                            <div class="avatar-container">
+                                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="User">
+                            </div>
+                            <h3 class="mt-3">John Smith</h3>
+                            <p class="text-muted">Premium Member</p>
+                        </div>
+
+                        <div class="profile-card">
+                            <h2>Contact Info</h2>
+                            <p><i class="fas fa-envelope me-2"></i> john.smith@example.com</p>
+                            <p><i class="fas fa-phone me-2"></i> (555) 123-4567</p>
+                            <p><i class="fas fa-map-marker-alt me-2"></i> New York, NY</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="stat-card">
+                        <h3 class="mb-4"><i class="fas fa-user-cog me-2"></i> Profile Settings</h3>
+
+                        <form>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="customer-first-name">First Name</label>
+                                        <input type="text" class="form-control" id="customer-first-name" value="John">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="customer-last-name">Last Name</label>
+                                        <input type="text" class="form-control" id="customer-last-name" value="Smith">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="customer-email">Email Address</label>
+                                <input type="email" class="form-control" id="customer-email" value="john.smith@example.com">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="customer-phone">Phone Number</label>
+                                <input type="tel" class="form-control" id="customer-phone" value="(555) 123-4567">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="customer-address">Address</label>
+                                <textarea class="form-control" id="customer-address" rows="2">123 Main St, New York, NY 10001</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="customer-profile-images"> Upload Images</label>
+                                <input type="file" class="form-control" id="customer-profile-images" multiple accept="image/*">
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label class="form-label" for="customer-bio">Bio</label>
+                                <textarea class="form-control" id="customer-bio" rows="4">I'm a homeowner who frequently needs various services around my house. I appreciate quality work and good communication.</textarea>
+                            </div>
+
+                            <div class="form-footer">
+                                <button type="button" class="btn btn-cancel-form">Cancel</button>
+                                <button type="submit" class="btn btn-submit">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutModalLabel"><i class="fas fa-sign-out-alt me-2"></i> Confirm Logout</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <h4>Ready to leave?</h4>
+                <p>Are you sure you want to logout from your account?</p>
+                <p class="text-muted small">You will need to enter your credentials again to access your account.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancel-form" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-logout btn-modal" id="confirmLogout">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/customerDashboard.js"></script>
+
+</body>
+</html>

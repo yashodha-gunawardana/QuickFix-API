@@ -1,242 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Role Selection Modal</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary: #2C74B3;
-      --secondary: #c4b454;
-      --accent: #144272;
-      --dark: #0A2647;
-      --light: rgb(255, 255, 255);
-      --primary-light: #3385ff;
-      --sidebar-width: 280px;
-      --header-height: 80px;
-      --logout-red: #e74c3c;
-      --logout-red-light: #ff6b6b;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Selection Modal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-color: var(--light);
-      /* New background pattern */
-      background-image:
-              radial-gradient(circle at 10% 20%, rgba(44, 116, 179, 0.05) 0%, transparent 20%),
-              radial-gradient(circle at 90% 80%, rgba(196, 180, 84, 0.05) 0%, transparent 20%);
-      position: relative;
-      overflow: hidden;
-    }
+    <link href="css/prompt.css" rel="stylesheet">
 
-
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background:
-              linear-gradient(45deg, transparent 65%, rgba(44, 116, 179, 0.03) 65%, rgba(44, 116, 179, 0.03) 70%, transparent 70%, transparent),
-              linear-gradient(-45deg, transparent 65%, rgba(196, 180, 84, 0.03) 65%, rgba(196, 180, 84, 0.03) 70%, transparent 70%, transparent);
-      background-size: 40px 40px;
-      opacity: 0.6;
-      z-index: -1;
-    }
-
-    .circle-decoration {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.08;
-      z-index: -1;
-      filter: blur(1px);
-    }
-
-    .circle-1 {
-      width: 300px;
-      height: 300px;
-      background: var(--primary);
-      top: -100px;
-      left: -100px;
-    }
-
-    .circle-2 {
-      width: 200px;
-      height: 200px;
-      background: var(--secondary);
-      bottom: -50px;
-      right: -50px;
-    }
-
-    .circle-3 {
-      width: 150px;
-      height: 150px;
-      background: var(--accent);
-      top: 30%;
-      right: 10%;
-    }
-
-
-    .modal-content {
-      border: none;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      animation: modalAppear 0.5s ease-out;
-    }
-
-    @keyframes modalAppear {
-      from {
-        opacity: 0;
-        transform: translateY(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .modal-header {
-      background: var(--primary);
-      color: white;
-      border-bottom: 3px solid var(--secondary);
-      padding: 20px;
-    }
-
-    .modal-header h5 {
-      font-weight: 700;
-      font-size: 1.8rem;
-      margin: 0;
-      text-align: center;
-      width: 100%;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-    }
-
-    .modal-body {
-      padding: 30px;
-      background: var(--light);
-    }
-
-    .role-options {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .role-card {
-      border: 2px solid #e9ecef;
-      border-radius: 12px;
-      padding: 20px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      background: white;
-    }
-
-    .role-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--primary);
-      box-shadow: 0 10px 20px rgba(44, 116, 179, 0.15);
-    }
-
-    .role-card.selected {
-      border-color: var(--primary);
-      background: rgba(44, 116, 179, 0.05);
-    }
-
-    .role-icon {
-      width: 50px;
-      height: 50px;
-      background: var(--primary-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 15px;
-      flex-shrink: 0;
-      color: white;
-      font-size: 1.5rem;
-    }
-
-    .role-info {
-      flex-grow: 1;
-    }
-
-    .role-title {
-      font-weight: 600;
-      color: var(--dark);
-      margin-bottom: 5px;
-      font-size: 1.2rem;
-    }
-
-    .role-desc {
-      color: #6c757d;
-      font-size: 0.9rem;
-      margin: 0;
-    }
-
-    input[type="radio"] {
-      display: none;
-    }
-
-    .modal-footer {
-      background: var(--light);
-      border-top: 1px solid #e9ecef;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-    }
-
-    #roleSelectBtn {
-      background: linear-gradient(to right, var(--primary), var(--accent));
-      border: none;
-      padding: 12px 30px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(44, 116, 179, 0.3);
-      width: 80%;
-    }
-
-    #roleSelectBtn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(44, 116, 179, 0.4);
-    }
-
-    .role-card .checkmark {
-      color: var(--primary);
-      font-size: 1.5rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .role-card.selected .checkmark {
-      opacity: 1;
-    }
-
-    @media (max-width: 576px) {
-      .role-card {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .role-icon {
-        margin-right: 0;
-        margin-bottom: 10px;
-      }
-    }
-  </style>
 </head>
 <body>
-
 
 <div class="circle-decoration circle-1"></div>
 <div class="circle-decoration circle-2"></div>
@@ -244,125 +19,137 @@
 
 <!-- Role Selection Modal -->
 <div class="modal show d-block" id="roleSelectModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5><i class="fas fa-user-circle me-2"></i>Select Your Role</h5>
-      </div>
-      <div class="modal-body">
-        <div class="role-options">
-          <label class="role-card" for="admin">
-            <div class="role-icon">
-              <i class="fas fa-crown"></i>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5><i class="fas fa-user-circle me-2"></i>Select Your Role</h5>
             </div>
-            <div class="role-info">
-              <div class="role-title">Administrator</div>
-              <p class="role-desc">Full system access with management capabilities</p>
-            </div>
-            <input type="radio" name="role" id="admin" value="admin">
-            <div class="checkmark">
-              <i class="fas fa-check-circle"></i>
-            </div>
-          </label>
 
-          <label class="role-card" for="customer">
-            <div class="role-icon">
-              <i class="fas fa-user"></i>
-            </div>
-            <div class="role-info">
-              <div class="role-title">Customer</div>
-              <p class="role-desc">Access services and manage your account</p>
-            </div>
-            <input type="radio" name="role" id="customer" value="customer">
-            <div class="checkmark">
-              <i class="fas fa-check-circle"></i>
-            </div>
-          </label>
+            <div class="modal-body">
+                <div class="role-options">
+                    <label class="role-card" for="admin">
 
-          <label class="role-card" for="provider">
-            <div class="role-icon">
-              <i class="fas fa-tools"></i>
+                        <div class="role-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="role-info">
+                            <div class="role-title">Administrator</div>
+                            <p class="role-desc">Full system access with management capabilities</p>
+                        </div>
+                        <input type="radio" name="role" id="admin" value="admin">
+                        <div class="checkmark">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+
+                    </label>
+
+                    <label class="role-card" for="customer">
+
+                        <div class="role-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="role-info">
+                            <div class="role-title">Customer</div>
+                            <p class="role-desc">Access services and manage your account</p>
+                        </div>
+                        <input type="radio" name="role" id="customer" value="customer">
+                        <div class="checkmark">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+
+                    </label>
+
+                    <label class="role-card" for="provider">
+
+                        <div class="role-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="role-info">
+                            <div class="role-title">Service Provider</div>
+                            <p class="role-desc">Offer and manage your services</p>
+                        </div>
+                        <input type="radio" name="role" id="provider" value="provider">
+                        <div class="checkmark">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+
+                    </label>
+                </div>
             </div>
-            <div class="role-info">
-              <div class="role-title">Service Provider</div>
-              <p class="role-desc">Offer and manage your services</p>
+
+            <div class="modal-footer">
+                <button id="roleSelectBtn" class="btn btn-primary">Proceed to Dashboard</button>
             </div>
-            <input type="radio" name="role" id="provider" value="provider">
-            <div class="checkmark">
-              <i class="fas fa-check-circle"></i>
-            </div>
-          </label>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button id="roleSelectBtn" class="btn btn-primary">Proceed to Dashboard</button>
-      </div>
     </div>
-  </div>
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const roleCards = document.querySelectorAll('.role-card');
-    const proceedBtn = document.getElementById('roleSelectBtn');
+    document.addEventListener('DOMContentLoaded', function() {
+        const roleCards = document.querySelectorAll('.role-card');
+        const proceedBtn = document.getElementById('roleSelectBtn');
 
-    // Add click event to each role card
-    roleCards.forEach(card => {
-      card.addEventListener('click', function() {
-        // Remove selected class from all cards
-        roleCards.forEach(c => c.classList.remove('selected'));
+        // Add click event to each role card
+        roleCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove selected class from all cards
+                roleCards.forEach(c => c.classList.remove('selected'));
 
-        // Add selected class to clicked card
-        this.classList.add('selected');
+                // Add selected class to clicked card
+                this.classList.add('selected');
 
-        // Check the radio input inside this card
-        const radio = this.querySelector('input[type="radio"]');
-        radio.checked = true;
-      });
+                // Check the radio input inside this card
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+            });
+        });
+
+        // Proceed button event
+        proceedBtn.addEventListener('click', function() {
+            const selectedRole = document.querySelector('input[name="role"]:checked');
+
+            if (selectedRole) {
+                // In a real application, you would process the role selection here
+                alert(`You have selected the ${selectedRole.value} role. Redirecting...`);
+
+                // Simulate redirection
+                proceedBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Redirecting...';
+                proceedBtn.disabled = true;
+
+                setTimeout(() => {
+                  // This would be your actual redirection logic
+                  console.log(`Redirecting to ${selectedRole.value} dashboard`);
+                }, 1500);
+
+            } else {
+                // Shake animation for no selection
+                const modalContent = document.querySelector('.modal-content');
+                modalContent.classList.add('shake');
+                setTimeout(() => {
+                  modalContent.classList.remove('shake');
+                }, 500);
+
+                alert('Please select a role to proceed');
+            }
+        });
+
+        // Add shake animation for no selection
+        const style = document.createElement('style');
+        style.textContent = `
+                    @keyframes shake {
+                        0%, 100% { transform: translateX(0); }
+                        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                        20%, 40%, 60%, 80% { transform: translateX(5px); }
+                    }
+                    .shake {
+                        animation: shake 0.5s;
+                    }
+                `;
+        document.head.appendChild(style);
     });
-
-    // Proceed button event
-    proceedBtn.addEventListener('click', function() {
-      const selectedRole = document.querySelector('input[name="role"]:checked');
-
-      if (selectedRole) {
-        // In a real application, you would process the role selection here
-        alert(`You have selected the ${selectedRole.value} role. Redirecting...`);
-
-        // Simulate redirection
-        proceedBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Redirecting...';
-        proceedBtn.disabled = true;
-
-        setTimeout(() => {
-          // This would be your actual redirection logic
-          console.log(`Redirecting to ${selectedRole.value} dashboard`);
-        }, 1500);
-      } else {
-        // Shake animation for no selection
-        const modalContent = document.querySelector('.modal-content');
-        modalContent.classList.add('shake');
-        setTimeout(() => {
-          modalContent.classList.remove('shake');
-        }, 500);
-
-        alert('Please select a role to proceed');
-      }
-    });
-
-    // Add shake animation for no selection
-    const style = document.createElement('style');
-    style.textContent = `
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-                    20%, 40%, 60%, 80% { transform: translateX(5px); }
-                }
-                .shake {
-                    animation: shake 0.5s;
-                }
-            `;
-    document.head.appendChild(style);
-  });
 </script>
+
 </body>
 </html>

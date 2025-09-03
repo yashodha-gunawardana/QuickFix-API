@@ -35,9 +35,9 @@ public class AuthService implements UserDetailsService {
         }
 
         User user = User.builder()
+                .username(registerDTO.getUsername())
                 .email(registerDTO.getEmail())
                 .password(passwordEncoder.encode(registerDTO.getPassword()))
-                .username(registerDTO.getUsername())
                // .role(registerDTO.getRole())
                 .role(Role.CUSTOMER)
                 .enabled(true)
@@ -47,10 +47,13 @@ public class AuthService implements UserDetailsService {
     }
 
     public JwtResponse login(AuthDTO authDTO) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDTO.getEmail(), authDTO.getPassword()));
-        User user = userRepository.findByEmail(authDTO.getEmail()).orElseThrow();
+        // Authenticate user with email and password
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDTO.getEmail().trim(), authDTO.getPassword()));
+        // Fetch user from DB
+        User user = userRepository.findByEmail(authDTO.getEmail().trim()).orElseThrow(() -> new RuntimeException("User not found"));
+        // Generate JWT token (subject = email)
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
-        return new JwtResponse(token, user.getRole().name(), user.getUsername());
+        return new JwtResponse(token, user.getRole().name(), user.getUsername(), user.getEmail(), user.getId());
     }
 
     @Override
