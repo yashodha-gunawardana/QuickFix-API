@@ -42,6 +42,17 @@ public class AdminService {
         providerRequest.setStatus("APPROVED");
         providerRequestRepository.save(providerRequest);
 
-        return "Request approved successfully";
+        return "Request approved";
+    }
+
+    public String rejectRequest(Long requestId) {
+        ProviderRequest providerRequest = providerRequestRepository.findById(requestId).orElse(null);
+        if (providerRequest == null)
+            return "Request not found";
+
+        providerRequest.setStatus("REJECTED");
+        providerRequestRepository.save(providerRequest);
+
+        return "Request rejected";
     }
 }
