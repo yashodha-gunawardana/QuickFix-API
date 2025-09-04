@@ -1,8 +1,13 @@
 package org.examples.quickfixapi.service;
 
+import org.examples.quickfixapi.entity.Notification;
+import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.respository.NotificationRepository;
 import org.examples.quickfixapi.respository.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -16,6 +21,22 @@ public class NotificationService {
         this.notificationRepository = notificationRepository;
     }
 
+    public void notifyAdminsAboutProviderRequest(Long userId) {
+        List<User> admins = userRepository.findAll()
+                .stream()
+                .filter(user -> "SUPER_ADMIN".equals(user.getRole().toString()))
+                .toList();
+
+        for (User admin : admins) {
+            Notification notification = new Notification();
+            notification.setUserId(admin.getId());
+            notification.setMessage("User #" + userId + " has requested to become a service provider");
+            notification.setType("PROVIDER_REQUEST");
+            notification.setIsRead(false);
+            notification.setCreatedAt(LocalDateTime.now());
+            notificationRepository.save(notification);
+        }
+    }
 
 
 
