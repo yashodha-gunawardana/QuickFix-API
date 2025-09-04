@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // 1. Page switching for sidebar links
+
+    // 1. Display username & role in header
+    const username = localStorage.getItem("username");
+    const role = localStorage.getItem("role");
+    if (username) document.querySelector(".welcome-user").textContent = username;
+    if (role) document.getElementById("header-role").textContent = role;
+
+
+    // 2. Page switching for sidebar links
     const providerLinks = document.querySelectorAll(".provider-links a");
     const pages = document.querySelectorAll(".page-content");
 
@@ -18,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    // 2. Logout AJAX
+    // 3. Logout AJAX
     const confirmLogout = document.getElementById('confirmLogout');
     if (confirmLogout) {
         confirmLogout.addEventListener('click', function () {

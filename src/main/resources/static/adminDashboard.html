@@ -22,10 +22,10 @@
 
     <ul class="sidebar-menu">
         <li class="admin-links"><a href="#" class="active" data-page="admin-dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
-        <li class="admin-links"><a href="#" data-page="admin-manage-users"><i class="fas fa-users-cog"></i> Manage Users <span class="badge">5</span></a></li>
-        <li class="admin-links"><a href="#" data-page="admin-manage-jobs"><i class="fas fa-tasks"></i> Manage Jobs <span class="badge">3</span></a></li>
+        <li class="admin-links"><a href="#" data-page="admin-manage-users"><i class="fas fa-users-cog"></i> Manage Users <span class="badge"></span></a></li>
+        <li class="admin-links"><a href="#" data-page="admin-manage-jobs"><i class="fas fa-tasks"></i> Manage Jobs <span class="badge"></span></a></li>
         <li class="admin-links"><a href="#" data-page="admin-dashboard-status"><i class="fas fa-comments"></i> Dashboard Status</a></li>
-        <li class="admin-links"><a href="#" data-page="admin-notifications"><i class="fas fa-comments"></i> Notifications <span class="badge">2</span></a></li>
+        <li class="admin-links"><a href="#" data-page="admin-notifications"><i class="fas fa-comments"></i> Notifications <span class="badge"></span></a></li>
 
         <li><a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     </ul>
@@ -44,8 +44,10 @@
         <div class="header-actions">
             <div class="notification-bell">
                 <i class="fas fa-bell"></i>
-                <span class="notification-badge">8</span>
+                <span class="notification-badge" id="header-notification-badge"></span>
             </div>
+            <ul class="notification-list"></ul>
+
             <div class="user-profile">
                 <div class="user-avatar">
                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="User">
@@ -134,13 +136,15 @@
                     <a href="#" class="btn btn-sm btn-light">View All <i class="fas fa-arrow-right ms-1"></i></a>
                 </div>
                 <div class="table-content">
-                    <table class="recent-table">
+                    <table class="pending-requests-table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Requested Role</th>
-                                <th>Date Requested</th>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Current Role</th>
                                 <th>Status</th>
+                                <th>Requested Role</th>
+                                <th>Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -548,7 +552,11 @@
                 <div class="table-section">
                     <div class="table-header">
                         <h3><i class="fas fa-bell"></i> Notifications</h3>
-                        <a href="#" class="btn btn-sm btn-light"><i class="fas fa-cog me-1"></i> Settings</a>
+                        <div class="header-actions">
+                            <button class="btn btn-sm btn-light">
+                                <i class="fas fa-check-double me-1"></i> Mark all as read
+                            </button>
+                        </div>
                     </div>
 
                     <div class="user-filters">
@@ -615,6 +623,20 @@
                                     <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
                                 </div>
                             </li>
+
+                            <li class="notification-item">
+                                <div class="notification-icon warning">
+                                    <i class="fas fa-server"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <div class="notification-title">High Server Load</div>
+                                    <div class="notification-desc">Server CPU usage has reached 85% in the last hour. Consider scaling resources.</div>
+                                    <div class="notification-time">3 days ago</div>
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -649,9 +671,67 @@
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/adminDashboard.js"></script>
 
+
+<script>
+    // Simple interaction for filter buttons
+    document.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
+
+            // Simulate loading when changing filters
+            const notificationList = document.querySelector('.notification-list');
+            notificationList.style.opacity = '0.5';
+
+            setTimeout(() => {
+                notificationList.style.opacity = '1';
+            }, 300);
+        });
+    });
+
+    // Mark as read functionality
+    document.querySelectorAll('.notification-actions .btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const notificationItem = this.closest('.notification-item');
+            const badge = notificationItem.querySelector('.badge');
+
+            if (this.textContent === 'Mark as read') {
+                notificationItem.classList.remove('unread');
+                if (badge) badge.remove();
+                this.textContent = 'Mark as unread';
+            } else {
+                notificationItem.classList.add('unread');
+                this.textContent = 'Mark as read';
+
+                // Add badge if doesn't exist
+                if (!badge) {
+                    const title = notificationItem.querySelector('.notification-title');
+                    title.innerHTML += ' <span class="badge bg-primary">New</span>';
+                }
+            }
+        });
+    });
+
+    // Mark all as read
+    document.querySelector('.header-actions .btn').addEventListener('click', function() {
+        document.querySelectorAll('.notification-item').forEach(item => {
+            item.classList.remove('unread');
+            const badge = item.querySelector('.badge');
+            if (badge) badge.remove();
+
+            const button = item.querySelector('.notification-actions .btn');
+            if (button && button.textContent === 'Mark as read') {
+                button.textContent = 'Mark as unread';
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

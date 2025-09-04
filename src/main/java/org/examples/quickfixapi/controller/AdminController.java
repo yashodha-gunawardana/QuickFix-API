@@ -1,7 +1,7 @@
 package org.examples.quickfixapi.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.examples.quickfixapi.entity.ProviderRequest;
+import org.examples.quickfixapi.dto.ProviderRequestDTO;
 import org.examples.quickfixapi.service.AdminService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping("/pending-requests")
-    public List<ProviderRequest> getPendingRequests() {
+    public List<ProviderRequestDTO> getPendingRequests() {
         return adminService.getPendingRequests();
     }
 

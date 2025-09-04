@@ -20,9 +20,9 @@
 
     <ul class="sidebar-menu">
         <li class="customer-links"><a href="#" data-page="customer-dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
-        <li class="customer-links"><a href="#" data-page="customer-my-jobs"><i class="fas fa-briefcase"></i> My Jobs <span class="badge">5</span></a></li>
+        <li class="customer-links"><a href="#" data-page="customer-my-jobs"><i class="fas fa-briefcase"></i> My Jobs <span class="badge"></span></a></li>
         <li class="customer-links"><a href="#" data-page="customer-post-job"><i class="fas fa-plus"></i> Post a Job</a></li>
-        <li class="customer-links"><a href="#" data-page="customer-notifications"><i class="fas fa-comments"></i> Notifications <span class="badge">3</span></a></li>
+        <li class="customer-links"><a href="#" data-page="customer-notifications"><i class="fas fa-comments"></i> Notifications <span class="badge"></span></a></li>
         <li class="customer-links"><a href="#" data-page="customer-profile"><i class="fas fa-cog"></i> Profile</a></li>
 
         <li><a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -40,7 +40,7 @@
         <div class="header-actions">
             <div class="notification-bell">
                 <i class="fas fa-bell"></i>
-                <span class="notification-badge">8</span>
+                <span class="notification-badge" id="header-notification-badge"></span>
             </div>
             <div class="user-profile">
                 <div class="user-avatar">
@@ -323,42 +323,96 @@
             <div class="table-section">
                 <div class="table-header">
                     <h3><i class="fas fa-bell"></i> Notifications</h3>
+                    <div class="header-actions">
+                        <button class="btn btn-sm btn-light">
+                            <i class="fas fa-check-double me-1"></i> Mark all as read
+                        </button>
+                    </div>
                 </div>
+
+                <div class="user-filters">
+                    <button class="filter-btn active">All Notifications</button>
+                    <button class="filter-btn">Unread</button>
+                </div>
+
                 <div class="table-content">
-                    <table class="notification-table">
-                        <thead>
-                        <tr>
-                            <th>Notification</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>New offer for your Car Engine Repair job</td>
-                            <td>Oct 13, 2023</td>
-                            <td><span class="status-badge badge-pending">Unread</span></td>
-                            <td><a href="#" class="btn btn-primary btn-sm action-btn"><i class="fas fa-eye"></i> View</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <ul class="notification-list">
+                        <li class="notification-item unread">
+                            <div class="notification-icon info">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-title">
+                                    Order Shipped
+                                    <span class="badge bg-primary">New</span>
+                                </div>
+                                <div class="notification-desc">Your order #ORD-47892 has been shipped and is on its way. Expected delivery: Tomorrow by 8pm.</div>
+                                <div class="notification-time"><i class="far fa-clock"></i> 2 hours ago</div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                            </div>
+                        </li>
 
-                    <div class="pagination">
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
-                    </div>
+                        <li class="notification-item unread">
+                            <div class="notification-icon success">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-title">
+                                    Payment Received
+                                    <span class="badge bg-primary">New</span>
+                                </div>
+                                <div class="notification-desc">Your payment of $84.99 for order #ORD-47892 has been successfully processed.</div>
+                                <div class="notification-time"><i class="far fa-clock"></i> 5 hours ago</div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                            </div>
+                        </li>
 
-                    <div class="page-info">
-                        Showing 1 to 4 of 4 entries
-                    </div>
+                        <li class="notification-item">
+                            <div class="notification-icon warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-title">Special Offer Ending Soon</div>
+                                <div class="notification-desc">Your exclusive 20% discount ends in 24 hours. Use code: SAVE20 at checkout.</div>
+                                <div class="notification-time"><i class="far fa-clock"></i> Yesterday</div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn btn-sm btn-outline-secondary">Mark as unread</button>
+                            </div>
+                        </li>
+
+                        <li class="notification-item">
+                            <div class="notification-icon alert">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-title">Payment Method Updated</div>
+                                <div class="notification-desc">Your credit card ending in 7829 has been successfully updated in your account.</div>
+                                <div class="notification-time"><i class="far fa-clock"></i> 2 days ago</div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn btn-sm btn-outline-secondary">Mark as unread</button>
+                            </div>
+                        </li>
+
+                        <li class="notification-item">
+                            <div class="notification-icon info">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-title">Special Birthday Gift</div>
+                                <div class="notification-desc">Happy Birthday! We've added a special gift to your account. Claim it within the next 7 days.</div>
+                                <div class="notification-time"><i class="far fa-clock"></i> 3 days ago</div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn btn-sm btn-outline-secondary">Mark as unread</button>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -472,8 +526,66 @@
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/customerDashboard.js"></script>
+
+<script>
+    // Simple interaction for filter buttons
+    document.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
+
+            // Simulate loading when changing filters
+            const notificationList = document.querySelector('.notification-list');
+            notificationList.style.opacity = '0.5';
+
+            setTimeout(() => {
+                notificationList.style.opacity = '1';
+            }, 300);
+        });
+    });
+
+    // Mark as read functionality
+    document.querySelectorAll('.notification-actions .btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const notificationItem = this.closest('.notification-item');
+            const badge = notificationItem.querySelector('.badge');
+
+            if (this.textContent === 'Mark as read') {
+                notificationItem.classList.remove('unread');
+                if (badge) badge.remove();
+                this.textContent = 'Mark as unread';
+            } else {
+                notificationItem.classList.add('unread');
+                this.textContent = 'Mark as read';
+
+                // Add badge if doesn't exist
+                if (!badge) {
+                    const title = notificationItem.querySelector('.notification-title');
+                    title.innerHTML += ' <span class="badge bg-primary">New</span>';
+                }
+            }
+        });
+    });
+
+    // Mark all as read
+    document.querySelector('.header-actions .btn').addEventListener('click', function() {
+        document.querySelectorAll('.notification-item').forEach(item => {
+            item.classList.remove('unread');
+            const badge = item.querySelector('.badge');
+            if (badge) badge.remove();
+
+            const button = item.querySelector('.notification-actions .btn');
+            if (button && button.textContent === 'Mark as read') {
+                button.textContent = 'Mark as unread';
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

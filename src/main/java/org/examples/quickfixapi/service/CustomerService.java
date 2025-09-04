@@ -11,9 +11,10 @@ public class CustomerService {
     private final ProviderRequestRepository providerRequestRepository;
     private final UserRepository userRepository;
 
-    public CustomerService(ProviderRequestRepository providerRequestRepository, UserRepository userRepository) {
+    public CustomerService(ProviderRequestRepository providerRequestRepository, UserRepository userRepository, NotificationService notificationService) {
         this.providerRequestRepository = providerRequestRepository;
         this.userRepository = userRepository;
+
     }
 
     public String requestProvider(Long userId) {
@@ -25,6 +26,7 @@ public class CustomerService {
         providerRequest.setUserId(userId);
         providerRequest.setStatus("PENDING");
         providerRequestRepository.save(providerRequest);
+
 
         return "Request sent successfully";
     }

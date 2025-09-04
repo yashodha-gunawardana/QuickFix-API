@@ -19,4 +19,5 @@ public class ProviderRequest {
     private String status; // PENDING, APPROVED, REJECTED
     private LocalDateTime requestDate = LocalDateTime.now();
     private String requestedRole = "SERVICE_PROVIDER";
+
 }

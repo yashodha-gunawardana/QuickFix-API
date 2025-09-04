@@ -20,9 +20,9 @@
 
     <ul class="sidebar-menu">
         <li class="provider-links"><a href="#" data-page="provider-dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
-        <li class="provider-links"><a href="#" data-page="provider-available-jobs"><i class="fas fa-search-dollar"></i> Available Jobs <span class="badge">5</span></a></li>
-        <li class="provider-links"><a href="#" data-page="provider-my-work"><i class="fas fa-tools"></i> My Work <span class="badge">3</span></a></li>
-        <li class="provider-links"><a href="#" data-page="provider-notifications"><i class="fas fa-comments"></i> Notifications <span class="badge">2</span></a></li>
+        <li class="provider-links"><a href="#" data-page="provider-available-jobs"><i class="fas fa-search-dollar"></i> Available Jobs <span class="badge"></span></a></li>
+        <li class="provider-links"><a href="#" data-page="provider-my-work"><i class="fas fa-tools"></i> My Work <span class="badge"></span></a></li>
+        <li class="provider-links"><a href="#" data-page="provider-notifications"><i class="fas fa-comments"></i> Notifications <span class="badge"></span></a></li>
         <li class="provider-links"><a href="#" data-page="provider-profile"><i class="fas fa-user-edit"></i> Profile</a></li>
 
         <li><a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -58,7 +58,7 @@
 <div class="main-content" id="content">
 
     <!-- Service Provider Page -->
-    <div class="page-content" id="provider-dashboard">
+    <div class="page-content active" id="provider-dashboard">
         <div class="container-fluid">
             <!-- Hero Section -->
             <div class="hero-section">
@@ -342,14 +342,17 @@
             <div class="table-section">
                 <div class="table-header">
                     <h3><i class="fas fa-bell"></i> Notifications</h3>
-                    <a href="#" class="btn btn-sm btn-light"><i class="fas fa-cog me-1"></i> Settings</a>
+                    <div class="header-actions">
+                        <button class="btn btn-sm btn-light">
+                            <i class="fas fa-check-double me-1"></i> Mark all as read
+                        </button>
+                    </div>
                 </div>
 
                 <div class="job-filters">
                     <button class="filter-btn active">All Notifications</button>
                     <button class="filter-btn">Unread</button>
                     <button class="filter-btn">Job Alerts</button>
-                    <button class="filter-btn">Messages</button>
                 </div>
 
                 <div class="p-4">
@@ -594,8 +597,67 @@
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/serviceProviderDashboard.js"></script>
+
+
+<script>
+    // Simple interaction for filter buttons
+    document.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
+
+            // Simulate loading when changing filters
+            const notificationList = document.querySelector('.notification-list');
+            notificationList.style.opacity = '0.5';
+
+            setTimeout(() => {
+                notificationList.style.opacity = '1';
+            }, 300);
+        });
+    });
+
+    // Mark as read functionality
+    document.querySelectorAll('.notification-actions .btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const notificationItem = this.closest('.notification-item');
+            const badge = notificationItem.querySelector('.badge');
+
+            if (this.textContent === 'Mark as read') {
+                notificationItem.classList.remove('unread');
+                if (badge) badge.remove();
+                this.textContent = 'Mark as unread';
+            } else {
+                notificationItem.classList.add('unread');
+                this.textContent = 'Mark as read';
+
+                // Add badge if doesn't exist
+                if (!badge) {
+                    const title = notificationItem.querySelector('.notification-title');
+                    title.innerHTML += ' <span class="badge bg-primary">New</span>';
+                }
+            }
+        });
+    });
+
+    // Mark all as read
+    document.querySelector('.header-actions .btn').addEventListener('click', function() {
+        document.querySelectorAll('.notification-item').forEach(item => {
+            item.classList.remove('unread');
+            const badge = item.querySelector('.badge');
+            if (badge) badge.remove();
+
+            const button = item.querySelector('.notification-actions .btn');
+            if (button && button.textContent === 'Mark as read') {
+                button.textContent = 'Mark as unread';
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

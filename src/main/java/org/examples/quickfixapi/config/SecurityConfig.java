@@ -36,7 +36,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/", "/index.html", "/login.html", "/adminDashboard.html", "/customerDashboard.html", "/providerDashboard", "/css/**", "/js/**", "/images/**", "/assets/**").permitAll()
+                        .requestMatchers("/", "/index.html", "/login.html", "/adminDashboard.html", "/customerDashboard.html", "/providerDashboard.html", "/css/**", "/js/**", "/images/**", "/assets/**").permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("SUPER_ADMIN")
                         .anyRequest().authenticated())
 
                 .sessionManagement(session -> session

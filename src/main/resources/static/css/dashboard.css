@@ -704,14 +704,13 @@ body {
 }
 
 .filter-btn {
-    background: white;
+    padding: 8px 15px;
+    border-radius: 20px;
     border: 1px solid var(--border);
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    cursor: pointer;
+    background: white;
+    color: var(--gray);
     font-size: 0.9rem;
+    transition: all 0.3s;
 }
 
 .filter-btn.active {
@@ -730,7 +729,7 @@ body {
 .users-table,
 .job-table,
 .dashboard-table,
-.recent-table,
+.pending-requests-table,
 .recent-job-table,
 .myJob-table,
 .notification-table,
@@ -748,7 +747,7 @@ body {
 .users-table th,
 .job-table th,
 .dashboard-table th,
-.recent-table th,
+.pending-requests-table th,
 .recent-job-table th,
 .myJob-table th,
 .notification-table th,
@@ -767,7 +766,7 @@ body {
 .users-table td,
 .job-table td,
 .dashboard-table td,
-.recent-table td,
+.pending-requests-table td,
 .recent-job-table td,
 .myJob-table td,
 .notification-table td,
@@ -782,7 +781,7 @@ body {
 .users-table tr:last-child td,
 .job-table tr:last-child td,
 .dashboard-table tr:last-child td,
-.recent-table tr:last-child td,
+.pending-requests-table tr:last-child td,
 .recent-job-table tr:last-child td,
 .myJob-table tr:last-child td,
 .notification-table tr:last-child td,
@@ -795,7 +794,7 @@ body {
 .users-table tr:hover,
 .job-table tr:hover,
 .dashboard-table tr:hover,
-.recent-table tr:hover,
+.pending-requests-table tr:hover,
 .recent-job-table tr:hover,
 .myJob-table tr:hover,
 .notification-table tr:hover,

@@ -9,6 +9,28 @@ document.addEventListener("DOMContentLoaded", function () {
             const email = document.getElementById("loginEmail").value;
             const password = document.getElementById("loginPassword").value;
 
+            // ----------- Validation ----------- //
+            if (!email || !password) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Both email and password are required.'
+                });
+                return;
+            }
+
+            // Simple email format check
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please enter a valid email address.'
+                });
+                return;
+            }
+
+
             try {
                 const res = await fetch("http://localhost:8080/api/auth/login", {
                     method: "POST",
@@ -19,12 +41,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 const body = await res.json();
 
                 if (res.status !== 200) {
-                    showAlert(body.message || "Login failed", "error");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Login Failed',
+                        text: body.message || "Login failed"
+                    });
                     return;
                 }
 
-                showAlert(body.message || "Login successful!", "success");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Successful!',
+                    text: body.message || "You are now logged in."
+                });
+
                 console.log("Login response:", body);
+
+                loginForm.reset();
 
                 if (body.data) {
                     // Save token + user info
@@ -49,7 +82,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             } catch (err) {
                 console.error("Error during login:", err);
-                showAlert(err.message || "Login failed, please check your email and password.", "error");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Error',
+                    text: err.message || "Login failed, please check your email and password."
+                });
             }
         });
     }
