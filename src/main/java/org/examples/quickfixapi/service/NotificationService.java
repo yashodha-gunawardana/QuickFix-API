@@ -50,6 +50,13 @@ public class NotificationService {
     }
 
 
+    // mark a single notification as read
+    public void markAsRead(Long notificationId) {
+        notificationRepository.findById(notificationId).ifPresent(notification -> {
+            notification.setIsRead(true);
+            notificationRepository.save(notification);
+        });
+    }
 
 
 }
