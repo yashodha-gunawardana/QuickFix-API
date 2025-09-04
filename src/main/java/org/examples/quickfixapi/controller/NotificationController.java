@@ -5,6 +5,7 @@ import org.examples.quickfixapi.service.NotificationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -26,6 +27,12 @@ public class NotificationController {
     @GetMapping("/user/{userId}/all")
     public List<Notification> getAllUserNotifications(@PathVariable Long userId) {
         return notificationService.getAllNotifications(userId);
+    }
+
+    @GetMapping("/user/{userId}/count")
+    public Map<String, Integer> getUnreadNotificationCount(@PathVariable Long userId) {
+        int count = notificationService.getUnreadNotificationCount(userId);
+        return Map.of("count", count);
     }
 
 }
