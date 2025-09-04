@@ -41,4 +41,14 @@ public class NotificationController {
         return Map.of("message", "Notification marked as read");
     }
 
+    @PostMapping("/user/{userId}/read-all")
+    public Map<String, String> markAllAsRead(@PathVariable Long userId) {
+        List<Notification> unreadNotifications = notificationService.getUnreadNotifications(userId);
+        unreadNotifications.forEach(notification -> {
+            notification.setIsRead(true);
+            // Optional: save in bulk for performance
+        });
+        return Map.of("message", "All notifications marked as read");
+    }
+
 }
