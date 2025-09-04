@@ -23,4 +23,9 @@ public class NotificationController {
         return notificationService.getUnreadNotifications(userId);
     }
 
+    @GetMapping("/user/{userId}/all")
+    public List<Notification> getAllUserNotifications(@PathVariable Long userId) {
+        return notificationService.getAllNotifications(userId);
+    }
+
 }
