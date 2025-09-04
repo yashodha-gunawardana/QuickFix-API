@@ -44,6 +44,12 @@ public class NotificationService {
     }
 
 
+    // get all notifications sorted by latest first
+    public List<Notification> getAllNotifications(Long userId) {
+        return notificationRepository.findByUserIdOrderByCreatedAtDesc(userId);
+    }
+
+
 
 
 }
