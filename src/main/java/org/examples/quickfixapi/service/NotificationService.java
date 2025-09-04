@@ -38,6 +38,11 @@ public class NotificationService {
         }
     }
 
+    // get only unread notifications
+    public List<Notification> getUnreadNotifications(Long userId) {
+        return notificationRepository.findByUserIdAndIsReadFalse(userId);
+    }
+
 
 
 
