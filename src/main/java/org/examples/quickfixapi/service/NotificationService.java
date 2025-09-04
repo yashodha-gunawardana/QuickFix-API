@@ -59,4 +59,9 @@ public class NotificationService {
     }
 
 
+    // Count how many unread notifications a user has
+    public int getUnreadNotificationCount(Long userId) {
+        return notificationRepository.countByUserIdAndIsReadFalse(userId);
+    }
+
 }
