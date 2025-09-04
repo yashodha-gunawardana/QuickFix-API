@@ -35,4 +35,10 @@ public class NotificationController {
         return Map.of("count", count);
     }
 
+    @PostMapping("/{id}/read")
+    public Map<String, String> markAsRead(@PathVariable Long id) {
+        notificationService.markAsRead(id);
+        return Map.of("message", "Notification marked as read");
+    }
+
 }
