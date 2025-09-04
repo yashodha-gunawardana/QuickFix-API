@@ -32,6 +32,7 @@ public class JwtUtil {
 
         return Jwts.builder()
                 .setSubject(username)
+                // store all user roles as strings in JWT token
                 .claim("roles", roles.stream().map(Role::name).toList())
                 .setIssuedAt(now)
                 .setExpiration(expiry)

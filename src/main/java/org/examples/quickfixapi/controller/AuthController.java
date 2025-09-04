@@ -8,10 +8,7 @@ import org.examples.quickfixapi.dto.JwtResponse;
 import org.examples.quickfixapi.dto.RegisterDTO;
 import org.examples.quickfixapi.service.AuthService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -36,6 +33,11 @@ public class AuthController {
         return ResponseEntity.ok(new ApiResponse(200, "Login successful", jwtResponse));
     }
 
-
+    // SUPER_ADMIN upgrades CUSTOMER → PROVIDER
+    @PostMapping("/upgrade/{userId}")
+    public ResponseEntity<ApiResponse> upgradeToProvider(@PathVariable Long userId) {
+        String result = authService.upgradeToProvider(userId);
+        return ResponseEntity.ok(new ApiResponse(200, "Upgrade successful", result));
+    }
 
 }
