@@ -10,10 +10,12 @@ public class CustomerService {
 
     private final ProviderRequestRepository providerRequestRepository;
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
     public CustomerService(ProviderRequestRepository providerRequestRepository, UserRepository userRepository, NotificationService notificationService) {
         this.providerRequestRepository = providerRequestRepository;
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
 
     }
 
@@ -27,6 +29,7 @@ public class CustomerService {
         providerRequest.setStatus("PENDING");
         providerRequestRepository.save(providerRequest);
 
+        notificationService.notifyAdminsAboutProviderRequest(userId);
 
         return "Request sent successfully";
     }
