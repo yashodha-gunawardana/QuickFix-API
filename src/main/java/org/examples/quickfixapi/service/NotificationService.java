@@ -1,6 +1,7 @@
 package org.examples.quickfixapi.service;
 
 import org.examples.quickfixapi.entity.Notification;
+import org.examples.quickfixapi.entity.Role;
 import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.respository.NotificationRepository;
 import org.examples.quickfixapi.respository.UserRepository;
@@ -28,14 +29,23 @@ public class NotificationService {
                 .toList();
 
         for (User admin : admins) {
-            Notification notification = new Notification();
-            notification.setUserId(admin.getId());
-            notification.setMessage("User #" + userId + " has requested to become a service provider");
-            notification.setType("PROVIDER_REQUEST");
-            notification.setIsRead(false);
-            notification.setCreatedAt(LocalDateTime.now());
-            notificationRepository.save(notification);
+            createNotification(
+                    admin.getId(),
+                    "User #" + userId + " has requested to become a service provider",
+                    "PROVIDER_REQUEST"
+            );
         }
+    }
+
+    // Create a new notification
+    public void createNotification(Long userId, String message, String type) {
+        Notification notification = new Notification();
+        notification.setUserId(userId);
+        notification.setMessage(message);
+        notification.setType(type); // SYSTEM, PROVIDER_REQUEST, etc.
+        notification.setIsRead(false);
+        notification.setCreatedAt(LocalDateTime.now());
+        notificationRepository.save(notification);
     }
 
     // get only unread notifications

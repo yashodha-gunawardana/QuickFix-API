@@ -83,6 +83,7 @@ public class AdminService {
         String userName = user != null ? user.getUsername() : "Unknown User";
         String currentRole = user != null ? user.getRole().toString() : "Unknown Role";
 
+
         return new ProviderRequestDTO(
                 request.getId(),
                 request.getUserId(),

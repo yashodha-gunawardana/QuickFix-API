@@ -33,11 +33,5 @@ public class AuthController {
         return ResponseEntity.ok(new ApiResponse(200, "Login successful", jwtResponse));
     }
 
-    // SUPER_ADMIN upgrades CUSTOMER → PROVIDER
-    @PostMapping("/upgrade/{userId}")
-    public ResponseEntity<ApiResponse> upgradeToProvider(@PathVariable Long userId) {
-        String result = authService.upgradeToProvider(userId);
-        return ResponseEntity.ok(new ApiResponse(200, "Upgrade successful", result));
-    }
 
 }

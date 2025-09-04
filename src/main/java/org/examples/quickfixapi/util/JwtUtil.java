@@ -5,14 +5,12 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.examples.quickfixapi.entity.Role;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.Set;
 
 @Component
 public class JwtUtil {
@@ -26,14 +24,13 @@ public class JwtUtil {
         this.expiration = expiration;
     }
 
-    public String generateToken(String username, Set<Role> roles) {
+    public String generateToken(String username, String role) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + expiration);
 
         return Jwts.builder()
                 .setSubject(username)
-                // store all user roles as strings in JWT token
-                .claim("roles", roles.stream().map(Role::name).toList())
+                .claim("role", role)
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .signWith(key, SignatureAlgorithm.HS256)
