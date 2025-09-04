@@ -17,6 +17,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService implements UserDetailsService {
@@ -39,7 +41,7 @@ public class AuthService implements UserDetailsService {
                 .email(registerDTO.getEmail())
                 .password(passwordEncoder.encode(registerDTO.getPassword()))
                // .role(registerDTO.getRole())
-                .role(Role.CUSTOMER)
+                .roles(Set.of(Role.CUSTOMER)) // default role
                 .enabled(true)
                 .build();
         userRepository.save(user);
@@ -52,8 +54,23 @@ public class AuthService implements UserDetailsService {
         // Fetch user from DB
         User user = userRepository.findByEmail(authDTO.getEmail().trim()).orElseThrow(() -> new RuntimeException("User not found"));
         // Generate JWT token (subject = email)
-        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
-        return new JwtResponse(token, user.getRole().name(), user.getUsername(), user.getEmail(), user.getId());
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRoles());
+        return new JwtResponse(
+                token,
+                user.getRoles().stream().map(Role::name).toList(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getId()
+        );
+    }
+
+    public String upgradeToProvider(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.getRoles().add(Role.PROVIDER);
+        userRepository.save(user);
+
+        return "User upgraded to provider successfully";
     }
 
     @Override
