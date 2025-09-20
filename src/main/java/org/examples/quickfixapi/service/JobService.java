@@ -166,6 +166,38 @@ public class JobService {
     }
 
 
+    // provider starts job (set to in-progress)
+    @Transactional
+    public JobResponseDTO startJob(Long jobId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!Role.PROVIDER.equals(user.getRole())) {
+            throw new RuntimeException("Only providers can start jobs");
+        }
+
+        Job job = jobRepository.findById(jobId).orElseThrow(() -> new RuntimeException("Job not found"));
+
+        if (!job.getProviderId().equals(user.getId())) {
+            throw new RuntimeException("You can only start jobs assigned to you");
+        }
+
+        if (!JobStatus.ACCEPTED.equals(job.getStatus())) {
+            throw new RuntimeException("Only ACCEPTED jobs can be started");
+        }
+
+        job.setStatus(JobStatus.IN_PROGRESS);
+        Job savedJob = jobRepository.save(job);
+
+        notificationService.createNotification(
+                job.getUser().getId(),
+                "Your job '" + job.getTitle() +"' has started.",
+                NotificationType.SYSTEM
+        );
+
+        return mapToJobResponseDTO(savedJob);
+    }
+
 
     private Sort parseSort(String sort) {
         if (sort == null || sort.isEmpty()) {
