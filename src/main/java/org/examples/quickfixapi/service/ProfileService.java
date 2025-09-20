@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 
 
 @Service
@@ -149,6 +150,36 @@ public class ProfileService {
             throw new RuntimeException("Error loading image: " + filename, e);
         }
     }
+
+
+    // Convert CustomerProfile entity to DTO
+    public CustomerProfileDTO convertToDTO(CustomerProfile customerProfile) {
+        CustomerProfileDTO customerProfileDTO = new CustomerProfileDTO();
+        customerProfileDTO.setId(customerProfile.getId());
+        customerProfileDTO.setFirstName(customerProfile.getFirstName());
+        customerProfileDTO.setLastName(customerProfile.getLastName());
+
+        if (customerProfile.getUser() != null) {
+            customerProfileDTO.setEmail(customerProfile.getUser().getEmail());
+        } else {
+            customerProfileDTO.setEmail("");
+        }
+        customerProfileDTO.setPhoneNo(customerProfile.getPhoneNo());
+        customerProfileDTO.setAddress(customerProfile.getAddress());
+        customerProfileDTO.setBio(customerProfile.getBio());
+
+        // Handle profile image
+        // Only store the filename, not full path
+        if (customerProfile.getProfileImage() != null && !customerProfile.getProfileImage().isEmpty()) {
+            customerProfileDTO.setProfileImage(customerProfile.getProfileImage());
+        } else {
+            customerProfileDTO.setProfileImage("default-profile.png"); // fallback filename
+        }
+
+        return customerProfileDTO;
+    }
+
+
 
 
 
