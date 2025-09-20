@@ -98,6 +98,25 @@ public class JobService {
     }
 
 
+    // provider's work
+    public Page<JobResponseDTO> getMyWork(int page, int size, String sort) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+
+        if(!user.getRole().equals(Role.PROVIDER)) {
+            throw new RuntimeException("Only providers can view their work");
+        }
+
+
+        Sort sortOrder = parseSort(sort);
+        Pageable pageable = PageRequest.of(page, size, sortOrder);
+        Page<Job> jobPage = jobRepository.findByProviderId(user.getId(), pageable);
+
+        return jobPage.map(this::mapToJobResponseDTO);
+    }
+
+
+
     private Sort parseSort(String sort) {
         if (sort == null || sort.isEmpty()) {
             return Sort.by(Sort.Direction.DESC, "createdAt");
