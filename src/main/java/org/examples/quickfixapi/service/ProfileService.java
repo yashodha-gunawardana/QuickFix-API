@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.dto.CustomerProfileDTO;
 import org.examples.quickfixapi.entity.CustomerProfile;
+import org.examples.quickfixapi.entity.ProviderProfile;
 import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.respository.CustomerProfileRepository;
 import org.examples.quickfixapi.respository.ProviderProfileRepository;
@@ -83,6 +84,26 @@ public class ProfileService {
     }
 
 
+    // retrieve or create provider profile
+    public ProviderProfile getProviderProfile(Long userId) {
+        return providerProfileRepository.findByUserId(userId)
+                .orElseGet(() -> {
+                    User user = userRepository.findById(userId)
+                            .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+                    ProviderProfile profile = ProviderProfile.builder()
+                            .user(user)
+                            .firstName("")
+                            .lastName("")
+                            .phoneNo("")
+                            .address("")
+                            .experienceYears(0)
+                            .hourlyRate(0.0)
+                            .serviceOffered("")
+                            .bio("")
+                            .build();
+                    return providerProfileRepository.save(profile); // Persist default profile
+                });
+    }
 
 
 
