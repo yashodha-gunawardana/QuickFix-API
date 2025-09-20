@@ -100,19 +100,39 @@ public class JobService {
 
     // provider's work
     public Page<JobResponseDTO> getMyWork(int page, int size, String sort) {
+        // Get the authenticated user's email
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+
 
         if(!user.getRole().equals(Role.PROVIDER)) {
             throw new RuntimeException("Only providers can view their work");
         }
 
-
+        // Convert the frontend sort string into a Spring Sort object
         Sort sortOrder = parseSort(sort);
         Pageable pageable = PageRequest.of(page, size, sortOrder);
+        // Fetch the jobs assigned to this provider
         Page<Job> jobPage = jobRepository.findByProviderId(user.getId(), pageable);
 
+        // Convert Job entities to JobResponseDTO and return
         return jobPage.map(this::mapToJobResponseDTO);
+    }
+
+
+    public List<JobResponseDTO> getAllJobs(int page, int size, String sort, String filter) {
+        Sort sortOrder = parseSort(sort);
+        Pageable pageable = PageRequest.of(page, size, sortOrder);
+        Page<Job> jobPage;
+        if (filter != null && !filter.equals("all")) {
+            JobStatus status = JobStatus.valueOf(filter.toUpperCase());
+            jobPage = jobRepository.findByStatus(status, pageable);
+        } else {
+            jobPage = jobRepository.findAll(pageable);
+        }
+        return jobPage.getContent().stream()
+                .map(this::mapToJobResponseDTO)
+                .collect(Collectors.toList());
     }
 
 
