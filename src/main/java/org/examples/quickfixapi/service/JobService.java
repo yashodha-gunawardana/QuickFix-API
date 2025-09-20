@@ -19,7 +19,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -352,6 +354,20 @@ public class JobService {
                 .datePosted(job.getDatePosted())
                 .build();
     }
+
+
+    // status count in my work
+    public Map<String, Integer> getJobStatusCounts(Long userId) {
+        Map<String, Integer> counts = new HashMap<>();
+
+        // current totals
+        counts.put("IN_PROGRESS", jobRepository.countByProviderIdAndStatus(userId, JobStatus.IN_PROGRESS));
+        counts.put("ACCEPTED", jobRepository.countByProviderIdAndStatus(userId, JobStatus.ACCEPTED));
+        counts.put("COMPLETED", jobRepository.countByProviderIdAndStatus(userId, JobStatus.COMPLETED));
+        return counts;
+
+    }
+
 
 
 }
