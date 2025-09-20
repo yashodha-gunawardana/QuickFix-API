@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/jobs")
 @RequiredArgsConstructor
@@ -65,6 +67,17 @@ public class JobController {
     public ResponseEntity<Void> deleteJob(@PathVariable Long jobId) {
         jobService.deleteJob(jobId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+    @GetMapping("/available-jobs")
+    @PreAuthorize("hasAnyRole('PROVIDER', 'SUPER_ADMIN')")
+    public ResponseEntity<List<JobResponseDTO>> getAvailableJobs(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "created_at,desc") String sort,
+            @RequestParam(required = false) String category){
+        return new ResponseEntity<>(jobService.getAvailableJobs(page, size, sort, category), HttpStatus.OK);
     }
 
 }
