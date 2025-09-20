@@ -33,6 +33,7 @@ public class AdminService {
     }
 
 
+    // provider requests accepted by admin
     public String approveRequest(Long requestId) {
         ProviderRequest providerRequest = providerRequestRepository.findById(requestId).orElse(null);
         if (providerRequest == null)
@@ -58,5 +59,31 @@ public class AdminService {
 
         return "Request approved";
     }
+
+
+    // provider requests rejected by admin
+    public String rejectRequest(Long requestId) {
+        ProviderRequest providerRequest = providerRequestRepository.findById(requestId).orElse(null);
+        if (providerRequest == null)
+            return "Request not found";
+
+        // User user = userRepository.findById(providerRequest.getUserId()).orElse(null);
+        User user = providerRequest.getUser();
+        if (user == null) return "User not found";
+
+        providerRequest.setStatus("REJECTED");
+        providerRequestRepository.save(providerRequest);
+
+        // customer notification
+        notificationService.createNotification(
+                user.getId(),
+                "Sorry, your request to become a provider has been rejected.",
+                NotificationType.PROVIDER_REJECTED,
+                true // send email
+        );
+
+        return "Request rejected";
+    }
+
 
 }
