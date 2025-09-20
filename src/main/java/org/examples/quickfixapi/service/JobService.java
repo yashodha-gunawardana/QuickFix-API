@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -70,6 +72,30 @@ public class JobService {
         return jobPage.map(this::mapToJobResponseDTO);
     }
 
+
+    // provider or super admin view available jobs (paginated)
+    public List<JobResponseDTO> getAvailableJobs(int page, int size, String sort, String category) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+
+        if(!(user.getRole().equals(Role.PROVIDER) || user.getRole().equals(Role.SUPER_ADMIN))) {
+            throw new RuntimeException("Only providers or Super admins can view available jobs");
+        }
+
+
+        Sort sortOrder = parseSort(sort);
+        Pageable pageable = PageRequest.of(page, size, sortOrder);
+
+        Page<Job> jobPage;
+        if (category != null) {
+            jobPage = jobRepository.findByStatusAndProviderIdIsNullAndCategory(JobStatus.PENDING, category.toUpperCase(), pageable);
+        } else {
+            jobPage = jobRepository.findByStatusAndProviderIdIsNull(JobStatus.PENDING, pageable);
+        }
+        return jobPage.getContent().stream()
+                .map(this::mapToJobResponseDTO)
+                .collect(Collectors.toList());
+    }
 
 
     private Sort parseSort(String sort) {
