@@ -10,10 +10,13 @@ import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.respository.CustomerProfileRepository;
 import org.examples.quickfixapi.respository.ProviderProfileRepository;
 import org.examples.quickfixapi.respository.UserRepository;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -130,6 +133,23 @@ public class ProfileService {
         }
         return providerProfileRepository.save(providerProfile);
     }
+
+
+    // Load image as Resource safely
+    public Resource loadProfileImage(String filename) throws MalformedURLException {
+        try {
+            Path file = rootLocation.resolve(filename);
+            if (!Files.exists(file) || Files.isDirectory(file)) {
+                // return default placeholder image if file missing
+                Path defaultFile = rootLocation.resolve("default-profile.png"); // make sure this exists in uploads/
+                return new UrlResource(defaultFile.toUri());
+            }
+            return new UrlResource(file.toUri());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Error loading image: " + filename, e);
+        }
+    }
+
 
 
 
