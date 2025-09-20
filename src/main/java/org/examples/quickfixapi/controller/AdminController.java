@@ -2,10 +2,12 @@ package org.examples.quickfixapi.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.dto.ProviderRequestDTO;
+import org.examples.quickfixapi.dto.UserDTO;
 import org.examples.quickfixapi.respository.JobRepository;
 import org.examples.quickfixapi.respository.ProviderRequestRepository;
 import org.examples.quickfixapi.respository.UserRepository;
 import org.examples.quickfixapi.service.AdminService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +44,15 @@ public class AdminController {
     }
 
 
+    @GetMapping("/all/users")
+    public Page<UserDTO> getAllUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false, defaultValue = "all") String filter,
+            @RequestParam(required = false) String search
+    ) {
+        return adminService.getAllUsers(page, size, filter, search);
+    }
 
 
 
