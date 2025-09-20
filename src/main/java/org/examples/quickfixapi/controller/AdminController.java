@@ -3,6 +3,7 @@ package org.examples.quickfixapi.controller;
 import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.dto.ProviderRequestDTO;
 import org.examples.quickfixapi.dto.UserDTO;
+import org.examples.quickfixapi.entity.ProviderRequest;
 import org.examples.quickfixapi.entity.Role;
 import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.respository.JobRepository;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 
@@ -92,5 +95,34 @@ public class AdminController {
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
+    @GetMapping("/users/{id}")
+    public UserDTO getUserById(@PathVariable Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        String requestedRole = providerRequestRepository.findByUserIdAndStatus(user.getId(), "PENDING")
+                .map(ProviderRequest::getRequestedRole)
+                .orElse(null);
+
+        int postedJobCount = jobRepository.countByUserId(user.getId());
+        int acceptedJobCount = jobRepository.countByProviderId(user.getId());
+        LocalDate createdAt = user.getCreatedAt() != null
+                ? user.getCreatedAt().atZone(ZoneId.systemDefault()).toLocalDate()
+                : LocalDate.now();
+
+        String status = user.isEnabled() ? "ACTIVE" : "SUSPENDED";
+
+        return new UserDTO(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getRole().name(),
+                status,
+                user.isEnabled(),
+                createdAt,
+                requestedRole,
+                postedJobCount,
+                acceptedJobCount
+        );
+    }
 
 }
