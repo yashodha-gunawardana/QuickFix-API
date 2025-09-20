@@ -33,7 +33,7 @@ public class AdminService {
     public List<ProviderRequestDTO> getPendingRequests() {
         return providerRequestRepository.findByStatus("PENDING")
                 .stream()
-                .map(this::converToDTO)
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -184,6 +184,7 @@ public class AdminService {
     }
 
 
+    // covert providerRequest entity to DTO
     private ProviderRequestDTO convertToDTO(ProviderRequest request) {
         User user = request.getUser();
         String userName = user != null ? user.getUsername() : "Unknown User";
