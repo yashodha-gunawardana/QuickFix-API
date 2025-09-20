@@ -10,6 +10,10 @@ import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.respository.JobRepository;
 import org.examples.quickfixapi.respository.NotificationRepository;
 import org.examples.quickfixapi.respository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +57,21 @@ public class JobService {
 
         return mapToJobResponseDTO(savedJob);
     }
+
+
+    // Customer view all their posted jobs (paginated)
+    public Page<JobResponseDTO> getMyJobs(int page, int size, String sort) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Sort sortOrder = parseSort(sort);
+        Pageable pageable = PageRequest.of(page, size, sortOrder);
+        Page<Job> jobPage = jobRepository.findByCustomerEmail(email, pageable);
+
+        return jobPage.map(this::mapToJobResponseDTO);
+    }
+
+    private Sort parseSort(String sort) {
+    }
+
 
     private JobResponseDTO mapToJobResponseDTO(Job savedJob) {
     }
