@@ -2,6 +2,8 @@ package org.examples.quickfixapi.service;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.examples.quickfixapi.entity.CustomerProfile;
+import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.respository.CustomerProfileRepository;
 import org.examples.quickfixapi.respository.ProviderProfileRepository;
 import org.examples.quickfixapi.respository.UserRepository;
@@ -31,6 +33,25 @@ public class ProfileService {
         if (!Files.exists(rootLocation)) {
             Files.createDirectories(rootLocation);
         }
+    }
+
+
+    // retrieve or create customer profile
+    public CustomerProfile getCustomerProfile(Long userId) {
+        return customerProfileRepository.findByUserId(userId)
+                .orElseGet(() -> {
+                    User user = userRepository.findById(userId)
+                            .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+                    CustomerProfile profile = CustomerProfile.builder()
+                            .user(user)
+                            .firstName("")
+                            .lastName("")
+                            .phoneNo("")
+                            .address("")
+                            .bio("")
+                            .build();
+                    return customerProfileRepository.save(profile); // Save default profile
+                });
     }
 
 
