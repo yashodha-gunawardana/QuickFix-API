@@ -2,6 +2,10 @@ package org.examples.quickfixapi.service;
 
 import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.dto.ProviderRequestDTO;
+import org.examples.quickfixapi.entity.NotificationType;
+import org.examples.quickfixapi.entity.ProviderRequest;
+import org.examples.quickfixapi.entity.Role;
+import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.respository.JobRepository;
 import org.examples.quickfixapi.respository.ProviderRequestRepository;
 import org.examples.quickfixapi.respository.UserRepository;
@@ -20,11 +24,39 @@ public class AdminService {
     private final JobRepository jobRepository;
 
 
+    // fetch all pending provider requests
     public List<ProviderRequestDTO> getPendingRequests() {
         return providerRequestRepository.findByStatus("PENDING")
                 .stream()
                 .map(this::converToDTO)
                 .collect(Collectors.toList());
+    }
+
+
+    public String approveRequest(Long requestId) {
+        ProviderRequest providerRequest = providerRequestRepository.findById(requestId).orElse(null);
+        if (providerRequest == null)
+            return "Request not found";
+
+        User user = providerRequest.getUser();
+        if (user == null)
+            return "User not found";
+
+        user.setRole(Role.PROVIDER);
+        userRepository.save(user);
+
+        providerRequest.setStatus("APPROVED");
+        providerRequestRepository.save(providerRequest);
+
+        // customer notification
+        notificationService.createNotification(
+                user.getId(),
+                "Congratulations! Your request to become a provider has been approved",
+                NotificationType.PROVIDER_APPROVED,
+                true // send email
+        );
+
+        return "Request approved";
     }
 
 }
