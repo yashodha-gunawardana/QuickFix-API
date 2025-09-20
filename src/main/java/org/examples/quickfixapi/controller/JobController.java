@@ -3,6 +3,8 @@ package org.examples.quickfixapi.controller;
 import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.dto.JobPostDTO;
 import org.examples.quickfixapi.dto.JobResponseDTO;
+import org.examples.quickfixapi.entity.Job;
+import org.examples.quickfixapi.entity.JobStatus;
 import org.examples.quickfixapi.respository.JobRepository;
 import org.examples.quickfixapi.respository.UserRepository;
 import org.examples.quickfixapi.service.JobService;
@@ -133,6 +135,17 @@ public class JobController {
         return new ResponseEntity<>(jobService.getAllJobs(page, size, sort, filter), HttpStatus.OK);
     }
 
+
+    @PostMapping("/reject/{jobId}")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public ResponseEntity<Void> rejectJob(@PathVariable Long jobId) {
+        Job job = jobRepository.findById(jobId).orElseThrow(() -> new RuntimeException("Job not found"));
+        if (!job.getStatus().equals(JobStatus.PENDING)) {
+            throw new IllegalStateException("Only PENDING jobs can be rejected");
+        }
+        jobRepository.delete(job);
+        return ResponseEntity.ok().build();
+    }
 
 
 
