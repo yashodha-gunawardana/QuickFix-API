@@ -15,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/jobs")
@@ -146,6 +147,15 @@ public class JobController {
         jobRepository.delete(job);
         return ResponseEntity.ok().build();
     }
+
+
+    // get count for provider dashboard
+    @GetMapping("/my-work/status-count")
+    public ResponseEntity<Map<String, Integer>> getJobStatusCount(@RequestParam Long userId) {
+        Map<String, Integer> counts = jobService.getJobStatusCounts(userId);
+        return ResponseEntity.ok(counts);
+    }
+
 
 
 
