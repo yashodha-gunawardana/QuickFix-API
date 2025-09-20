@@ -180,6 +180,33 @@ public class ProfileService {
     }
 
 
+    // convert providerProfile entity to DTO
+    public ProviderProfileDTO convertProviderToDTO(ProviderProfile providerProfile) {
+        ProviderProfileDTO providerProfileDTO = new ProviderProfileDTO();
+        providerProfileDTO.setId(providerProfile.getId());
+        providerProfileDTO.setFirstName(providerProfile.getFirstName());
+        providerProfileDTO.setLastName(providerProfile.getLastName());
+        providerProfileDTO.setPhoneNo(providerProfile.getPhoneNo());
+        providerProfileDTO.setAddress(providerProfile.getAddress());
+        providerProfileDTO.setExperienceYears(providerProfile.getExperienceYears());
+        providerProfileDTO.setHourlyRate(providerProfile.getHourlyRate());
+        // Convert serviceOffered string to list
+        if (providerProfile.getServiceOffered() != null && !providerProfile.getServiceOffered().isEmpty()) {
+            providerProfileDTO.setServiceOffered(Arrays.asList(providerProfile.getServiceOffered().split(",")));
+        }
+        providerProfileDTO.setBio(providerProfile.getBio());
+
+        // Include email from the linked User
+        if (providerProfile.getUser() != null) {
+            providerProfileDTO.setEmail(providerProfile.getUser().getEmail());  // <-- add email here
+            providerProfileDTO.setProfileImage(providerProfile.getUser().getProfileImage());
+        } else {
+            providerProfileDTO.setEmail("");
+            providerProfileDTO.setProfileImage("default-profile.png");
+        }
+
+        return providerProfileDTO;
+    }
 
 
 
