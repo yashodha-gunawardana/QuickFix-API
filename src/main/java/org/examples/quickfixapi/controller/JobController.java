@@ -122,4 +122,18 @@ public class JobController {
     }
 
 
+    // get all jobs in the admin dashboard
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public ResponseEntity<List<JobResponseDTO>> getAllJobs(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "created_at,desc") String sort,
+            @RequestParam(required = false) String filter) {
+        return new ResponseEntity<>(jobService.getAllJobs(page, size, sort, filter), HttpStatus.OK);
+    }
+
+
+
+
 }
