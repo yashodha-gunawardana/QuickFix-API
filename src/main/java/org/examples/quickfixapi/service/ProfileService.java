@@ -3,6 +3,7 @@ package org.examples.quickfixapi.service;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.dto.CustomerProfileDTO;
+import org.examples.quickfixapi.dto.ProviderProfileDTO;
 import org.examples.quickfixapi.entity.CustomerProfile;
 import org.examples.quickfixapi.entity.ProviderProfile;
 import org.examples.quickfixapi.entity.User;
@@ -103,6 +104,31 @@ public class ProfileService {
                             .build();
                     return providerProfileRepository.save(profile); // Persist default profile
                 });
+    }
+
+
+    // save provider profile
+    public ProviderProfile updateProviderProfile(Long userId, ProviderProfileDTO providerProfileDTO, MultipartFile imageFile) throws IOException {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        ProviderProfile providerProfile = providerProfileRepository.findByUserId(userId).orElse(ProviderProfile.builder().user(user).build());
+
+
+        providerProfile.setFirstName(providerProfileDTO.getFirstName());
+        providerProfile.setLastName(providerProfileDTO.getLastName());
+        providerProfile.setPhoneNo(providerProfileDTO.getPhoneNo());
+        providerProfile.setAddress(providerProfileDTO.getAddress());
+        providerProfile.setExperienceYears(providerProfileDTO.getExperienceYears());
+        providerProfile.setHourlyRate(providerProfileDTO.getHourlyRate());
+        providerProfile.setServiceOffered(String.join(",", providerProfileDTO.getServiceOffered()));
+        providerProfile.setBio(providerProfileDTO.getBio());
+
+        if (imageFile != null && !imageFile.isEmpty()) {
+            String fileName = userId + "_" + imageFile.getOriginalFilename();
+            Files.copy(imageFile.getInputStream(), rootLocation.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+            user.setProfileImage(fileName);
+            userRepository.save(user);
+        }
+        return providerProfileRepository.save(providerProfile);
     }
 
 
