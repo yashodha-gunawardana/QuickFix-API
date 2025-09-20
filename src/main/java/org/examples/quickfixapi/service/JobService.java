@@ -69,7 +69,25 @@ public class JobService {
         return jobPage.map(this::mapToJobResponseDTO);
     }
 
+
+
     private Sort parseSort(String sort) {
+        if (sort == null || sort.isEmpty()) {
+            return Sort.by(Sort.Direction.DESC, "createdAt");
+        }
+        String[] parts = sort.split(",");
+        String property = parts[0];
+
+        // Map frontend sort parameter to entity property
+        if ("created_at".equals(property)) {
+            property = "createdAt";
+        }
+
+        Sort.Direction direction = parts.length > 1 && parts[1].equalsIgnoreCase("asc")
+                ? Sort.Direction.ASC
+                : Sort.Direction.DESC;
+
+        return Sort.by(direction, property);
     }
 
 
