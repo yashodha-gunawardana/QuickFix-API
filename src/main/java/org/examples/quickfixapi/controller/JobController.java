@@ -80,4 +80,18 @@ public class JobController {
         return new ResponseEntity<>(jobService.getAvailableJobs(page, size, sort, category), HttpStatus.OK);
     }
 
+
+    @PostMapping("/accept/{jobId}")
+    @PreAuthorize("hasAnyRole('PROVIDER', 'SUPER_ADMIN')")
+    public ResponseEntity<JobResponseDTO> acceptJob(@PathVariable Long jobId) {
+       /* String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        if (!user.getRole().equals(Role.PROVIDER)) {
+            throw new RuntimeException("Only providers can accept jobs");
+        }*/
+        JobResponseDTO response = jobService.acceptJob(jobId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }
