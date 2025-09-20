@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -235,6 +236,31 @@ public class JobService {
                 NotificationType.JOB_COMPLETED
         );
         return mapToJobResponseDTO(savedJob);
+    }
+
+
+    public JobResponseDTO getJobById(Long jobId) {
+        // Get currently authenticated user's email
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Fetch the job from DB
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+
+        // Check if the user is either:
+        // The customer who posted the job
+        boolean isCustomer = job.getUser() != null && job.getUser().getId().equals(user.getId());
+        // The provider who accepted the job
+        boolean isProvider = Objects.equals(job.getProviderId(), user.getId());
+
+        if (!isCustomer && !isProvider) {
+            throw new RuntimeException("You can only view jobs you posted or accepted");
+        }
+
+        // Return the mapped JobResponseDTO
+        return mapToJobResponseDTO(job);
     }
 
 
