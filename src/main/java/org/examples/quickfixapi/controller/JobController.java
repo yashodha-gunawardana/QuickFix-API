@@ -40,4 +40,13 @@ public class JobController {
         Page<JobResponseDTO> jobPage = jobService.getMyJobs(page, size, sort);
         return new ResponseEntity<>(jobPage, HttpStatus.OK);
     }
+
+
+    // Get a single job by ID
+    @GetMapping("/view/{jobId}")
+    public ResponseEntity<JobResponseDTO> getJobById(@PathVariable Long jobId) {
+        JobResponseDTO job = jobService.getJobById(jobId);
+        return new ResponseEntity<>(job, HttpStatus.OK);
+    }
+
 }
