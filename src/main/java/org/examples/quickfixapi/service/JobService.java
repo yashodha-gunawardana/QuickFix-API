@@ -199,6 +199,45 @@ public class JobService {
     }
 
 
+    // provider completes job (set to completed)
+    @Transactional
+    public JobResponseDTO completedJob(Long jobId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!Role.PROVIDER.equals(user.getRole())) {
+            throw new RuntimeException("Only providers can complete jobs");
+        }
+
+        Job job = jobRepository.findById(jobId).orElseThrow(() -> new RuntimeException("Job not found"));
+
+        if (!job.getProviderId().equals(user.getId())) {
+            throw new RuntimeException("You can only complete jobs assigned to you");
+        }
+
+        if (!JobStatus.IN_PROGRESS.equals(job.getStatus())) {
+            throw new RuntimeException("Only IN_PROGRESS jobs can be completed");
+        }
+
+        job.setStatus(JobStatus.COMPLETED);
+        Job savedJob = jobRepository.save(job);
+
+        notificationService.createNotification(
+                job.getUser().getId(),
+                "Your job '" + job.getTitle() + "' has been completed by the provider.",
+                NotificationType.JOB_COMPLETED
+        );
+
+        // notify provider
+        notificationService.createNotification(
+                user.getId(),
+                "You have marked job '" + job.getTitle() + "' as completed.",
+                NotificationType.JOB_COMPLETED
+        );
+        return mapToJobResponseDTO(savedJob);
+    }
+
+
     private Sort parseSort(String sort) {
         if (sort == null || sort.isEmpty()) {
             return Sort.by(Sort.Direction.DESC, "createdAt");
