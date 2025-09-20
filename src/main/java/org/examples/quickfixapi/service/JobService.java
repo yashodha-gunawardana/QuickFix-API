@@ -12,8 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -261,6 +263,26 @@ public class JobService {
         job.setPreferredTime(jobPostDTO.getPreferredTime() != null ? jobPostDTO.getPreferredTime() : "Any time");
         Job savedJob = jobRepository.save(job);
         return mapToJobResponseDTO(savedJob);
+    }
+
+
+    // Delete a job
+    public void deleteJob(Long jobId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+        // Only the customer who posted the job can delete it
+        if (!job.getUser().getId().equals(user.getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You can only delete your own jobs");
+        }
+
+        // Only allow deletion if status is PENDING
+        if (!job.getStatus().equals(JobStatus.PENDING)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot delete this job. Only PENDING jobs can be deleted.");
+        }
+        jobRepository.delete(job);
     }
 
 
