@@ -49,4 +49,12 @@ public class JobController {
         return new ResponseEntity<>(job, HttpStatus.OK);
     }
 
+
+    // Update a job
+    @PutMapping("/update/{jobId}")
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<JobResponseDTO> updateJob(@PathVariable Long jobId, @RequestBody JobPostDTO jobPostDTO) {
+        JobResponseDTO response = jobService.updateJob(jobId, jobPostDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
