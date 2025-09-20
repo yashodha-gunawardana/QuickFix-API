@@ -3,14 +3,18 @@ package org.examples.quickfixapi.controller;
 import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.dto.ProviderRequestDTO;
 import org.examples.quickfixapi.dto.UserDTO;
+import org.examples.quickfixapi.entity.Role;
+import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.respository.JobRepository;
 import org.examples.quickfixapi.respository.ProviderRequestRepository;
 import org.examples.quickfixapi.respository.UserRepository;
 import org.examples.quickfixapi.service.AdminService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -54,6 +58,30 @@ public class AdminController {
         return adminService.getAllUsers(page, size, filter, search);
     }
 
+
+    // update a user's role, status, and username by id
+    @PutMapping("/users/{id}")
+    public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody Map<String, String> updates) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (updates.containsKey("role")) {
+            user.setRole(Role.valueOf(updates.get("role").toUpperCase()));
+        }
+        if (updates.containsKey("status")) {
+            // Map status string to enabled boolean
+            String status = updates.get("status").toUpperCase();
+            if ("ACTIVE".equals(status)) {
+                user.setEnabled(true);
+            } else {
+                user.setEnabled(false); // Suspended or other
+            }
+        }
+        if (updates.containsKey("username")) {
+            user.setUsername(updates.get("username"));
+        }
+        userRepository.save(user);
+        return ResponseEntity.ok().build();
+    }
 
 
 }
