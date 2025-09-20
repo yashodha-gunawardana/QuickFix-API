@@ -7,12 +7,15 @@ import org.examples.quickfixapi.dto.ProviderProfileDTO;
 import org.examples.quickfixapi.entity.CustomerProfile;
 import org.examples.quickfixapi.entity.ProviderProfile;
 import org.examples.quickfixapi.service.ProfileService;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 @RestController
 @RequestMapping("/api/profile")
@@ -69,6 +72,14 @@ public class profileController {
         return ResponseEntity.ok(new ApiResponse(200, "Provider profile updated", providerProfile));
     }
 
+
+    @GetMapping("/image/{filename:.+}") // use .+ to allow dots in filename
+    public ResponseEntity<Resource> getProfileImage(@PathVariable String filename) throws MalformedURLException {
+        Resource file = profileService.loadProfileImage(filename);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getFilename() + "\"")
+                .body(file);
+    }
 
 
 }
