@@ -57,4 +57,14 @@ public class JobController {
         JobResponseDTO response = jobService.updateJob(jobId, jobPostDTO);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+
+    // Delete a job
+    @DeleteMapping("/delete/{jobId}")
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<Void> deleteJob(@PathVariable Long jobId) {
+        jobService.deleteJob(jobId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
