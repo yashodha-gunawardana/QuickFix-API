@@ -1,6 +1,7 @@
 package org.examples.quickfixapi.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.examples.quickfixapi.dto.JobResponseDTO;
 import org.examples.quickfixapi.dto.ProviderRequestDTO;
 import org.examples.quickfixapi.dto.UserDTO;
 import org.examples.quickfixapi.entity.ProviderRequest;
@@ -96,6 +97,7 @@ public class AdminController {
     }
 
 
+    // get single user details by id
     @GetMapping("/users/{id}")
     public UserDTO getUserById(@PathVariable Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
@@ -123,6 +125,17 @@ public class AdminController {
                 postedJobCount,
                 acceptedJobCount
         );
+    }
+
+
+    @GetMapping("all/jobs")
+    public ResponseEntity<Page<JobResponseDTO>> getAllJobs(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false, defaultValue = "all") String filter
+    ) {
+        Page<JobResponseDTO> jobs = adminService.getAllJobs(page, size, filter);
+        return ResponseEntity.ok(jobs);
     }
 
 }
