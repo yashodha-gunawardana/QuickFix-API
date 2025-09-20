@@ -17,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
+
     private final UserRepository userRepository;
 
     @Bean

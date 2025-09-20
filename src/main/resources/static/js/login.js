@@ -38,7 +38,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     body: JSON.stringify({ email, password })
                 });
 
-                const body = await res.json();
+               // const body = await res.json();
+                // Safe JSON parse (handle non-JSON errors)
+                let body;
+                const text = await res.text();
+                try {
+                    body = text ? JSON.parse(text) : {};
+                } catch (parseErr) {
+                    throw new Error('Invalid server response: ' + text.substring(0, 100));
+                }
 
                 if (res.status !== 200) {
                     Swal.fire({
@@ -79,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             window.location.href = "/index.html"; // fallback
                         }
                     }, 1000);
+
                 }
             } catch (err) {
                 console.error("Error during login:", err);

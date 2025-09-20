@@ -1,7 +1,5 @@
 package org.examples.quickfixapi.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.List;
@@ -12,15 +10,12 @@ public class ProviderProfileDTO {
     private Long id;
     private String firstName;
     private String lastName;
-
-    @NotBlank(message = "Email is required")
-    @Email(message = "Invalid email format")
     private String email;
     private String phoneNo;
     private String address;
-    private Integer experience;
+    private Integer experienceYears;
     private Double hourlyRate;
-    private List<String> serviceOffered;
+    private List<String> serviceOffered; // frontend selet
     private String profileImage;
     private String bio;
 }

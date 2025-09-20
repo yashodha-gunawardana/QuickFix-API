@@ -40,15 +40,16 @@
         <div class="header-actions">
             <div class="notification-bell">
                 <i class="fas fa-bell"></i>
-                <span class="notification-badge">8</span>
+                <span class="notification-badge" id="header-notification-badge"></span>
             </div>
-            <div class="user-profile">
+
+            <div class="user-info">
                 <div class="user-avatar">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="User">
+                    <img id="header-profile-image" src="https://placehold.co/40x40/6366f1/ffffff?text=User" alt="User Avatar">
                 </div>
-                <div class="user-info">
-                    <div class="name user-name"></div>
-                    <div class="role" id="header-role"></div>
+                <div>
+                    <div id="header-name">Provider User</div>
+                    <small class="text-muted" id="header-role">Role</small>
                 </div>
             </div>
         </div>
@@ -78,11 +79,11 @@
                     <div class="col-md-4">
                         <div class="stat-card">
                             <div class="stat-icon">
-                                <i class="fas fa-check-circle"></i>
+                                <i class="fas fa-briefcase"></i>
                             </div>
                             <div class="stat-content">
-                                <h2>12</h2>
-                                <p>Jobs Completed</p>
+                                <h2 id="stat-available-jobs">0</h2>
+                                <p>Available Jobs</p>
                             </div>
                         </div>
                     </div>
@@ -92,19 +93,19 @@
                                 <i class="fas fa-clock"></i>
                             </div>
                             <div class="stat-content">
-                                <h2>3</h2>
-                                <p>Jobs Pending</p>
+                                <h2 id="stat-active-time">0</h2>
+                                <p>Active Time</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="stat-card">
                             <div class="stat-icon">
-                                <i class="fas fa-chart-bar"></i>
+                                <i class="fas fa-check-circle"></i>
                             </div>
                             <div class="stat-content">
-                                <h2>$1,200</h2>
-                                <p>Earnings</p>
+                                <h2 id="stat-completed-jobs">0</h2>
+                                <p>Completed Jobs</p>
                             </div>
                         </div>
                     </div>
@@ -135,28 +136,12 @@
                             <td>Mechanic</td>
                             <td>$120</td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-primary me-2 action-btn"><i class="fas fa-check"></i> Accept</a>
-                                <a href="#" class="btn btn-sm btn-outline-secondary action-btn"><i class="fas fa-times"></i> Reject</a>
+                                <button class="btn btn-sm btn-success approve-btn"><i class="fas fa-check"></i> Accept</button>
+                                <button class="btn btn-sm btn-danger reject-btn"><i class="fas fa-times"></i> Reject</button>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-
-                    <div class="pagination">
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-
-                    <div class="page-info">
-                        Showing 1 to 4 of 4 entries
-                    </div>
                 </div>
             </div>
 
@@ -182,17 +167,19 @@
             <div class="table-section">
                 <div class="table-header">
                     <h3><i class="fas fa-search-dollar"></i> Available Jobs</h3>
-                    <a href="#" class="btn btn-sm btn-light"><i class="fas fa-filter me-1"></i> Filter</a>
+                    <a href="#" class="btn btn-sm btn-light" id="filter-toggle"><i class="fas fa-filter me-1"></i> Filter</a>
                 </div>
 
-                <div class="job-filters">
-                    <button class="filter-btn active">All Jobs</button>
-                    <button class="filter-btn">Plumbing</button>
-                    <button class="filter-btn">Electrical</button>
-                    <button class="filter-btn">Mechanic</button>
-                    <button class="filter-btn">Carpentry</button>
-                    <button class="filter-btn">Cleaning</button>
+                <div class="job-filters" id="job-filters">
+                    <button class="filter-btn active" data-filter="all">All Jobs</button>
+                    <button class="filter-btn" data-filter="Plumbing">Plumbing</button>
+                    <button class="filter-btn" data-filter="Electrical">Electrical</button>
+                    <button class="filter-btn" data-filter="Mechanic">Mechanic</button>
+                    <button class="filter-btn" data-filter="Carpentry">Carpentry</button>
+                    <button class="filter-btn" data-filter="Cleaning">Cleaning</button>
+                    <button class="filter-btn" data-filter="Others">Others</button>
                 </div>
+
 
                 <div class="table-content">
                     <table class="available-job-table">
@@ -208,7 +195,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr data-category="Mechanic">
                             <td>Car Repair</td>
                             <td>John Doe</td>
                             <td>Mechanic</td>
@@ -216,28 +203,52 @@
                             <td>$120</td>
                             <td>2 hours ago</td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-primary me-2 action-btn"><i class="fas fa-check"></i> Accept</a>
-                                <a href="#" class="btn btn-sm btn-outline-secondary action-btn"><i class="fas fa-times"></i> Reject</a>
+                                <button class="btn btn-sm btn-success approve-btn"><i class="fas fa-check"></i> Accept</button>
+                                <button class="btn btn-sm btn-danger reject-btn"><i class="fas fa-times"></i> Reject</button>
+                            </td>
+                        </tr>
+                        <tr data-category="Plumbing">
+                            <td>Fix Leaky Pipe</td>
+                            <td>Jane Smith</td>
+                            <td>Plumbing</td>
+                            <td>Los Angeles</td>
+                            <td>$80</td>
+                            <td>4 hours ago</td>
+                            <td>
+                                <button class="btn btn-sm btn-success approve-btn"><i class="fas fa-check"></i> Accept</button>
+                                <button class="btn btn-sm btn-danger reject-btn"><i class="fas fa-times"></i> Reject</button>
+                            </td>
+                        </tr>
+                        <tr data-category="Electrical">
+                            <td>Wiring Repair</td>
+                            <td>Alice Johnson</td>
+                            <td>Electrical</td>
+                            <td>Chicago</td>
+                            <td>$150</td>
+                            <td>1 day ago</td>
+                            <td>
+                                <button class="btn btn-sm btn-success approve-btn"><i class="fas fa-check"></i> Accept</button>
+                                <button class="btn btn-sm btn-danger reject-btn"><i class="fas fa-times"></i> Reject</button>
+                            </td>
+                        </tr>
+                        <tr data-category="Carpentry">
+                            <td>Build Shelf</td>
+                            <td>Bob Wilson</td>
+                            <td>Carpentry</td>
+                            <td>Miami</td>
+                            <td>$200</td>
+                            <td>3 hours ago</td>
+                            <td>
+                                <button class="btn btn-sm btn-success approve-btn"><i class="fas fa-check"></i> Accept</button>
+                                <button class="btn btn-sm btn-danger reject-btn"><i class="fas fa-times"></i> Reject</button>
                             </td>
                         </tr>
                         </tbody>
                     </table>
 
-                    <div class="pagination">
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
-                    </div>
+                    <div class="pagination" id="available-job-pagination"></div>
 
-                    <div class="page-info">
-                        Showing 1 to 4 of 4 entries
-                    </div>
+                    <div class="page-info" id="available-job-page-info"></div>
                 </div>
             </div>
         </div>
@@ -255,9 +266,9 @@
                             <div class="status-title">Pending Jobs</div>
                             <i class="fas fa-clock text-warning"></i>
                         </div>
-                        <div class="status-value">3</div>
-                        <div class="status-change">
-                            <i class="fas fa-arrow-up text-success"></i> 1 from last week
+                        <div class="status-value" id="pending-jobs">0</div>
+                        <div class="status-change" id="pending-change">
+<!--                            <i class="fas fa-arrow-up text-success"></i> <span>0 from last week</span>-->
                         </div>
                     </div>
 
@@ -266,9 +277,9 @@
                             <div class="status-title">Active Jobs</div>
                             <i class="fas fa-play-circle text-primary"></i>
                         </div>
-                        <div class="status-value">2</div>
-                        <div class="status-change">
-                            <i class="fas fa-arrow-down text-danger"></i> 1 from last week
+                        <div class="status-value" id="accepted-jobs">0</div>
+                        <div class="status-change" id="accepted-change">
+<!--                            <i class="fas fa-arrow-down text-danger"></i> <span>0 from last week</span>-->
                         </div>
                     </div>
 
@@ -277,9 +288,9 @@
                             <div class="status-title">Completed Jobs</div>
                             <i class="fas fa-check-circle text-success"></i>
                         </div>
-                        <div class="status-value">12</div>
-                        <div class="status-change">
-                            <i class="fas fa-arrow-up text-success"></i> 3 from last week
+                        <div class="status-value" id="completed-jobs">0</div>
+                        <div class="status-change" id="completed-change">
+<!--                            <i class="fas fa-arrow-up text-success"></i> <span>0 from last week</span>-->
                         </div>
                     </div>
                 </div>
@@ -287,7 +298,7 @@
                 <div class="table-section">
                     <div class="table-header">
                         <h3><i class="fas fa-tasks"></i> Current Jobs</h3>
-                        <a href="#" class="btn btn-sm btn-light">View All <i class="fas fa-arrow-right ms-1"></i></a>
+<!--                        <a href="#" class="btn btn-sm btn-light">View All <i class="fas fa-arrow-right ms-1"></i></a>-->
                     </div>
                     <div class="table-content">
                         <table class="my-work-table">
@@ -307,29 +318,27 @@
                                 <td>David Wilson</td>
                                 <td>Oct 15, 2023</td>
                                 <td>Oct 25, 2023</td>
-                                <td><span class="status-badge badge-accepted">In Progress</span></td>
+                                <td><span class="badge-in_progress">In_Progress</span></td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-primary action-btn"><i class="fas fa-eye"></i> View</a>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-info view-btn action-btn" data-job-id="${job.id}">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-success start-btn action-btn" data-job-id="${job.id}">
+                                            <i class="fas fa-play"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-primary complete-btn action-btn" data-job-id="${job.id}">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
 
-                        <div class="pagination">
-                            <nav>
-                                <ul class="pagination">
-                                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                </ul>
-                            </nav>
-                        </div>
+                        <div class="pagination" id="my-work-pagination"></div>
 
-                        <div class="page-info">
-                            Showing 1 to 4 of 4 entries
-                        </div>
+                        <div class="page-info" id="my-work-page-info"></div>
                     </div>
                 </div>
             </div>
@@ -350,69 +359,89 @@
                 </div>
 
                 <div class="job-filters">
-                    <button class="filter-btn active">All Notifications</button>
-                    <button class="filter-btn">Unread</button>
-                    <button class="filter-btn">Job Alerts</button>
+                    <div class="filter-tab active">
+                        <i class="fas fa-inbox"></i> All Notifications
+                        <span class="badge">12</span>
+                    </div>
+                    <div class="filter-tab">
+                        <i class="fas fa-envelope"></i> Unread
+                        <span class="badge">5</span>
+                    </div>
+                    <div class="filter-tab active">
+                        <i class="fas fa-inbox"></i> Job Alert
+                        <span class="badge">10</span>
+                    </div>
                 </div>
 
-                <div class="p-4">
-                    <ul class="notification-list">
-                        <li class="notification-item">
-                            <div class="notification-icon info">
-                                <i class="fas fa-briefcase"></i>
+                <div class="notifications">
+                    <div class="notification-card unread">
+                        <div class="icon info">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                A new job alert
+                                <span class="badge">New</span>
                             </div>
-                            <div class="notification-content">
-                                <div class="notification-title">New Job Available</div>
-                                <div class="notification-desc">A new plumbing job has been posted in your area with a budget of $120.</div>
-                                <div class="notification-time">2 hours ago</div>
+                            <div class="notification-desc">
+                                A new plumbing job has been posted in your area
+                                with a budget of $120.
                             </div>
-                            <div class="notification-actions">
-                                <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                            <div class="notification-meta">
+                                <div class="notification-time">
+                                    <i class="far fa-clock"></i> 2 hours ago
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="btn btn-sm btn-outline">Mark as read</button>
+                                </div>
                             </div>
-                        </li>
+                        </div>
+                    </div>
 
-                        <li class="notification-item">
-                            <div class="notification-icon alert">
-                                <i class="fas fa-calendar-times"></i>
-                            </div>
-                            <div class="notification-content">
-                                <div class="notification-title">Appointment Reminder</div>
-                                <div class="notification-desc">You have a scheduled job with Emily Davis tomorrow at 10:00 AM.</div>
-                                <div class="notification-time">5 hours ago</div>
-                            </div>
-                            <div class="notification-actions">
-                                <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
-                            </div>
-                        </li>
 
-                        <li class="notification-item">
-                            <div class="notification-icon info">
-                                <i class="fas fa-star"></i>
+                    <div class="notification-card">
+                        <div class="icon warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Special Offer Ending Soon
                             </div>
-                            <div class="notification-content">
-                                <div class="notification-title">New Review Received</div>
-                                <div class="notification-desc">John Doe left a 5-star review for your recent car repair service.</div>
-                                <div class="notification-time">Yesterday</div>
+                            <div class="notification-desc">
+                                Your exclusive 20% discount ends in 24 hours. Use code: SAVE20 at checkout.
                             </div>
-                            <div class="notification-actions">
-                                <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                            <div class="notification-meta">
+                                <div class="notification-time">
+                                    <i class="far fa-clock"></i> Yesterday
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="btn btn-sm btn-outline">Mark as unread</button>
+                                </div>
                             </div>
-                        </li>
+                        </div>
+                    </div>
 
-                        <li class="notification-item">
-                            <div class="notification-icon warning">
-                                <i class="fas fa-exclamation-triangle"></i>
+                    <div class="notification-card">
+                        <div class="icon alert">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Payment Method Updated
                             </div>
-                            <div class="notification-content">
-                                <div class="notification-title">Payment Received</div>
-                                <div class="notification-desc">You've received a payment of $150 for the bathroom remodel job.</div>
-                                <div class="notification-time">2 days ago</div>
+                            <div class="notification-desc">
+                                Your credit card ending in 7829 has been successfully updated in your account.
                             </div>
-                            <div class="notification-actions">
-                                <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
+                            <div class="notification-meta">
+                                <div class="notification-time">
+                                    <i class="far fa-clock"></i> 2 days ago
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="btn btn-sm btn-outline">Mark as unread</button>
+                                </div>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -422,31 +451,32 @@
     <div class="page-content" id="provider-profile">
         <div class="container-fluid">
             <div class="row">
+
                 <div class="col-md-4">
                     <div class="stat-card">
                         <div class="text-center mb-4">
-                            <div class="avatar-container">
-                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Jane Smith">
+                            <div class="profile-container">
+                                <img id="provider-profileImage" src="https://placehold.co/128x128/6366f1/ffffff?text=User" alt="Profile Photo">
                             </div>
-                            <h4 class="profile-name">Jane Smith</h4>
-                            <p class="profile-title">Professional Service Provider</p>
+
+                            <h2 id="firstName" class="user-name"></h2>
+
+                            <label for="imageFile" class="upload-btn">
+                                <i class="fas fa-camera"></i> Change Photo
+                            </label>
+                            <input type="file" id="imageFile" name="imageFile" accept="image/*" class="d-none">
                         </div>
 
                         <div class="profile-card">
-                            <h5 >Contact Info</h5>
-                            <p class="info-item"><i class="fas fa-envelope"></i> jane.smith@example.com</p>
-                            <p class="info-item"><i class="fas fa-phone"></i> (555) 987-6543</p>
-                            <p class="info-item"><i class="fas fa-map-marker-alt"></i> Brooklyn, NY</p>
+                            <h5>Contact Info</h5>
+                            <p class="info-item"><i class="fas fa-envelope"></i> <span id="contactEmail"></span></p>
+                            <p class="info-item"><i class="fas fa-phone"></i> <span id="contactPhone"></span></p>
+                            <p class="info-item"><i class="fas fa-map-marker-alt"></i> <span id="contactAddress"></span></p>
                         </div>
-
                         <div class="profile-card">
                             <h5>Services Offered</h5>
-                            <div>
-                                <span class="service-badge">Plumbing</span>
-                                <span class="service-badge">Electrical</span>
-                                <span class="service-badge">Carpentry</span>
-                                <span class="service-badge">Painting</span>
-                                <span class="service-badge">Home Repair</span>
+                            <div id="servicesList">
+                                <!-- Populated dynamically with service-badge spans -->
                             </div>
                         </div>
                     </div>
@@ -458,18 +488,18 @@
                         <div class="compact-form">
                             <h4 class="mb-3"><i class="fas fa-user-edit me-2"></i> Professional Profile</h4>
 
-                            <form>
+                            <form id="provider-profile-form">
                                 <div class="row mb-2">
                                     <div class="col-md-6">
                                         <div class="mb-2">
                                             <label class="form-label small-label" for="provider-first-name">First Name</label>
-                                            <input type="text" class="form-control form-control-md" id="provider-first-name" value="Jane">
+                                            <input type="text" class="form-control form-control-md" id="provider-first-name" value="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-2">
                                             <label class="form-label small-label" for="provider-last-name">Last Name</label>
-                                            <input type="text" class="form-control form-control-md" id="provider-last-name" value="Smith">
+                                            <input type="text" class="form-control form-control-md" id="provider-last-name" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -478,20 +508,20 @@
                                     <div class="col-md-6">
                                         <div class="mb-2">
                                             <label class="form-label small-label" for="provider-email">Email Address</label>
-                                            <input type="email" class="form-control form-control-md" id="provider-email" value="jane.smith@example.com">
+                                            <input type="email" class="form-control form-control-md" id="provider-email" value="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-2">
                                             <label class="form-label small-label" for="provider-phone">Phone Number</label>
-                                            <input type="tel" class="form-control form-control-md" id="provider-phone" value="(555) 987-6543">
+                                            <input type="tel" class="form-control form-control-md" id="provider-phone" value="">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="mb-2">
                                     <label class="form-label small-label" for="provider-address">Address</label>
-                                    <textarea class="form-control form-control-md" id="provider-address" rows="1">456 Service Ave, Brooklyn, NY 11201</textarea>
+                                    <textarea class="form-control form-control-md" id="provider-address" rows="1"></textarea>
                                 </div>
 
                                 <div class="row mb-2">
@@ -510,7 +540,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-2">
                                             <label class="form-label small-label" for="provider-hourly-rate">Hourly Rate ($)</label>
-                                            <input type="number" class="form-control form-control-md" id="provider-hourly-rate" value="65">
+                                            <input type="number" class="form-control form-control-md" id="provider-hourly-rate" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -520,15 +550,15 @@
                                     <div class="services-container compact-services">
                                         <div class="services-row">
                                             <div class="service-checkbox compact-checkbox">
-                                                <input class="form-check-input" type="checkbox" id="plumbing" checked>
+                                                <input class="form-check-input" type="checkbox" id="plumbing">
                                                 <label class="form-check-label" for="plumbing">Plumbing</label>
                                             </div>
                                             <div class="service-checkbox compact-checkbox">
-                                                <input class="form-check-input" type="checkbox" id="electrical" checked>
+                                                <input class="form-check-input" type="checkbox" id="electrical">
                                                 <label class="form-check-label" for="electrical">Electrical</label>
                                             </div>
                                             <div class="service-checkbox compact-checkbox">
-                                                <input class="form-check-input" type="checkbox" id="carpentry" checked>
+                                                <input class="form-check-input" type="checkbox" id="carpentry">
                                                 <label class="form-check-label" for="carpentry">Carpentry</label>
                                             </div>
                                             <div class="service-checkbox compact-checkbox">
@@ -545,11 +575,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label" for="provider-profile-images"> Upload Images</label>
-                                    <input type="file" class="form-control" id="provider-profile-images" multiple accept="image/*">
                                 </div>
 
                                 <div class="mb-2">
@@ -601,60 +626,88 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/serviceProviderDashboard.js"></script>
 
-
 <script>
-    // Simple interaction for filter buttons
-    document.querySelectorAll('.filter-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            this.classList.add('active');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mark as read buttons
+        const markButtons = document.querySelectorAll('.btn-outline');
 
-            // Simulate loading when changing filters
-            const notificationList = document.querySelector('.notification-list');
-            notificationList.style.opacity = '0.5';
+        markButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.notification-card');
+                const isUnread = card.classList.contains('unread');
 
-            setTimeout(() => {
-                notificationList.style.opacity = '1';
-            }, 300);
-        });
-    });
+                if (isUnread) {
+                    card.classList.remove('unread');
+                    this.textContent = 'Mark as unread';
 
-    // Mark as read functionality
-    document.querySelectorAll('.notification-actions .btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const notificationItem = this.closest('.notification-item');
-            const badge = notificationItem.querySelector('.badge');
-
-            if (this.textContent === 'Mark as read') {
-                notificationItem.classList.remove('unread');
-                if (badge) badge.remove();
-                this.textContent = 'Mark as unread';
-            } else {
-                notificationItem.classList.add('unread');
-                this.textContent = 'Mark as read';
-
-                // Add badge if doesn't exist
-                if (!badge) {
-                    const title = notificationItem.querySelector('.notification-title');
-                    title.innerHTML += ' <span class="badge bg-primary">New</span>';
+                    // Remove badge if exists
+                    const badge = card.querySelector('.notification-title .badge');
+                    if (badge) {
+                        badge.remove();
+                    }
+                } else {
+                    card.classList.add('unread');
+                    this.textContent = 'Mark as read';
                 }
-            }
+            });
         });
-    });
 
-    // Mark all as read
-    document.querySelector('.header-actions .btn').addEventListener('click', function() {
-        document.querySelectorAll('.notification-item').forEach(item => {
-            item.classList.remove('unread');
-            const badge = item.querySelector('.badge');
-            if (badge) badge.remove();
+        // Mark all as read button
+        const markAllButton = document.querySelector('.btn-primary');
 
-            const button = item.querySelector('.notification-actions .btn');
-            if (button && button.textContent === 'Mark as read') {
-                button.textContent = 'Mark as unread';
-            }
+        markAllButton.addEventListener('click', function() {
+            const unreadCards = document.querySelectorAll('.notification-card.unread');
+
+            unreadCards.forEach(card => {
+                card.classList.remove('unread');
+
+                const button = card.querySelector('.btn-outline');
+                if (button) {
+                    button.textContent = 'Mark as unread';
+                }
+
+                const badge = card.querySelector('.notification-title .badge');
+                if (badge) {
+                    badge.remove();
+                }
+            });
+        });
+
+        // Filter tabs
+        const filterTabs = document.querySelectorAll('.filter-tab');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+
+                // Simple filter simulation
+                const filterText = this.textContent.trim();
+                const cards = document.querySelectorAll('.notification-card');
+
+                if (filterText.includes('Unread')) {
+                    cards.forEach(card => {
+                        if (!card.classList.contains('unread')) {
+                            card.style.display = 'none';
+                        } else {
+                            card.style.display = 'flex';
+                        }
+                    });
+                } else if (filterText.includes('Orders')) {
+                    // Simulate filtering for orders
+                    cards.forEach(card => {
+                        if (card.querySelector('.notification-title').textContent.includes('Order')) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                } else {
+                    cards.forEach(card => {
+                        card.style.display = 'flex';
+                    });
+                }
+            });
         });
     });
 </script>

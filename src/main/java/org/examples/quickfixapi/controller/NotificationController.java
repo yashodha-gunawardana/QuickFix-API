@@ -1,5 +1,6 @@
 package org.examples.quickfixapi.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.entity.Notification;
 import org.examples.quickfixapi.service.NotificationService;
 import org.springframework.web.bind.annotation.*;
@@ -7,16 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping("/api/notifications")
+@RequiredArgsConstructor
 public class NotificationController {
 
     private final NotificationService notificationService;
-
-    public NotificationController(NotificationService notificationService) {
-        this.notificationService = notificationService;
-    }
 
 
     @GetMapping("/user/{userId}")
@@ -41,14 +38,27 @@ public class NotificationController {
         return Map.of("message", "Notification marked as read");
     }
 
-    @PostMapping("/user/{userId}/read-all")
+    @PostMapping("/{id}/unread")
+    public Map<String, String> markAsUnread(@PathVariable Long id) {
+        notificationService.markAsUnread(id);
+        return Map.of("message", "Notification marked as unread");
+    }
+
+    /*@PostMapping("/user/{userId}/read-all")
     public Map<String, String> markAllAsRead(@PathVariable Long userId) {
-        List<Notification> unreadNotifications = notificationService.getUnreadNotifications(userId);
+       /* List<Notification> unreadNotifications = notificationService.getUnreadNotifications(userId);
         unreadNotifications.forEach(notification -> {
             notification.setIsRead(true);
             // Optional: save in bulk for performance
         });
         return Map.of("message", "All notifications marked as read");
+
+    }*/
+    @PostMapping("/user/{userId}/read-all")
+    public Map<String, String> markAllAsRead(@PathVariable Long userId) {
+        notificationService.markAllAsRead(userId);
+        return Map.of("message", "All notifications marked as read");
     }
+
 
 }

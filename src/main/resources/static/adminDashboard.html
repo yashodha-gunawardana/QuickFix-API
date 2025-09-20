@@ -48,18 +48,19 @@
             </div>
             <ul class="notification-list"></ul>
 
-            <div class="user-profile">
+            <div class="user-info">
                 <div class="user-avatar">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="User">
+                    <img id="header-profile-image" src="https://placehold.co/40x40/6366f1/ffffff?text=User" alt="User Avatar">
                 </div>
-                <div class="user-info">
-                    <div class="name user-name"></div>
-                    <div class="role" id="header-role">Administrator</div>
+                <div>
+                    <div>Admin User</div>
+                    <small class="text-muted" id="header-role">Administrator</small>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <!----- Main Content Dashboard -------->
 <div class="main-content" id="content">
@@ -72,8 +73,8 @@
                     <h1>Command the Platform</h1>
                     <p>Oversee operations, resolve issues, and drive growth with powerful tools.</p>
                     <div class="hero-actions">
-                        <a href="#reports" class="btn btn-hero"><i class="fas fa-chart-line"></i> View Analytics</a>
-                        <a href="#manage-users" class="btn btn-hero"><i class="fas fa-users"></i> Manage Users</a>
+<!--                        <a href="#reports" class="btn btn-hero"><i class="fas fa-chart-line"></i> View Analytics</a>-->
+                        <a href="#" class="btn btn-hero"><i class="fas fa-users"></i> Manage Users</a>
                     </div>
                 </div>
             </div>
@@ -153,46 +154,30 @@
                                 <td>Jane Smith</td>
                                 <td>Service Provider</td>
                                 <td>Aug 27, 2025</td>
-                                <td><span class="badge badge-pending">Pending</span></td>
+                                <td><span class="badge-pending">Pending</span></td>
                                 <td>
-                                    <button class="btn btn-success btn-sm accept-btn">Accept</button>
-                                    <button class="btn btn-danger btn-sm reject-btn">Reject</button>
+                                    <button class="btn btn-sm btn-success approve-btn"><i class="fas fa-check"></i>Accept</button>
+                                    <button class="btn btn-sm btn-danger reject-btn"><i class="fas fa-times"></i>Reject</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-
-                    <div class="pagination">
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-
-                    <div class="page-info">
-                        Showing 1 to 4 of 4 entries
-                    </div>
                 </div>
             </div>
 
             <!-- Analytics Section -->
-            <div class="table-section analytics-section">
-                <div class="table-header analytics-header">
-                    <h3><i class="fas fa-chart-pie"></i> Platform Insights</h3>
-                    <a href="#" class="btn btn-sm btn-light">Generate Report <i class="fas fa-arrow-right ms-1"></i></a>
-                </div>
-                <div class="analytics-placeholder">
-                    <div class="analytics-content">
-                        <i class="fas fa-chart-bar"></i>
-                        <p>Dynamic Analytics (Integrate Chart.js)</p>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="table-section analytics-section">-->
+<!--                <div class="table-header analytics-header">-->
+<!--                    <h3><i class="fas fa-chart-pie"></i> Platform Insights</h3>-->
+<!--                    <a href="#" class="btn btn-sm btn-light">Generate Report <i class="fas fa-arrow-right ms-1"></i></a>-->
+<!--                </div>-->
+<!--                <div class="analytics-placeholder">-->
+<!--                    <div class="analytics-content">-->
+<!--                        <i class="fas fa-chart-bar"></i>-->
+<!--                        <p>Dynamic Analytics (Integrate Chart.js)</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 
@@ -222,7 +207,6 @@
                         <button class="filter-btn active">All Users</button>
                         <button class="filter-btn">Customers</button>
                         <button class="filter-btn">Providers</button>
-                        <button class="filter-btn">Admins</button>
                         <button class="filter-btn">Active</button>
                         <button class="filter-btn">Pending</button>
                         <button class="filter-btn">Suspended</button>
@@ -238,11 +222,12 @@
                                     <th>Requested Role</th>
                                     <th>Join Date</th>
                                     <th>Status</th>
-                                    <th>Jobs</th>
+                                    <th>Posted Jobs</th>
+                                    <th>Accepted Jobs</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="users-table">
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
@@ -255,32 +240,23 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <select class="form-select">
-                                            <option>Customer</option>
-                                            <option>Provider</option>
-                                            <option>Admin</option>
-                                        </select>
+                                        <span id="current-role">Customer</span>
                                     </td>
-                                    <!-- Role Dropdown -->
                                     <td>
-                                        <select class="form-select form-select-sm">
-                                            <option>-</option>
-                                            <option>Customer</option>
-                                            <option>Provider</option>
-                                            <option>Admin</option>
-                                        </select>
+                                        <span id="requested-role">Provider</span>
                                     </td>
+
                                     <td>Oct 12, 2023</td>
-                                    <!-- Status Dropdown -->
                                     <td>
-                                        <select class="form-select form-select-sm">
-                                            <option selected>Active</option>
-                                            <option>Pending</option>
-                                            <option>Suspended</option>
+                                        <select class="status-select" data-id="${user.id}">
+                                            <option value="ACTIVE" ${user.status ==='ACTIVE'?'selected':''}>Active</option>
+                                            <option value="SUSPENDED" ${user.status ==='SUSPENDED'?'selected':''}>Suspended</option>
+                                            <option value="PENDING" ${user.status ==='PENDING'?'selected':''}>Pending</option>
                                         </select>
                                     </td>
+
                                     <td>5</td>
-                                    <!-- Actions -->
+                                    <td>7</td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
@@ -292,10 +268,10 @@
                             </tbody>
                         </table>
 
-                        <div class="pagination">
+                        <div class="pagination" id="users-pagination">
                             <nav>
                                 <ul class="pagination">
-                                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
                                     <li class="page-item active"><a class="page-link" href="#">1</a></li>
                                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                                     <li class="page-item"><a class="page-link" href="#">3</a></li>
@@ -304,7 +280,7 @@
                             </nav>
                         </div>
 
-                        <div class="page-info">
+                        <div class="page-info" id="users-page-info">
                             Showing 1 to 4 of 4 entries
                         </div>
                     </div>
@@ -320,23 +296,27 @@
                 <div class="table-section">
                     <div class="table-header">
                         <h3><i class="fas fa-tasks"></i> Job Management</h3>
-                        <a href="#" class="btn btn-sm btn-light"><i class="fas fa-filter me-1"></i> Filter</a>
+                        <a href="#" class="btn btn-sm btn-light" id="filter-toggle"><i class="fas fa-filter me-1"></i> Filter</a>
                     </div>
 
-                    <div class="job-filters">
-                        <button class="filter-btn active">All Jobs</button>
-                        <button class="filter-btn">Active</button>
-                        <button class="filter-btn">Pending</button>
-                        <button class="filter-btn">Completed</button>
-                        <button class="filter-btn">Cancelled</button>
+                    <div class="job-filters" id="job-filters">
+                        <button class="filter-btn active" data-filter="all">All Jobs</button>
+                        <button class="filter-btn" data-filter="ACCEPTED">Active</button>
+                        <button class="filter-btn" data-filter="PENDING">Pending</button>
+                        <button class="filter-btn" data-filter="IN_PROGRESS">In Progress</button>
+                        <button class="filter-btn" data-filter="COMPLETED">Completed</button>
+                        <button class="filter-btn" data-filter="REJECTED">Cancelled</button>
                     </div>
+
 
                     <div class="table-content">
                         <table class="job-table">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Job Title</th>
                                     <th>Category</th>
+                                    <th>Location</th>
                                     <th>Posted By</th>
                                     <th>Budget</th>
                                     <th>Status</th>
@@ -344,82 +324,97 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Plumbing Repair</td>
-                                    <td>Plumbing</td>
-                                    <td>John Doe</td>
-                                    <td>$150</td>
-                                    <td><span class="status-badge badge-active">Active</span></td>
-                                    <td>Oct 15, 2023</td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Electrical Wiring</td>
-                                    <td>Electrical</td>
-                                    <td>Mike Johnson</td>
-                                    <td>$250</td>
-                                    <td><span class="status-badge badge-pending">Pending</span></td>
-                                    <td>Oct 14, 2023</td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Furniture Assembly</td>
-                                    <td>Carpentry</td>
-                                    <td>Sarah Williams</td>
-                                    <td>$120</td>
-                                    <td><span class="status-badge badge-active">Active</span></td>
-                                    <td>Oct 13, 2023</td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>TV Mounting</td>
-                                    <td>Installation</td>
-                                    <td>Jane Smith</td>
-                                    <td>$80</td>
-                                    <td><span class="status-badge badge-warning">Completed</span></td>
-                                    <td>Oct 12, 2023</td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-info"><i class="fas fa-file-invoice"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tbody id="jobs-table">
+                            <tr data-status="ACCEPTED">
+                                <td>Plumbing Repair</td>
+                                <td>Plumbing</td>
+                                <td>John Doe</td>
+                                <td>$150</td>
+                                <td><span class="badge-accepted">Accepted</span></td>
+                                <td>Oct 15, 2023</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-status="PENDING">
+                                <td>Electrical Wiring</td>
+                                <td>Electrical</td>
+                                <td>Mike Johnson</td>
+                                <td>$250</td>
+                                <td><span class="badge-pending">Pending</span></td>
+                                <td>Oct 14, 2023</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-status="ACCEPTED">
+                                <td>Furniture Assembly</td>
+                                <td>Carpentry</td>
+                                <td>Sarah Williams</td>
+                                <td>$120</td>
+                                <td><span class="badge-accepted">Accepted</span></td>
+                                <td>Oct 13, 2023</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-status="COMPLETED">
+                                <td>TV Mounting</td>
+                                <td>Installation</td>
+                                <td>Jane Smith</td>
+                                <td>$80</td>
+                                <td><span class="badge-completed">Completed</span></td>
+                                <td>Oct 12, 2023</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-info"><i class="fas fa-file-invoice"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-status="IN_PROGRESS">
+                                <td>Kitchen Renovation</td>
+                                <td>Construction</td>
+                                <td>Alex Brown</td>
+                                <td>$500</td>
+                                <td><span class="badge-in_progress">In Progress</span></td>
+                                <td>Oct 16, 2023</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+
                             </tbody>
                         </table>
 
-                        <div class="pagination">
+                        <div class="pagination" id="jobs-pagination">
                             <nav>
                                 <ul class="pagination">
-                                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
                                     <li class="page-item active"><a class="page-link" href="#">1</a></li>
                                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
                                 </ul>
                             </nav>
-                        </div>
+                       </div>
 
-                        <div class="page-info">
+                        <div class="page-info" id="jobs-page-info">
                             Showing 1 to 4 of 4 entries
                         </div>
                     </div>
@@ -499,27 +494,9 @@
                             <tbody>
                                 <tr>
                                     <td>Database backup completed</td>
-                                    <td><span class="badge bg-success">Info</span></td>
+                                    <td><span class="badge-info">Info</span></td>
                                     <td>Oct 15, 2023 02:30 AM</td>
-                                    <td><span class="status-badge badge-active">Completed</span></td>
-                                </tr>
-                                <tr>
-                                    <td>API response time increased</td>
-                                    <td><span class="badge bg-warning">Warning</span></td>
-                                    <td>Oct 14, 2023 04:15 PM</td>
-                                    <td><span class="status-badge badge-active">Resolved</span></td>
-                                </tr>
-                                <tr>
-                                    <td>User registration spike detected</td>
-                                    <td><span class="badge bg-info">Notice</span></td>
-                                    <td>Oct 14, 2023 11:20 AM</td>
-                                    <td><span class="status-badge badge-active">Monitoring</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Payment processing delay</td>
-                                    <td><span class="badge bg-danger">Critical</span></td>
-                                    <td>Oct 13, 2023 09:45 AM</td>
-                                    <td><span class="status-badge badge-active">Resolved</span></td>
+                                    <td><span class="badge-completed">Completed</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -527,7 +504,7 @@
                         <div class="pagination">
                             <nav>
                                 <ul class="pagination">
-                                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
                                     <li class="page-item active"><a class="page-link" href="#">1</a></li>
                                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                                     <li class="page-item"><a class="page-link" href="#">3</a></li>
@@ -553,97 +530,36 @@
                     <div class="table-header">
                         <h3><i class="fas fa-bell"></i> Notifications</h3>
                         <div class="header-actions">
-                            <button class="btn btn-sm btn-light">
+                            <button id="mark-all-read" class="btn btn-sm btn-light">
                                 <i class="fas fa-check-double me-1"></i> Mark all as read
                             </button>
                         </div>
                     </div>
 
-                    <div class="user-filters">
-                        <button class="filter-btn active">All Notifications</button>
-                        <button class="filter-btn">Unread</button>
-                        <button class="filter-btn">System</button>
-                        <button class="filter-btn">User Reports</button>
+                    <div class="notification-filters job-filters">
+                        <div class="filter-tab active" data-filter="all">
+                            <i class="fas fa-inbox"></i> All Notifications
+                            <span class="badge">0</span>
+                        </div>
+                        <div class="filter-tab"data-filter="unread">
+                            <i class="fas fa-envelope"></i> Unread
+                            <span class="badge">0</span>
+                        </div>
+                        <div class="filter-tab" data-filter="system">
+                            <i class="fas fa-cog"></i> System
+                            <span class="badge">0</span>
+                        </div>
+                        <div class="filter-tab" data-filter="provider_request">
+                            <i class="fas fa-briefcase"></i> Provider Requests
+                            <span class="badge">0</span>
+                        </div>
                     </div>
 
-                    <div class="p-4">
-                        <ul class="notification-list">
-                            <li class="notification-item">
-                                <div class="notification-icon info">
-                                    <i class="fas fa-info-circle"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <div class="notification-title">System Update Completed</div>
-                                    <div class="notification-desc">The latest system update was successfully installed. All services are running normally.</div>
-                                    <div class="notification-time">2 hours ago</div>
-                                </div>
-                                <div class="notification-actions">
-                                    <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
-                                </div>
-                            </li>
-
-                            <li class="notification-item">
-                                <div class="notification-icon warning">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <div class="notification-title">New User Report</div>
-                                    <div class="notification-desc">User Mike Johnson has been reported by another user. Please review.</div>
-                                    <div class="notification-time">5 hours ago</div>
-                                </div>
-                                <div class="notification-actions">
-                                    <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
-                                </div>
-                            </li>
-
-                            <li class="notification-item">
-                                <div class="notification-icon alert">
-                                    <i class="fas fa-credit-card"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <div class="notification-title">Payment Issue</div>
-                                    <div class="notification-desc">A payment processing error occurred for transaction #TX-78945. Review required.</div>
-                                    <div class="notification-time">Yesterday</div>
-                                </div>
-                                <div class="notification-actions">
-                                    <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
-                                </div>
-                            </li>
-
-                            <li class="notification-item">
-                                <div class="notification-icon info">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <div class="notification-title">New Provider Registration</div>
-                                    <div class="notification-desc">Jane Smith has registered as a service provider. Account approval needed.</div>
-                                    <div class="notification-time">2 days ago</div>
-                                </div>
-                                <div class="notification-actions">
-                                    <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
-                                </div>
-                            </li>
-
-                            <li class="notification-item">
-                                <div class="notification-icon warning">
-                                    <i class="fas fa-server"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <div class="notification-title">High Server Load</div>
-                                    <div class="notification-desc">Server CPU usage has reached 85% in the last hour. Consider scaling resources.</div>
-                                    <div class="notification-time">3 days ago</div>
-                                </div>
-                                <div class="notification-actions">
-                                    <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                    <div class="notifications"></div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <!-- Logout Modal -->
@@ -677,58 +593,87 @@
 
 
 <script>
-    // Simple interaction for filter buttons
-    document.querySelectorAll('.filter-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            this.classList.add('active');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mark as read buttons
+        const markButtons = document.querySelectorAll('.btn-outline');
 
-            // Simulate loading when changing filters
-            const notificationList = document.querySelector('.notification-list');
-            notificationList.style.opacity = '0.5';
+        markButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.notification-card');
+                const isUnread = card.classList.contains('unread');
 
-            setTimeout(() => {
-                notificationList.style.opacity = '1';
-            }, 300);
-        });
-    });
+                if (isUnread) {
+                    card.classList.remove('unread');
+                    this.textContent = 'Mark as unread';
 
-    // Mark as read functionality
-    document.querySelectorAll('.notification-actions .btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const notificationItem = this.closest('.notification-item');
-            const badge = notificationItem.querySelector('.badge');
-
-            if (this.textContent === 'Mark as read') {
-                notificationItem.classList.remove('unread');
-                if (badge) badge.remove();
-                this.textContent = 'Mark as unread';
-            } else {
-                notificationItem.classList.add('unread');
-                this.textContent = 'Mark as read';
-
-                // Add badge if doesn't exist
-                if (!badge) {
-                    const title = notificationItem.querySelector('.notification-title');
-                    title.innerHTML += ' <span class="badge bg-primary">New</span>';
+                    // Remove badge if exists
+                    const badge = card.querySelector('.notification-title .badge');
+                    if (badge) {
+                        badge.remove();
+                    }
+                } else {
+                    card.classList.add('unread');
+                    this.textContent = 'Mark as read';
                 }
-            }
+            });
         });
-    });
 
-    // Mark all as read
-    document.querySelector('.header-actions .btn').addEventListener('click', function() {
-        document.querySelectorAll('.notification-item').forEach(item => {
-            item.classList.remove('unread');
-            const badge = item.querySelector('.badge');
-            if (badge) badge.remove();
+        // Mark all as read button
+        const markAllButton = document.querySelector('.btn-primary');
 
-            const button = item.querySelector('.notification-actions .btn');
-            if (button && button.textContent === 'Mark as read') {
-                button.textContent = 'Mark as unread';
-            }
+        markAllButton.addEventListener('click', function() {
+            const unreadCards = document.querySelectorAll('.notification-card.unread');
+
+            unreadCards.forEach(card => {
+                card.classList.remove('unread');
+
+                const button = card.querySelector('.btn-outline');
+                if (button) {
+                    button.textContent = 'Mark as unread';
+                }
+
+                const badge = card.querySelector('.notification-title .badge');
+                if (badge) {
+                    badge.remove();
+                }
+            });
+        });
+
+        // Filter tabs
+        const filterTabs = document.querySelectorAll('.filter-tab');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+
+                // Simple filter simulation
+                const filterText = this.textContent.trim();
+                const cards = document.querySelectorAll('.notification-card');
+
+                if (filterText.includes('Unread')) {
+                    cards.forEach(card => {
+                        if (!card.classList.contains('unread')) {
+                            card.style.display = 'none';
+                        } else {
+                            card.style.display = 'flex';
+                        }
+                    });
+                } else if (filterText.includes('Orders')) {
+                    // Simulate filtering for orders
+                    cards.forEach(card => {
+                        if (card.querySelector('.notification-title').textContent.includes('Order')) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                } else {
+                    cards.forEach(card => {
+                        card.style.display = 'flex';
+                    });
+                }
+            });
         });
     });
 </script>

@@ -1,5 +1,6 @@
 package org.examples.quickfixapi.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.service.CustomerService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,13 +11,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/customer")
-public class CustomerController {
+@RequiredArgsConstructor
+public class
+CustomerController {
 
     private final CustomerService customerService;
 
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
 
     @PostMapping("/request-provider")
     public Map<String, String> requestProvider(@RequestBody Map<String, Long> body) {

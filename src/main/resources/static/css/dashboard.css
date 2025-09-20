@@ -13,7 +13,6 @@
     --border: #e2e8f0;
 }
 
-
 * {
     margin: 0;
     padding: 0;
@@ -48,72 +47,65 @@ body {
 .btn-primary {
     background-color: #007bff;
     border-color: #007bff;
+    color: white;
 }
 
 .btn-primary:hover {
     background-color: #0056b3;
     border-color: #004085;
+    color: white;
 }
 
 /* Edit button (warning) */
 .btn-warning {
     background-color: #ffc107;
     border-color: #ffc107;
-    color: #212529;
+    color: white;
 }
 
 .btn-warning:hover {
     background-color: #e0a800;
     border-color: #d39e00;
+    color: white;
 }
 
 /* Cancel button (danger) */
 .btn-danger {
     background-color: #dc3545;
     border-color: #dc3545;
+    color: white;
 }
 
 .btn-danger:hover {
     background-color: #c82333;
     border-color: #bd2130;
+    color: white;
 }
 
 /* Approve button (success) */
 .btn-success {
     background-color: #28a745;
     border-color: #28a745;
+    color: white;
 }
 
 .btn-success:hover {
     background-color: #218838;
     border-color: #1e7e34;
-}
-
-.reject-btn {
-    border-radius: 10px;
-}
-
-.reject-btn:hover {
-    background-color: #c82333;
-    border-color: #bd2130;
-}
-
-.badge-pending {
-    background-color: #1DA1F2;
-    border-color: #1DA1F2;
-    font-size: 14px;
-    border-radius: 15px;
+    color: white;
 }
 
 /* Invoice button (info) */
 .btn-info {
     background-color: #17a2b8;
     border-color: #17a2b8;
+    color: white;
 }
 
 .btn-info:hover {
     background-color: #138496;
     border-color: #117a8b;
+    color: white;
 }
 
 /* Icon styling within buttons */
@@ -132,6 +124,79 @@ body {
 .btn-sm:focus,
 .btn-sm:active {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* badge designs */
+.badge-accepted {
+    padding: 0.25rem 0.5rem;
+    background-color: #28a745;
+    border-color:#28a745;
+    font-size: 14px;
+    border-radius: 15px;
+    color: white;
+}
+
+.badge-pending {
+    padding: 0.25rem 0.5rem;
+    background-color: rgb(255, 193, 7);
+    font-size: 14px;
+    border-color: rgb(255, 193, 7);
+    border-radius: 15px;
+    color: white;
+}
+
+.badge-danger {
+    padding: 0.25rem 0.5rem;
+    background-color:  #dc3545;
+    border-color: #dc3545;
+    font-size: 14px;
+    border-radius: 15px;
+    color: white;
+}
+
+.badge-warning {
+    padding: 0.25rem 0.5rem;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    font-size: 14px;
+    border-radius: 15px;
+    color: white;
+}
+
+.badge-info {
+    padding: 0.25rem 0.5rem;
+    background-color:  #17a2b8;
+    border-color: #17a2b8;
+    font-size: 14px;
+    border-radius: 15px;
+    color: white;
+}
+
+.badge-in_progress {
+    padding: 0.25rem 0.5rem;
+    background-color: #8B4513FF;
+    border-color: #8B4513FF;
+    font-size: 14px;
+    border-radius: 15px;
+    color: white;
+}
+
+.badge-completed {
+    padding: 0.25rem 0.5rem;
+    background-color: #0056b3;
+    border-color: #0056b3;
+    font-size: 14px;
+    border-radius: 15px;
+    color: white;
+}
+
+.badge-secondary {
+    padding: 0.25rem 0.5rem;
+    background-color: gray;
+    border-color: gray;
+    font-size: 14px;
+    border-radius: 15px;
+    color: white;
 }
 
 /* Sidebar Styles */
@@ -309,46 +374,29 @@ body {
     font-weight: 700;
 }
 
-.user-profile {
+.user-info {
     display: flex;
     align-items: center;
-    cursor: pointer;
+    gap: 15px;
 }
 
-.user-avatar {
+.user-avatar img {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    overflow: hidden;
-    margin-right: 12px;
-    transition: all 0.3s ease;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .user-avatar:hover {
     transform: scale(1.1);
-    border-color: var(--primary);
 }
 
-.user-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.user-info {
-    color: var(--dark);
-}
-
-.user-info .name {
-    font-weight: 600;
-    font-size: 17px;
-}
-
-.user-info .role {
-    font-size: 14px;
-    opacity: 0.9;
-}
 
 /* Main Content */
 .main-content {
@@ -725,6 +773,7 @@ body {
     border-color: var(--primary-light);
 }
 
+
 /*user table in admin */
 .users-table,
 .job-table,
@@ -841,10 +890,18 @@ body {
     padding: 20px;
     background: #f8fafc;
     border-bottom: 1px solid #e2e8f0;
-    display: flex;
+    display: none;
     gap: 15px;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 }
+
+.job-filters.show {
+    display: flex; /* Show when toggled */
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 
 /* Dashboard Status Styles */
 .status-cards {
@@ -902,77 +959,163 @@ body {
 
 
 /* Notifications Styles */
-.notification-list {
-    list-style: none;
-    padding: 0;
+.notification-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
-.notification-item {
-    padding: 15px 20px;
-    border-bottom: 1px solid #e2e8f0;
+.filter-tab {
+    padding: 16px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--gray);
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+}
+
+.filter-tab.active {
+    color: var(--primary);
+    border-bottom: 3px solid var(--primary);
+}
+
+.filter-tab:hover:not(.active) {
+    color: var(--dark);
+    background: rgba(44, 116, 179, 0.05);
+}
+
+.filter-tab .badge {
+    background: var(--primary);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    margin-left: 6px;
+}
+
+.notifications {
+    flex: 1;
+    padding: 20px;
+}
+
+.notification-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border-left: 4px solid var(--primary);
     display: flex;
     align-items: flex-start;
-    transition: all 0.3s ease;
+    gap: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.notification-item:hover {
-    background: #f8fafc;
+.notification-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 }
 
-.notification-item:last-child {
-    border-bottom: none;
+.notification-card.unread {
+    background: #f0f7ff;
+    border-left: 4px solid var(--secondary);
 }
 
-.notification-icon {
-    width: 40px;
-    height: 40px;
+.icon {
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 15px;
+    font-size: 1.2rem;
     flex-shrink: 0;
 }
 
-.notification-icon.info {
-    background: rgba(56, 161, 105, 0.1);
-    color: #38a169;
+.icon.info {
+    background: rgba(44, 116, 179, 0.15);
+    color: var(--primary);
 }
 
-.notification-icon.warning {
-    background: rgba(214, 158, 46, 0.1);
-    color: #d69e2e;
+.icon.success {
+    background: rgba(25, 135, 84, 0.15);
+    color: #198754;
 }
 
-.notification-icon.alert {
-    background: rgba(231, 76, 60, 0.1);
-    color: #e74c3c;
+.icon.warning {
+    background: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+}
+
+.icon.alert {
+    background: rgba(231, 76, 60, 0.15);
+    color: var(--logout-red);
 }
 
 .notification-content {
-    flex-grow: 1;
+    flex: 1;
 }
 
 .notification-title {
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification-title .badge {
+    background: var(--primary);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
 }
 
 .notification-desc {
-    color: #718096;
-    font-size: 0.9rem;
-    margin-bottom: 5px;
+    color: var(--gray);
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.notification-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .notification-time {
-    color: #a0aec0;
-    font-size: 0.8rem;
+    color: var(--gray);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .notification-actions {
     display: flex;
     gap: 10px;
 }
+/*
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border-radius: 6px;
+}*/
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--gray);
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
 
 #job-form {
     padding: 30px;
@@ -1049,7 +1192,7 @@ body {
 }
 
 /* success message when post new job post */
-.success-message {
+/*.success-message {
     background: var(--light);
     border-radius: 16px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
@@ -1095,31 +1238,65 @@ body {
     box-shadow: 0 8px 20px rgba(56, 161, 105, 0.4);
     background: linear-gradient(to right, #2f855a, #38a169);
     color: white;
-}
+} */
 
 /* profile page*/
 .profile-card {
     background: white;
     border-radius: 10px;
     padding: 20px;
-    margin-bottom: 20px;
+    margin-top: 50px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.05);
     border-left: 4px solid var(--primary);
 }
 
-.avatar-container {
-    width: 100px;
-    height: 100px;
+.profile-container {
+    width: 120px;
+    height: 120px;
     margin: 0 auto 15px;
     border-radius: 50%;
     overflow: hidden;
     border: 3px solid var(--primary);
 }
 
-.avatar-container img {
+.profile-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.upload-btn {
+    display: inline-flex;
+    align-items: center;
+    background: var(--primary);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+.upload-btn:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.upload-btn i {
+    margin-right: 8px;
+}
+
+#image-upload {
+    display: none;
+}
+
+.user-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 15px 0 5px;
+    color: var(--dark);
 }
 
 .profile-name {

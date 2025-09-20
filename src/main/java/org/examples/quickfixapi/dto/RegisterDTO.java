@@ -6,8 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.examples.quickfixapi.entity.Role;
 
-@Getter
-@Setter
+@Data
 public class RegisterDTO {
 
     @NotBlank(message = "Username is required")

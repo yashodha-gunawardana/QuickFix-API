@@ -2,10 +2,7 @@ package org.examples.quickfixapi.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.examples.quickfixapi.dto.ApiResponse;
-import org.examples.quickfixapi.dto.AuthDTO;
-import org.examples.quickfixapi.dto.JwtResponse;
-import org.examples.quickfixapi.dto.RegisterDTO;
+import org.examples.quickfixapi.dto.*;
 import org.examples.quickfixapi.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +28,18 @@ public class AuthController {
         JwtResponse jwtResponse = authService.login(authDTO);
         // Return structured ApiResponse
         return ResponseEntity.ok(new ApiResponse(200, "Login successful", jwtResponse));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<ApiResponse> forgotPassword(@RequestBody @Valid AuthDTO authDTO) {
+        String result = authService.initiatePasswordReset(authDTO.getEmail());
+        return ResponseEntity.ok(new ApiResponse(200, "Password reset initiated", result));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<ApiResponse> resetPassword(@RequestBody @Valid ResetPasswordDTO resetPasswordDTO) {
+        String result = authService.resetPassword(resetPasswordDTO);
+        return ResponseEntity.ok(new ApiResponse(200, "Password reset successful", result));
     }
 
 

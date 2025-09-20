@@ -1,6 +1,8 @@
 package org.examples.quickfixapi.service;
 
+import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.entity.Notification;
+import org.examples.quickfixapi.entity.NotificationType;
 import org.examples.quickfixapi.entity.Role;
 import org.examples.quickfixapi.entity.User;
 import org.examples.quickfixapi.respository.NotificationRepository;
@@ -12,15 +14,13 @@ import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class NotificationService {
 
     private final UserRepository userRepository;
     private final NotificationRepository notificationRepository;
+    private final EmailService emailService;
 
-    public NotificationService(UserRepository userRepository, NotificationRepository notificationRepository) {
-        this.userRepository = userRepository;
-        this.notificationRepository = notificationRepository;
-    }
 
     public void notifyAdminsAboutProviderRequest(Long userId) {
         List<User> admins = userRepository.findAll()
@@ -32,13 +32,14 @@ public class NotificationService {
             createNotification(
                     admin.getId(),
                     "User #" + userId + " has requested to become a service provider",
-                    "PROVIDER_REQUEST"
+                    NotificationType.PROVIDER_REQUEST,
+                    false
             );
         }
     }
 
     // Create a new notification
-    public void createNotification(Long userId, String message, String type) {
+    public void createNotification(Long userId, String message, NotificationType type, boolean sendEmail) {
         Notification notification = new Notification();
         notification.setUserId(userId);
         notification.setMessage(message);
@@ -46,6 +47,16 @@ public class NotificationService {
         notification.setIsRead(false);
         notification.setCreatedAt(LocalDateTime.now());
         notificationRepository.save(notification);
+
+        if (sendEmail) {
+            User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+            emailService.sendEmail(user.getEmail(), type.name().replace("_", " "), message);
+        }
+    }
+
+    // Overload without sendEmail (defaults to false)
+    public void createNotification(Long userId, String message, NotificationType type) {
+        createNotification(userId, message, type, false);
     }
 
     // get only unread notifications
@@ -68,6 +79,22 @@ public class NotificationService {
         });
     }
 
+    // mark a single notification as un read
+    public void markAsUnread(Long id) {
+        notificationRepository.findById(id).ifPresent(notification -> {
+            notification.setIsRead(false);
+            notificationRepository.save(notification);
+        });
+    }
+
+    // Mark all notifications as read (bulk save)
+    public void markAllAsRead(Long userId) {
+        List<Notification> unread = notificationRepository.findByUserIdAndIsReadFalse(userId);
+        if (!unread.isEmpty()) {
+            unread.forEach(n -> n.setIsRead(true));
+            notificationRepository.saveAll(unread); // bulk update
+        }
+    }
 
     // Count how many unread notifications a user has
     public int getUnreadNotificationCount(Long userId) {

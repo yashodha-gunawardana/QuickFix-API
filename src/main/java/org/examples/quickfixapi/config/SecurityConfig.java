@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.util.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -36,8 +37,22 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/test/**").permitAll()
+                        .requestMatchers("/favicon.ico").permitAll()
+
                         .requestMatchers("/", "/index.html", "/login.html", "/adminDashboard.html", "/customerDashboard.html", "/providerDashboard.html", "/css/**", "/js/**", "/images/**", "/assets/**").permitAll()
+
+                        .requestMatchers("/api/profile/customer/**").hasRole("CUSTOMER")
+                        .requestMatchers("/api/profile/provider/**").hasRole("PROVIDER")
                         .requestMatchers("/api/admin/**").hasRole("SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/jobs/accept/**").hasAnyRole("PROVIDER", "SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/jobs/reject/**").hasRole("SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/jobs/available-jobs").hasAnyRole("PROVIDER", "SUPER_ADMIN")
+                        .requestMatchers("/api/jobs/my-work/**").permitAll()
+                        .requestMatchers("/api/profile/image/**").permitAll()
+
+//                        .requestMatchers("/api/jobs/**").hasRole("PROVIDER")
+
                         .anyRequest().authenticated())
 
                 .sessionManagement(session -> session

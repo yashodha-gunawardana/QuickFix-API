@@ -5,12 +5,17 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.examples.quickfixapi.entity.User;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtUtil {
@@ -24,13 +29,21 @@ public class JwtUtil {
         this.expiration = expiration;
     }
 
-    public String generateToken(String username, String role) {
+    public String generateToken(UserDetails userDetails) {
+        User user = (User) userDetails;
         Date now = new Date();
         Date expiry = new Date(now.getTime() + expiration);
 
+        List<SimpleGrantedAuthority> authorities = List.of(
+                new SimpleGrantedAuthority(user.getRole().name())
+        );
+
         return Jwts.builder()
-                .setSubject(username)
-                .claim("role", role)
+                .setSubject(user.getEmailForLogin())
+                .claim("username", user.getUsername())
+                .claim("authorities", authorities.stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList()))
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -38,11 +51,19 @@ public class JwtUtil {
     }
 
     public String extractUsername(String token) {
-        return parseClaims(token).getSubject();
+        return extractAllClaims(token).getSubject();
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     public String extractRole(String token) {
-        return (String) parseClaims(token).get("role");
+        return extractAllClaims(token).get("role", String.class);
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {
@@ -55,15 +76,26 @@ public class JwtUtil {
     }
 
     private boolean isTokenExpired(String token) {
-        return parseClaims(token).getExpiration().before(new Date());
+        return extractAllClaims(token).getExpiration().before(new java.util.Date());
     }
 
-    private Claims parseClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+
+    public Long getUserIdFromToken(String token) {
+        try {
+            Claims claims = extractAllClaims(token);
+            Object userIdObj = claims.get("userId"); // Make sure your token contains "userId" claim
+            if (userIdObj instanceof Integer) {
+                return ((Integer) userIdObj).longValue();
+            } else if (userIdObj instanceof Long) {
+                return (Long) userIdObj;
+            } else if (userIdObj instanceof String) {
+                return Long.parseLong((String) userIdObj);
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

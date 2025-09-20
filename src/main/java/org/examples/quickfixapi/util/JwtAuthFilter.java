@@ -19,12 +19,14 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
+
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
+
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -35,16 +37,21 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
             if (jwtUtil.validateToken(jwtToken, userDetails)) {
                 // Extract role from token
-                String role = jwtUtil.extractRole(jwtToken);
+               // String role = jwtUtil.extractRole(jwtToken);
 
                 // Optionally, you can log the role or use it for custom authorization
-                System.out.println("User role from JWT: " + role);
+               // System.out.println("User role from JWT: " + role);
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
+
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+
+                System.out.println("User authenticated: " + username + " with roles: " + userDetails.getAuthorities());
+
             }
         }
 
