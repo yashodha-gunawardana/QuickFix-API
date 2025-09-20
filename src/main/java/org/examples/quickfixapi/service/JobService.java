@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Service
@@ -91,7 +92,26 @@ public class JobService {
     }
 
 
-    private JobResponseDTO mapToJobResponseDTO(Job savedJob) {
+    // Map Job to JobResponseDTO
+    private JobResponseDTO mapToJobResponseDTO(Job job) {
+        return JobResponseDTO.builder()
+                .id(job.getId())
+                .title(job.getTitle())
+                .category(job.getCategory())
+                .description(job.getDescription())
+                .budget(job.getBudget() != null ? BigDecimal.valueOf(job.getBudget()) : null)
+                .location(job.getLocation())
+                .preferredDate(job.getPreferredDate())
+                .preferredTime(job.getPreferredTime())
+                .status(job.getStatus().name())
+                .createdAt(job.getCreatedAt() != null
+                        ? job.getCreatedAt().atZone(java.time.ZoneId.systemDefault()).toInstant()
+                        : java.time.Instant.now()) // fallback if null
+
+                .userId(job.getUser().getId())
+                .customerEmail(job.getCustomerEmail())
+                .datePosted(job.getDatePosted())
+                .build();
     }
 
 
