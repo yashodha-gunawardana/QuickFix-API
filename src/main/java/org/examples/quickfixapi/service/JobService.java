@@ -239,6 +239,31 @@ public class JobService {
     }
 
 
+    // Update a job
+    public JobResponseDTO updateJob(Long jobId, JobPostDTO jobPostDTO) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+        if (!job.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("You can only update your own jobs");
+        }
+        if (!job.getStatus().equals(JobStatus.PENDING)) {
+            throw new IllegalStateException("Only PENDING jobs can be updated");
+        }
+        job.setTitle(jobPostDTO.getTitle());
+        job.setCategory(jobPostDTO.getCategory());
+        job.setDescription(jobPostDTO.getDescription());
+        job.setBudget(jobPostDTO.getBudget() != null ? jobPostDTO.getBudget().doubleValue() : null);
+        job.setLocation(jobPostDTO.getLocation());
+        job.setPreferredDate(jobPostDTO.getPreferredDate());
+        job.setPreferredTime(jobPostDTO.getPreferredTime() != null ? jobPostDTO.getPreferredTime() : "Any time");
+        Job savedJob = jobRepository.save(job);
+        return mapToJobResponseDTO(savedJob);
+    }
+
+
     public JobResponseDTO getJobById(Long jobId) {
         // Get currently authenticated user's email
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
