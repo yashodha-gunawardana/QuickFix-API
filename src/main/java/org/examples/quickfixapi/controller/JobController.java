@@ -6,13 +6,11 @@ import org.examples.quickfixapi.dto.JobResponseDTO;
 import org.examples.quickfixapi.respository.JobRepository;
 import org.examples.quickfixapi.respository.UserRepository;
 import org.examples.quickfixapi.service.JobService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/jobs")
@@ -29,5 +27,17 @@ public class JobController {
     public ResponseEntity<JobResponseDTO> postJob(@RequestBody JobPostDTO jobPostDTO) {
         JobResponseDTO response = jobService.postJob(jobPostDTO);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+
+    // Get all jobs for the authenticated customer (paginated)
+    @GetMapping("/my-jobs")
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<Page<JobResponseDTO>> getMyJobs(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "created_at_desc") String sort) {
+        Page<JobResponseDTO> jobPage = jobService.getMyJobs(page, size, sort);
+        return new ResponseEntity<>(jobPage, HttpStatus.OK);
     }
 }
