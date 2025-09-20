@@ -1,12 +1,10 @@
 package org.examples.quickfixapi.service;
 
 import lombok.RequiredArgsConstructor;
+import org.examples.quickfixapi.dto.JobResponseDTO;
 import org.examples.quickfixapi.dto.ProviderRequestDTO;
 import org.examples.quickfixapi.dto.UserDTO;
-import org.examples.quickfixapi.entity.NotificationType;
-import org.examples.quickfixapi.entity.ProviderRequest;
-import org.examples.quickfixapi.entity.Role;
-import org.examples.quickfixapi.entity.User;
+import org.examples.quickfixapi.entity.*;
 import org.examples.quickfixapi.respository.JobRepository;
 import org.examples.quickfixapi.respository.ProviderRequestRepository;
 import org.examples.quickfixapi.respository.UserRepository;
@@ -152,6 +150,39 @@ public class AdminService {
 
         return new org.springframework.data.domain.PageImpl<>(dtoList, pageable, usersPage.getTotalElements());
     }
+
+
+    // get all jobs in the admin dashboard
+    public Page<JobResponseDTO> getAllJobs(int page, int size, String filter) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+        Page<Job> jobs;
+
+        if ("all".equalsIgnoreCase(filter)) {
+            jobs = jobRepository.findAll(pageable);
+        } else {
+            jobs = jobRepository.findByStatus(JobStatus.valueOf(filter.toUpperCase()), pageable);
+        }
+
+        return jobs.map(job -> JobResponseDTO.builder()
+                .id(job.getId())
+                .title(job.getTitle())
+                .category(job.getCategory())
+                .description(job.getDescription())
+                .budget(job.getBudget() != null ?
+                        java.math.BigDecimal.valueOf(job.getBudget()) : null)
+                .location(job.getLocation())
+                .preferredDate(job.getPreferredDate())
+                .preferredTime(job.getPreferredTime())
+                .status(job.getStatus().name())
+                .createdAt(job.getCreatedAt() != null ?
+                        job.getCreatedAt().atZone(ZoneId.systemDefault()).toInstant() : null)
+                .userId(job.getUser() != null ? job.getUser().getId() : null)
+                .customerEmail(job.getCustomerEmail())
+                .datePosted(job.getDatePosted())
+                .build());
+    }
+
 
 
 
