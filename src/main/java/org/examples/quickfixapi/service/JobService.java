@@ -1,12 +1,10 @@
 package org.examples.quickfixapi.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.examples.quickfixapi.dto.JobPostDTO;
 import org.examples.quickfixapi.dto.JobResponseDTO;
-import org.examples.quickfixapi.entity.Job;
-import org.examples.quickfixapi.entity.JobStatus;
-import org.examples.quickfixapi.entity.Role;
-import org.examples.quickfixapi.entity.User;
+import org.examples.quickfixapi.entity.*;
 import org.examples.quickfixapi.respository.JobRepository;
 import org.examples.quickfixapi.respository.NotificationRepository;
 import org.examples.quickfixapi.respository.UserRepository;
@@ -124,6 +122,8 @@ public class JobService {
         Sort sortOrder = parseSort(sort);
         Pageable pageable = PageRequest.of(page, size, sortOrder);
         Page<Job> jobPage;
+
+        // If a filter is provided and is not "all", filter jobs by status
         if (filter != null && !filter.equals("all")) {
             JobStatus status = JobStatus.valueOf(filter.toUpperCase());
             jobPage = jobRepository.findByStatus(status, pageable);
@@ -133,6 +133,36 @@ public class JobService {
         return jobPage.getContent().stream()
                 .map(this::mapToJobResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+
+    // provider accept a job
+    @Transactional
+    public JobResponseDTO acceptJob(Long jobId) {
+        User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // check job
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+        if (!job.getStatus().equals(JobStatus.PENDING)) throw new IllegalStateException("Only PENDING jobs can be accepted");
+        if (job.getProviderId() != null) throw new IllegalStateException("Job is already assigned");
+
+        job.setStatus(JobStatus.ACCEPTED);
+        job.setProviderId(user.getId());
+        Job savedJob = jobRepository.save(job);
+
+        // notify and email
+        notificationService.createNotification(
+                job.getUser().getId(),
+                "Your job '" + job.getTitle() + "' has been accepted by a provider.",
+                NotificationType.JOB_ACCEPTED
+        );
+
+        emailService.sendEmail(job.getUser().getEmail(), "Your job has been accepted",
+                "Hello, your job '" + job.getTitle() + "' was accepted by " + user.getEmail());
+
+        return mapToJobResponseDTO(savedJob);
     }
 
 
