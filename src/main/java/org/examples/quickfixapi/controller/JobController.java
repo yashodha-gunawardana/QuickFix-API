@@ -111,4 +111,15 @@ public class JobController {
     }
 
 
+    // get accepted jobs by providers
+    @GetMapping("/my-work")
+    @PreAuthorize("hasRole('PROVIDER')")
+    public ResponseEntity<Page<JobResponseDTO>> getMyWork(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "created_at,desc") String sort) {
+        return new ResponseEntity<>(jobService.getMyWork(page, size, sort), HttpStatus.OK);
+    }
+
+
 }
