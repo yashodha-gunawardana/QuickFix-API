@@ -94,4 +94,21 @@ public class JobController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+
+    @PostMapping("/start/{jobId}")
+    @PreAuthorize("hasRole('PROVIDER')")
+    public ResponseEntity<JobResponseDTO> startJob(@PathVariable Long jobId) {
+        JobResponseDTO response = jobService.startJob(jobId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
+    @PostMapping("/complete/{jobId}")
+    @PreAuthorize("hasRole('PROVIDER')")
+    public ResponseEntity<JobResponseDTO> completeJob(@PathVariable Long jobId) {
+        JobResponseDTO response = jobService.completedJob(jobId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
 }
