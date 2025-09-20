@@ -184,6 +184,22 @@ public class AdminService {
     }
 
 
+    private ProviderRequestDTO convertToDTO(ProviderRequest request) {
+        User user = request.getUser();
+        String userName = user != null ? user.getUsername() : "Unknown User";
+        String currentRole = user != null ? user.getRole().toString() : "Unknown Role";
+
+        return new ProviderRequestDTO(
+                request.getId(),
+                user != null ? user.getId() : null,
+                userName,
+                currentRole,
+                request.getStatus(),
+                request.getRequestDate(),
+                request.getRequestedRole()
+        );
+    }
+
 
 
 
