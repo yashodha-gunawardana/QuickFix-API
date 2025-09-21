@@ -16,15 +16,19 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    // Capitalize first letter
+    function capitalizeFirstLetter(str) {
+        if (!str) return '';
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
     // Display username & role
-    const welcomeUsers = document.querySelectorAll('.welcome-user');
-    if (welcomeUsers.length > 0) {
-        welcomeUsers.forEach(el => el.textContent = username);
+    if (username) {
+        const capitalizedUsername = capitalizeFirstLetter(username);
+        document.querySelectorAll('.welcome-user').forEach(el => el.textContent = capitalizedUsername);
+        document.querySelectorAll('.user-name').forEach(el => el.textContent = capitalizedUsername);
     }
-    const userNames = document.querySelectorAll('.user-name');
-    if (userNames.length > 0) {
-        userNames.forEach(el => el.textContent = username);
-    }
+
     const headerRole = document.getElementById('header-role');
     if (headerRole) {
         headerRole.textContent = role;

@@ -24,7 +24,7 @@
         <li class="admin-links"><a href="#" class="active" data-page="admin-dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
         <li class="admin-links"><a href="#" data-page="admin-manage-users"><i class="fas fa-users-cog"></i> Manage Users <span class="badge"></span></a></li>
         <li class="admin-links"><a href="#" data-page="admin-manage-jobs"><i class="fas fa-tasks"></i> Manage Jobs <span class="badge"></span></a></li>
-        <li class="admin-links"><a href="#" data-page="admin-dashboard-status"><i class="fas fa-comments"></i> Dashboard Status</a></li>
+<!--        <li class="admin-links"><a href="#" data-page="admin-dashboard-status"><i class="fas fa-comments"></i> Dashboard Status</a></li>-->
         <li class="admin-links"><a href="#" data-page="admin-notifications"><i class="fas fa-comments"></i> Notifications <span class="badge"></span></a></li>
 
         <li><a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -37,7 +37,7 @@
     <div class="header-content">
         <div class="d-flex align-items-center">
             <div class="welcome-text">
-                <h5>Welcome, <span class="welcome-user"> User</span>!</h5>
+                <h5>Welcome, <span class="welcome-user"> User</span> .!</h5>
             </div>
         </div>
 
@@ -89,7 +89,7 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="stat-content">
-                                <h2>1,234</h2>
+                                <h2 id="total-users">0</h2>
                                 <p>Total Users</p>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                 <i class="fas fa-briefcase"></i>
                             </div>
                             <div class="stat-content">
-                                <h2>56</h2>
+                                <h2 id="active-jobs">0</h2>
                                 <p>Active Jobs</p>
                             </div>
                         </div>
@@ -108,11 +108,11 @@
                     <div class="col-md-3">
                         <div class="stat-card">
                             <div class="stat-icon">
-                                <i class="fas fa-dollar-sign"></i>
+                                <i class="fas fa-briefcase"></i>
                             </div>
                             <div class="stat-content">
-                                <h2>$5,000</h2>
-                                <p>Revenue</p>
+                                <h2 id="provider-requests">0</h2>
+                                <p>Provider Requests</p>
                             </div>
                         </div>
                     </div>
@@ -122,8 +122,8 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div class="stat-content">
-                                <h2>8</h2>
-                                <p>Flagged Issues</p>
+                                <h2 id="rejected-jobs">0</h2>
+                                <p>Rejected Jobs</p>
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
             <div class="table-section">
                 <div class="table-header">
                     <h3><i class="fas fa-user-clock"></i> Pending Role Requests</h3>
-                    <a href="#" class="btn btn-sm btn-light">View All <i class="fas fa-arrow-right ms-1"></i></a>
+<!--                    <a href="#" class="btn btn-sm btn-light">View All <i class="fas fa-arrow-right ms-1"></i></a>-->
                 </div>
                 <div class="table-content">
                     <table class="pending-requests-table">
@@ -188,7 +188,7 @@
                 <div class="table-section">
                     <div class="table-header">
                         <h3><i class="fas fa-users-cog"></i> User Management</h3>
-                        <a href="#" class="btn btn-sm btn-light"><i class="fas fa-plus me-1"></i> Add User</a>
+<!--                        <a href="#" class="btn btn-sm btn-light"><i class="fas fa-plus me-1"></i> Add User</a>-->
                     </div>
 
                     <!-- Search -->
@@ -423,104 +423,6 @@
         </div>
     </div>
 
-    <!-- Dashboard Status Page -->
-    <div class="page-content" id="admin-dashboard-status">
-        <div class="container-fluid">
-            <div class="stats-section">
-                <h3><i class="fas fa-chart-line"></i> Platform Status</h3>
-
-                <div class="status-cards">
-                    <div class="status-card">
-                        <div class="status-header">
-                            <div class="status-title">System Uptime</div>
-                            <i class="fas fa-server text-primary"></i>
-                        </div>
-                        <div class="status-value">99.98%</div>
-                        <div class="status-change up">
-                            <i class="fas fa-arrow-up"></i> 0.02% from last month
-                        </div>
-                    </div>
-
-                    <div class="status-card">
-                        <div class="status-header">
-                            <div class="status-title">Active Users</div>
-                            <i class="fas fa-users text-primary"></i>
-                        </div>
-                        <div class="status-value">856</div>
-                        <div class="status-change up">
-                            <i class="fas fa-arrow-up"></i> 12% from last week
-                        </div>
-                    </div>
-
-                    <div class="status-card">
-                        <div class="status-header">
-                            <div class="status-title">Response Time</div>
-                            <i class="fas fa-tachometer-alt text-primary"></i>
-                        </div>
-                      <div class="status-value">128ms</div>
-                      <div class="status-change down">
-                          <i class="fas fa-arrow-down"></i> 5ms from last week
-                      </div>
-                    </div>
-
-                    <div class="status-card">
-                        <div class="status-header">
-                            <div class="status-title">Error Rate</div>
-                            <i class="fas fa-bug text-primary"></i>
-                        </div>
-                        <div class="status-value">0.23%</div>
-                        <div class="status-change down">
-                            <i class="fas fa-arrow-down"></i> 0.07% from last week
-                        </div>
-                    </div>
-                </div>
-
-                <div class="table-section">
-                    <div class="table-header">
-                        <h3><i class="fas fa-history"></i> Recent System Events</h3>
-                        <a href="#" class="btn btn-sm btn-light">View All <i class="fas fa-arrow-right ms-1"></i></a>
-                    </div>
-
-                    <div class="table-content">
-                        <table class="dashboard-table">
-                            <thead>
-                                <tr>
-                                    <th>Event</th>
-                                    <th>Severity</th>
-                                    <th>Date & Time</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Database backup completed</td>
-                                    <td><span class="badge-info">Info</span></td>
-                                    <td>Oct 15, 2023 02:30 AM</td>
-                                    <td><span class="badge-completed">Completed</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="pagination">
-                            <nav>
-                                <ul class="pagination">
-                                    <li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-
-                        <div class="page-info">
-                            Showing 1 to 4 of 4 entries
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Notifications Page -->
     <div class="page-content" id="admin-notifications">
@@ -676,6 +578,7 @@
             });
         });
     });
+
 </script>
 
 </body>

@@ -17,11 +17,19 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Display username and role
-    if (username) {
-        document.querySelectorAll(".welcome-user").forEach(el => el.textContent = username);
-        document.querySelectorAll(".user-name").forEach(el => el.textContent = username);
+    // Capitalize first letter
+    function capitalizeFirstLetter(str) {
+        if (!str) return '';
+        return str.charAt(0).toUpperCase() + str.slice(1);
     }
+
+    // Display username & role
+    if (username) {
+        const capitalizedUsername = capitalizeFirstLetter(username);
+        document.querySelectorAll('.welcome-user').forEach(el => el.textContent = capitalizedUsername);
+        document.querySelectorAll('.user-name').forEach(el => el.textContent = capitalizedUsername);
+    }
+
     if (role && document.getElementById("header-role")) {
         document.getElementById("header-role").textContent = role;
     }
@@ -194,6 +202,30 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // stat cards counts
+    async function fetchDashboardStats() {
+        const token = localStorage.getItem('jwtToken');
+        if (!token) return;
+
+        try {
+            const res = await fetch('http://localhost:8080/api/dashboard', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            const data = await res.json();
+
+            document.getElementById('total-users').innerText = data.totalUsers ?? 0;
+            document.getElementById('active-jobs').innerText = data.activeJobs ?? 0;
+            document.getElementById('provider-requests').innerText = data.providerRequests ?? 0;
+            document.getElementById('rejected-jobs').innerText = data.rejectedJobs ?? 0;
+        } catch (err) {
+            console.error("Error fetching dashboard data:", err);
+            Swal.fire("Error", "Failed to load dashboard stats", "error");
+        }
+    }
+
+    fetchDashboardStats();
+
     // -------------- manage users ----------------
     async function loadUsers(page = 0, size = 10, filter = 'all', search = '') {
         try {
@@ -216,19 +248,29 @@ document.addEventListener("DOMContentLoaded", function () {
             tbody.innerHTML = "";
 
             if (users.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" class="text-center">No users found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center">No users found</td></tr>';
             } else {
                 users.forEach(user => {
                     const row = document.createElement("tr");
+
+                    const fullName = user.firstName && user.lastName
+                        ? `${user.firstName} ${user.lastName}`
+                        : user.username || "Unnamed";
+
+                    // Determine profile image URL using the new function
+                    // const profileImageUrl = getProfileImageUrl(user.username, user.role);
+                    // console.log("Profile Image URL for", fullName, ":", profileImageUrl);
+
+
                     row.innerHTML = `
                         <td>
-                            <div class="d-flex align-items-center">
-                                <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="">
-                                <div>
-                                    <div class="fw-bold">${user.username}</div>
-                                    <div class="text-muted small">${user.email || 'N/A'}</div>
-                                </div>
+                          
+                            <div>
+                                
+                                <div class="fw-bold">${fullName}</div>
+                                <div class="text-muted small">${user.email || 'N/A'}</div>
                             </div>
+                       
                         </td>
                         <td>
                             <span class="badge-info">${user.role === 'SUPER_ADMIN' ? 'ADMIN' : user.role}</span>
@@ -809,6 +851,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+
     // --- Init + Refresh ---
     if (document.getElementById("admin-dashboard")?.classList.contains("active")) loadPendingRequests();
     if (document.getElementById("admin-notifications")?.classList.contains("active")) loadNotifications("all");
@@ -848,20 +891,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        // Select the button and the page sections
-        const manageUsersBtn = document.querySelector('a[href="#admin-manage-users"]');
-        const allPages = document.querySelectorAll('.page-content');
-
-        manageUsersBtn.addEventListener("click", (e) => {
-            e.preventDefault(); // prevent default anchor behavior
-
-            // Hide all pages
-            allPages.forEach(page => page.classList.remove("active"));
-
-            // Show the Manage Users page
-            const targetPage = document.querySelector("#admin-manage-users");
-            targetPage.classList.add("active");
-        });
-    });
 });

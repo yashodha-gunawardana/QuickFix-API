@@ -96,20 +96,32 @@ public class AuthService implements UserDetailsService {
     }
 
     public String resetPassword(ResetPasswordDTO resetPasswordDTO) {
-        User user = userRepository.findByEmail(resetPasswordDTO.getEmail().trim())
+        // find user by email
+        User user = userRepository.findByEmail(resetPasswordDTO.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (user.getResetPasswordToken() == null || !user.getResetPasswordToken().equals(resetPasswordDTO.getToken())) {
+        // check if token exists and matches passwordEncoder
+       /* if (user.getResetPasswordToken() == null || !passwordEncoder.matches(resetPasswordDTO.getToken(), user.getResetPasswordToken())) {
             throw new RuntimeException("Invalid or expired reset token");
         }
 
-        if (user.getResetPasswordTokenExpiry().isBefore(Instant.now())) {
+        // check if token has expired
+        if (user.getResetPasswordTokenExpiry() == null || user.getResetPasswordTokenExpiry().isBefore(Instant.now())) {
+            throw new RuntimeException("Reset token has expired");
+        }*/
+        if (!resetPasswordDTO.getToken().equals(user.getResetPasswordToken())) {
+            throw new RuntimeException("Invalid reset token");
+        }
+        if (user.getResetPasswordTokenExpiry() == null || user.getResetPasswordTokenExpiry().isBefore(Instant.now())) {
             throw new RuntimeException("Reset token has expired");
         }
 
         user.setPassword(passwordEncoder.encode(resetPasswordDTO.getNewPassword()));
+        user.setEnabled(true); // enable the account
+        // clear token and expiry
         user.setResetPasswordToken(null);
         user.setResetPasswordTokenExpiry(null);
+
         userRepository.save(user);
 
         // Send password reset confirmation email
@@ -118,25 +130,6 @@ public class AuthService implements UserDetailsService {
         return "Password reset successfully";
     }
 
-    
-    private void sendPasswordResetEmail(String email, String token) {
-        MimeMessage message = mailSender.createMimeMessage();
-        try {
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo(email);
-            helper.setSubject("Password Reset Request");
-            helper.setText(
-                    "<h2>Reset Your Password</h2>" +
-                            "<p>Click the link below to reset your password:</p>" +
-                            "<p><a href='http://localhost:8080/forgotPassword.html?token=" + token + "'>Reset Password</a></p>" +
-                            "<p>This link will expire in 1 hour.</p>",
-                    true
-            );
-            mailSender.send(message);
-        } catch (MessagingException e) {
-            throw new RuntimeException("Failed to send password reset email", e);
-        }
-    }
 
     private void sendPasswordResetConfirmationEmail(String email, String username) {
         MimeMessage message = mailSender.createMimeMessage();
@@ -146,9 +139,8 @@ public class AuthService implements UserDetailsService {
             helper.setSubject("Password Reset Successful");
             helper.setText(
                     "<h2>Password Reset Successful</h2>" +
-                            "<p>Dear " + username + ",</p>" +
-                            "<p>Your password has been successfully reset.</p>" +
-                            "<p>Login with your new password: <a href='http://localhost:8080/login.html'>Login</a></p>",
+                            "<p>Your password has been reset successfully.</p>" +
+                            "<p>You can now <a href='http://localhost:8080/login.html'>login</a> with your new password.</p>",
                     true
             );
             mailSender.send(message);
@@ -169,6 +161,7 @@ public class AuthService implements UserDetailsService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         String token = UUID.randomUUID().toString();
+        // hash the token
         user.setResetPasswordToken(token);
         user.setResetPasswordTokenExpiry(Instant.now().plusSeconds(3600)); // 1 hour expiry
         userRepository.save(user);
@@ -177,6 +170,25 @@ public class AuthService implements UserDetailsService {
         sendPasswordResetEmail(user.getEmail(), token);
 
         return "Password reset link sent to your email";
+    }
+
+    private void sendPasswordResetEmail(String email, String token) {
+        MimeMessage message = mailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setTo(email);
+            helper.setSubject("Password Reset Request");
+            helper.setText(
+                    "<h2>Reset Your Password</h2>" +
+                            "<p>Click the link below to reset your password:</p>" +
+                            "<p><a href='http://localhost:8080/resetPassword.html?token=" + token + "'>Reset Password</a></p>" +
+                            "<p>This link will expire in 1 hour.</p>",
+                    true
+            );
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Failed to send password reset email", e);
+        }
     }
 
 }

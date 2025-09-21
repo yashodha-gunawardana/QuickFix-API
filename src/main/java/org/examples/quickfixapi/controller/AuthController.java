@@ -14,6 +14,7 @@ public class AuthController {
 
     private final AuthService authService;
 
+
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterDTO registerDTO) {
         // Call the service to register the user
@@ -21,6 +22,7 @@ public class AuthController {
         // Return structured ApiResponse
         return ResponseEntity.ok(new ApiResponse(200, "User registered successfully..!", result));
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse> login(@Valid @RequestBody AuthDTO authDTO) {
@@ -30,11 +32,13 @@ public class AuthController {
         return ResponseEntity.ok(new ApiResponse(200, "Login successful", jwtResponse));
     }
 
+
     @PostMapping("/forgot-password")
-    public ResponseEntity<ApiResponse> forgotPassword(@RequestBody @Valid AuthDTO authDTO) {
-        String result = authService.initiatePasswordReset(authDTO.getEmail());
+    public ResponseEntity<ApiResponse> forgotPassword(@RequestBody @Valid ForgotPasswordDTO forgotPasswordDTO) {
+        String result = authService.initiatePasswordReset(forgotPasswordDTO.getEmail());
         return ResponseEntity.ok(new ApiResponse(200, "Password reset initiated", result));
     }
+
 
     @PostMapping("/reset-password")
     public ResponseEntity<ApiResponse> resetPassword(@RequestBody @Valid ResetPasswordDTO resetPasswordDTO) {

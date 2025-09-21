@@ -39,8 +39,11 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/test/**").permitAll()
                         .requestMatchers("/favicon.ico").permitAll()
+                        .requestMatchers("/api/auth/forgot-password").permitAll()
+                        .requestMatchers("/api/auth/reset-password").permitAll()
+                        .requestMatchers("/api/dashboard").hasRole("SUPER_ADMIN")
 
-                        .requestMatchers("/", "/index.html", "/login.html", "/adminDashboard.html", "/customerDashboard.html", "/providerDashboard.html", "/css/**", "/js/**", "/images/**", "/assets/**").permitAll()
+                        .requestMatchers("/", "/index.html", "/login.html", "/adminDashboard.html", "/customerDashboard.html", "/providerDashboard.html", "/resetPassword.html", "/forgotPassword.html", "/css/**", "/js/**", "/images/**", "/assets/**").permitAll()
 
                         .requestMatchers("/api/profile/customer/**").hasRole("CUSTOMER")
                         .requestMatchers("/api/profile/provider/**").hasRole("PROVIDER")
@@ -50,8 +53,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/jobs/available-jobs").hasAnyRole("PROVIDER", "SUPER_ADMIN")
                         .requestMatchers("/api/jobs/my-work/**").permitAll()
                         .requestMatchers("/api/profile/image/**").permitAll()
-
-//                        .requestMatchers("/api/jobs/**").hasRole("PROVIDER")
 
                         .anyRequest().authenticated())
 

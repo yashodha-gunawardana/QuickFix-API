@@ -80,7 +80,7 @@ public class JwtUtil {
     }
 
 
-    public Long getUserIdFromToken(String token) {
+   /* public Long getUserIdFromToken(String token) {
         try {
             Claims claims = extractAllClaims(token);
             Object userIdObj = claims.get("userId"); // Make sure your token contains "userId" claim
@@ -96,6 +96,6 @@ public class JwtUtil {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 
 }

@@ -5,9 +5,7 @@ import org.examples.quickfixapi.dto.JobResponseDTO;
 import org.examples.quickfixapi.dto.ProviderRequestDTO;
 import org.examples.quickfixapi.dto.UserDTO;
 import org.examples.quickfixapi.entity.*;
-import org.examples.quickfixapi.respository.JobRepository;
-import org.examples.quickfixapi.respository.ProviderRequestRepository;
-import org.examples.quickfixapi.respository.UserRepository;
+import org.examples.quickfixapi.respository.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +25,8 @@ public class AdminService {
     private final UserRepository userRepository;
     private final NotificationService notificationService;
     private final JobRepository jobRepository;
+    private final CustomerProfileRepository customerProfileRepository;
+    private final ProviderProfileRepository providerProfileRepository;
 
 
     // fetch all pending provider requests
@@ -134,6 +134,26 @@ public class AdminService {
 
                     String status = user.isEnabled() ? "ACTIVE" : "SUSPENDED";
 
+                    String firstName = null;
+                    String lastName = null;
+                  //  String profileImage = null;
+
+                    if (Role.CUSTOMER.equals(user.getRole())) {
+                        var profileOpt = customerProfileRepository.findByUserId(user.getId());
+                        if (profileOpt.isPresent()) {
+                            firstName = profileOpt.get().getFirstName();
+                            lastName = profileOpt.get().getLastName();
+                            //profileImage = profileOpt.get().getProfileImage();
+                        }
+                    } else if (Role.PROVIDER.equals(user.getRole())) {
+                        var profileOpt = providerProfileRepository.findByUserId(user.getId());
+                        if (profileOpt.isPresent()) {
+                            firstName = profileOpt.get().getFirstName();
+                            lastName = profileOpt.get().getLastName();
+                           // profileImage = profileOpt.get().getProfileImage();
+                        }
+                    }
+
                     return new UserDTO(
                             user.getId(),
                             user.getUsername(),
@@ -144,7 +164,10 @@ public class AdminService {
                             createdAt,
                             requestedRole,
                             postedJobCount,
-                            acceptedJobCount
+                            acceptedJobCount,
+                            firstName,
+                            lastName
+                          //  profileImage
                     );
                 }).collect(Collectors.toList());
 

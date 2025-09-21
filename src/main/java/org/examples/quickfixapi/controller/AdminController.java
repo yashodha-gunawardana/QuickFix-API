@@ -7,10 +7,10 @@ import org.examples.quickfixapi.dto.UserDTO;
 import org.examples.quickfixapi.entity.ProviderRequest;
 import org.examples.quickfixapi.entity.Role;
 import org.examples.quickfixapi.entity.User;
-import org.examples.quickfixapi.respository.JobRepository;
-import org.examples.quickfixapi.respository.ProviderRequestRepository;
-import org.examples.quickfixapi.respository.UserRepository;
+import org.examples.quickfixapi.respository.*;
 import org.examples.quickfixapi.service.AdminService;
+import org.examples.quickfixapi.service.ProfileService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +29,9 @@ public class AdminController {
     private final UserRepository userRepository;
     private final ProviderRequestRepository providerRequestRepository;
     private final JobRepository jobRepository;
+    private final ProfileService profileService;
+    private final CustomerProfileRepository customerProfileRepository;
+    private final ProviderProfileRepository providerProfileRepository;
 
 
     // all pending requests
@@ -113,6 +116,26 @@ public class AdminController {
 
         String status = user.isEnabled() ? "ACTIVE" : "SUSPENDED";
 
+        // --- get profile info based on role ---
+        String firstName = null;
+        String lastName = null;
+       // String profileImage = null;
+
+        if (Role.CUSTOMER.equals(user.getRole())) {
+            var profileOpt = customerProfileRepository.findByUserId(user.getId());
+            if (profileOpt.isPresent()) {
+                firstName = profileOpt.get().getFirstName();
+                lastName = profileOpt.get().getLastName();
+              //  profileImage = profileOpt.get().getProfileImage();
+            }
+        } else if (Role.PROVIDER.equals(user.getRole())) {
+            var profileOpt = providerProfileRepository.findByUserId(user.getId());
+            if (profileOpt.isPresent()) {
+                firstName = profileOpt.get().getFirstName();
+                lastName = profileOpt.get().getLastName();
+              //  profileImage = profileOpt.get().getProfileImage();
+            }
+        }
         return new UserDTO(
                 user.getId(),
                 user.getUsername(),
@@ -123,11 +146,16 @@ public class AdminController {
                 createdAt,
                 requestedRole,
                 postedJobCount,
-                acceptedJobCount
+                acceptedJobCount,
+                firstName,
+                lastName
+              //  profileImage
+
         );
     }
 
 
+    // get available job list for admin
     @GetMapping("all/jobs")
     public ResponseEntity<Page<JobResponseDTO>> getAllJobs(
             @RequestParam(defaultValue = "0") int page,
@@ -137,5 +165,7 @@ public class AdminController {
         Page<JobResponseDTO> jobs = adminService.getAllJobs(page, size, filter);
         return ResponseEntity.ok(jobs);
     }
+
+
 
 }

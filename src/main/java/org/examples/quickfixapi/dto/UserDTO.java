@@ -22,4 +22,7 @@ public class UserDTO {
     private int acceptedJobCount;
 
 
+    private String firstName;      // from profile
+    private String lastName;       // from profile
+   // private String profileImage;  // image filename
 }

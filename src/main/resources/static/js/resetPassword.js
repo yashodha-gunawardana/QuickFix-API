@@ -5,12 +5,40 @@ document.getElementById('resetForm').addEventListener('submit', async (e) => {
     const newPassword = document.getElementById('newPassword').value.trim();
     const confirmPassword = document.getElementById('confirmPassword').value.trim();
 
-    if (!email || !newPassword || !confirmPassword) return Swal.fire('Error', 'Fill all fields', 'error');
-    if (newPassword !== confirmPassword) return Swal.fire('Error', 'Passwords do not match!', 'error');
+    if (!email || !newPassword || !confirmPassword) {
+        return Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Fill all fields',
+        });
+    }
+    if (newPassword !== confirmPassword) {
+        return Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Passwords do not match!',
+        });
+    }
 
     // Get token from URL
     const token = new URLSearchParams(window.location.search).get('token');
-    if (!token) return Swal.fire('Error', 'Reset token missing!', 'error');
+    if (!token) {
+        return Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Reset token missing!',
+        });
+    }
+
+    // Show processing alert
+    Swal.fire({
+        title: 'Processing...',
+        text: 'Please wait while we reset your password',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
 
     try {
         const res = await fetch('http://localhost:8080/api/auth/reset-password', {
@@ -19,14 +47,29 @@ document.getElementById('resetForm').addEventListener('submit', async (e) => {
             body: JSON.stringify({ email, newPassword, token })
         });
         const data = await res.json();
+        Swal.close(); // Close processing alert
         if (res.ok) {
-            Swal.fire('Success', data.message || 'Password reset successful!', 'success')
-                .then(() => window.location.href = '/login.html');
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: data.message || 'Password reset successful!',
+            }).then(() => {
+                window.location.href = '/login.html';
+            });
         } else {
-            Swal.fire('Error', data.message || 'Something went wrong!', 'error');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.message || 'Something went wrong!',
+            });
         }
     } catch (err) {
-        console.error(err);
-        Swal.fire('Error', 'Server error!', 'error');
+        console.error('Error resetting password:', err);
+        Swal.close(); // Close processing alert
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Server error! Please try again later.',
+        });
     }
 });
