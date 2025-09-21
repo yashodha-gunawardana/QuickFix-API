@@ -88,16 +88,16 @@ The system features JWT authentication, role-based access (CUSTOMER, PROVIDER, S
 ![Signup Page](screenshots/signup.png)
 
 ### 🖼️ Forgot Passowrd Page
-![Forgot Password](screenshots/forgotPassword.png)
+![Forgot Password](screenshots/forgot-password.png)
 
 ### 🖼️ Reset Password Page
-![Reset Password](screenshots/resetPassword.png)
+![Reset Password](screenshots/reset-password.png)
 
 
 ## 📸 Admin Dashboard UI Screenshots
 
 ### 🖼️ Dashboard Overview
-![Dashboard Overview](screenshots/adminDashboard.png)
+![Dashboard Overview](screenshots/admin-dashboard.png)
 
 ### 🖼️ Manage Users Page
 ![Manage Users](screenshots/manage-users.png)
@@ -106,43 +106,43 @@ The system features JWT authentication, role-based access (CUSTOMER, PROVIDER, S
 ![Manage Jobs](screenshots/manage-jobs.png)
 
 ### 🖼️ Notification Page
-![Notifications](screenshots/adminNotifications.png)
+![Notifications](screenshots/admin-notifications.png)
 
 
 ## 📸 Customer Dashboard UI Screenshots
 
 ### 🖼️ Dashboard Overview
-![Dashboard Overview](screenshots/customerDashboard.png)
+![Dashboard Overview](screenshots/customer-dashboard.png)
 
 ### 🖼️ My Jobs Page
 ![My Jobs](screenshots/my-jobs.png)
 
 ### 🖼️ Post Jobs Page
-![Post Job](assets/screenshots/post-job.png)
+![Post Job](screenshots/post-job.png)
 
 ### 🖼️ Notification Page
-![Notifications](assets/screenshots/customerNotifications.png)
+![Notifications](screenshots/customer-notifications.png)
 
 ### 🖼️ Profile Page
-![Profile](assets/screenshots/customerProfile.png)
+![Profile](screenshots/customer-profile.png)
 
 
 ## 📸 Provider Dashboard UI Screenshots
 
 ### 🖼️ Dashboard Overview
-![Dashboard Overview](screenshots/providerDashboard.png)
+![Dashboard Overview](screenshots/provider-dashboard.png)
 
 ### 🖼️ Available Jobs Page
 ![Available Jobs](screenshots/available-jobs.png)
 
 ### 🖼️ My Work Page
-![My Work](assets/screenshots/my-work.png)
+![My Work](screenshots/my-work.png)
 
 ### 🖼️ Notification Page
-![Notifications](assets/screenshots/providerNotifications.png)
+![Notifications](screenshots/provider-notifications.png)
 
 ### 🖼️ Profile Page
-![Profile](assets/screenshots/providerProfile.png)
+![Profile](screenshots/provider-profile.png)
 
 
 ## ⚙️ Setup Instructions
