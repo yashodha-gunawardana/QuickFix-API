@@ -67,82 +67,82 @@ The system features JWT authentication, role-based access (CUSTOMER, PROVIDER, S
 ![Index Page](screenshots/index.png)
 
 ### 🖼️ About Section 
-![About Section](resources/screenshots/about.png)
+![About Section](screenshots/about.png)
 
 ### 🖼️ Features Section
-![Features Section](resources/screenshots/features.png)
+![Features Section](screenshots/features.png)
 
 ### 🖼️ Job Listings
-![Job Listings](resources/screenshots/jobs.png)
+![Job Listings](screenshots/jobs.png)
 
 ### 🖼️ Testimonials
-![Testimonials](resources/screenshots/testimonials.png)
+![Testimonials](screenshots/testimonials.png)
 
 ### 🖼️ Contact Form
-![Contact Form](resources/screenshots/contact.png)
+![Contact Form](screenshots/contact.png)
 
 ### 🖼️ Login Page
-![Login Page](resources/screenshots/login.png)
+![Login Page](screenshots/login.png)
 
 ### 🖼️ Signup Page
-![Signup Page](resources/screenshots/signup.png)
+![Signup Page](screenshots/signup.png)
 
 ### 🖼️ Forgot Passowrd Page
-![Forgot Password](resources/screenshots/forgot-password.png)
+![Forgot Password](screenshots/forgot-password.png)
 
 ### 🖼️ Reset Password Page
-![Reset Password](resources/screenshots/reset-password.png)
+![Reset Password](screenshots/reset-password.png)
 
 
 ## 📸 Admin Dashboard UI Screenshots
 
 ### 🖼️ Dashboard Overview
-![Dashboard Overview](resources/screenshots/admin-dashboard.png)
+![Dashboard Overview](screenshots/admin-dashboard.png)
 
 ### 🖼️ Manage Users Page
-![Manage Users](resources/screenshots/manage-users.png)
+![Manage Users](screenshots/manage-users.png)
 
 ### 🖼️ Manage Jobs Page
-![Manage Jobs](resources/screenshots/manage-jobs.png)
+![Manage Jobs](screenshots/manage-jobs.png)
 
 ### 🖼️ Notification Page
-![Notifications](resources/screenshots/admin-notifications.png)
+![Notifications](screenshots/admin-notifications.png)
 
 
 ## 📸 Customer Dashboard UI Screenshots
 
 ### 🖼️ Dashboard Overview
-![Dashboard Overview](resources/screenshots/customer-dashboard.png)
+![Dashboard Overview](screenshots/customer-dashboard.png)
 
 ### 🖼️ My Jobs Page
-![My Jobs](resources/screenshots/my-jobs.png)
+![My Jobs](screenshots/my-jobs.png)
 
 ### 🖼️ Post Jobs Page
-![Post Job](resources/screenshots/post-job.png)
+![Post Job](screenshots/post-job.png)
 
 ### 🖼️ Notification Page
-![Notifications](resources/screenshots/customer-notifications.png)
+![Notifications](screenshots/customer-notifications.png)
 
 ### 🖼️ Profile Page
-![Profile](resources/screenshots/customer-profile.png)
+![Profile](screenshots/customer-profile.png)
 
 
 ## 📸 Provider Dashboard UI Screenshots
 
 ### 🖼️ Dashboard Overview
-![Dashboard Overview](resources/screenshots/provider-dashboard.png)
+![Dashboard Overview](screenshots/provider-dashboard.png)
 
 ### 🖼️ Available Jobs Page
-![Available Jobs](resources/screenshots/available-jobs.png)
+![Available Jobs](screenshots/available-jobs.png)
 
 ### 🖼️ My Work Page
-![My Work](resources/screenshots/my-work.png)
+![My Work](screenshots/my-work.png)
 
 ### 🖼️ Notification Page
-![Notifications](resources/screenshots/provider-notifications.png)
+![Notifications](screenshots/provider-notifications.png)
 
 ### 🖼️ Profile Page
-![Profile](resources/screenshots/provider-profile.png)
+![Profile](screenshots/provider-profile.png)
 
 
 ## ⚙️ Setup Instructions
