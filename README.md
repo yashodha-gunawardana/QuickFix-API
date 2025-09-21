@@ -64,7 +64,7 @@ The system features JWT authentication, role-based access (CUSTOMER, PROVIDER, S
 ## 📸 UI Screenshots
 
 ### 🖼️ Landing Page (index.html)
-![Index Page](resources/screenshots/index.png)
+![Index Page](screenshots/index.png)
 
 ### 🖼️ About Section 
 ![About Section](resources/screenshots/about.png)
