@@ -51,13 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
             this.classList.add("active");
 
             // Load data based on page
-            if (pageId === 'provider-available-jobs') {
-                loadAvailableJobs(0, 10);
-            } else if (pageId === 'provider-my-work') {
-                loadMyWork(0, 10);
-            } else if (pageId === 'provider-notifications') {
-                loadNotifications();
-            }
+            if (pageId === 'provider-available-jobs') loadAvailableJobs(0, 10);
+            else if (pageId === 'provider-my-work') loadMyWork(0, 10);
+            else if (pageId === 'provider-notifications') loadNotifications();
+            else if (pageId === 'provider-profile') loadProviderProfile();
         });
     });
 
@@ -423,7 +420,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                 if (!res.ok) throw new Error("Failed to accept job");
                                 const data = await res.json();
                                 Swal.fire('Success', `You accepted job: ${data.title}`, 'success');
-                                refreshJobs();
                             } catch (err) {
                                 Swal.fire('Error', err.message, 'error');
                             }
@@ -452,7 +448,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                 });
                                 if (!res.ok) throw new Error("Failed to reject job (maybe not Super Admin)");
                                 Swal.fire('Success', 'Job rejected successfully', 'success');
-                                refreshJobs();
                             } catch (err) {
                                 Swal.fire('Error', err.message, 'error');
                             }
@@ -908,12 +903,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("provider-my-work")?.classList.contains("active")) loadMyWork(0, 10);
     if (document.getElementById("provider-notifications")?.classList.contains("active")) loadNotifications();
     if (document.getElementById("provider-profile")?.classList.contains("active")) loadProviderProfile();
+    if (document.getElementById("opportunity-table")?.classList.contains("active")) loadOpportunities();
     loadOpportunities();
     loadProviderProfile();
     loadNotifications();
     loadAvailableJobs(0, 10);
     loadMyWork(0, 10);
-    attachJobFilters();
+
 
 
     setInterval(() => {

@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
         loginForm.addEventListener("submit", async function (e) {
             e.preventDefault();
 
-            const email = document.getElementById("loginEmail").value;
-            const password = document.getElementById("loginPassword").value;
+            const email = document.getElementById("loginEmail").value.trim();
+            const password = document.getElementById("loginPassword").value.trim();
 
             // ----------- Validation ----------- //
             if (!email || !password) {
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Simple email format check
+            // Email format check
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(email)) {
                 Swal.fire({
@@ -30,7 +30,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+            // Password length check
+            if (password.length < 6) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Password must be at least 6 characters long.'
+                });
+                return;
+            }
 
+
+            // ----------- API CALL ----------- //
             try {
                 const res = await fetch("http://localhost:8080/api/auth/login", {
                     method: "POST",
@@ -38,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     body: JSON.stringify({ email, password })
                 });
 
-               // const body = await res.json();
                 // Safe JSON parse (handle non-JSON errors)
                 let body;
                 const text = await res.text();
@@ -70,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (body.data) {
                     // Save token + user info
                     localStorage.setItem("jwtToken", body.data.token);
-                    localStorage.setItem("role", body.data.role);   // CUSTOMER / SUPER_ADMIN
+                    localStorage.setItem("role", body.data.role);   // CUSTOMER / SUPER_ADMIN / PROVIDER
                     localStorage.setItem("username", body.data.username);
                     localStorage.setItem("email", body.data.email);
                     localStorage.setItem("userId", body.data.userId);
@@ -87,7 +97,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             window.location.href = "/index.html"; // fallback
                         }
                     }, 1000);
-
                 }
             } catch (err) {
                 console.error("Error during login:", err);
